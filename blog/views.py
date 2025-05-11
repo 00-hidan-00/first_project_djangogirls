@@ -35,9 +35,9 @@ def post_new(request):
 
 @login_required
 def post_edit(request, pk):
-    post = get_object_or_404(Post, pk=pk)  # получаем пост с pk=18, например
+    post = get_object_or_404(Post, pk=pk)
     if request.method == "POST":
-        form = PostForm(request.POST, instance=post)  # редактируем именно его
+        form = PostForm(request.POST, instance=post)
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
