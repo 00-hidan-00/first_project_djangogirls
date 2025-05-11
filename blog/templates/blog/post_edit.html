@@ -1,0 +1,21 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<div class="card shadow-sm p-4 mb-5 bg-white rounded">
+    <!-- Заголовок страницы -->
+    <h1 class="mb-4 text-center" style="font-weight: bold; color: #ff6f3c;">Create a New Post</h1>
+
+    <!-- Форма создания поста -->
+    <form method="POST" class="post-form">
+        {% csrf_token %}
+        <div class="mb-3">
+            {{ form.as_p }}
+        </div>
+
+        <!-- Кнопка сохранения -->
+        <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary px-4 py-2" style="background-color: #28a745; border: none; color: white; font-weight: bold; border-radius: 5px;">Save</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
