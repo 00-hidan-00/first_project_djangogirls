@@ -1,0 +1,20 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <div class="post-list">
+        {% for post in posts %}
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <p class="text-muted mb-2">📅 {{ post.created_date|date:'d.m.Y' }}</p>
+                    <h3 class="card-title">
+                        <a href="{% url 'post_detail' pk=post.pk %}" class="text-dark">{{ post.title }}</a>
+                    </h3>
+                    <p class="card-text">{{ post.text|truncatechars:200 }}</p>
+                    <a href="{% url 'post_detail' pk=post.pk %}" class="btn btn-sm btn-outline-primary mt-2">Read more</a>
+                </div>
+            </div>
+        {% empty %}
+            <p>No posts yet.</p>
+        {% endfor %}
+    </div>
+{% endblock %}
