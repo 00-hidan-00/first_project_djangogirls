@@ -1,18 +1,22 @@
-<html>
-<head>
-    <title>Django Girls blog</title>
-</head>
-<body>
-<div>
-    <h1><a href="/">Django Girls Blog</a></h1>
-</div>
+{% extends 'blog/base.html' %}
 
-{% for post in posts %}
-<div>
-    <p>published: {{ post.published_date }}</p>
-    <h1><a href="">{{ post.title }}</a></h1>
-    <p>{{ post.text|linebreaksbr }}</p>
+{% block content %}
+<div class="post-list">
+    {% for post in posts %}
+    <div class="card mb-4 shadow-sm rounded">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <div class="text-muted">
+                    <i class="far fa-calendar-alt"></i> {{ post.published_date|date:"d M Y" }}
+                </div>
+                <a href="{% url 'post_detail' pk=post.pk %}" class="btn btn-sm btn-outline-primary">
+                    <i class="fas fa-arrow-right"></i> Read More
+                </a>
+            </div>
+            <h4 class="card-title">{{ post.title }}</h4>
+            <p class="card-text">{{ post.text|truncatechars:250 }}</p>
+        </div>
+    </div>
+    {% endfor %}
 </div>
-{% endfor %}
-</body>
-</html>
+{% endblock %}
