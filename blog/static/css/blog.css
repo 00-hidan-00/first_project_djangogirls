@@ -1,6 +1,7 @@
 /* Общие стили для всего сайта */
 body {
     font-family: 'Roboto', sans-serif;
+    /*font-family: 'Raleway', sans-serif;*/
     line-height: 1.6;
     background-color: #f9f9f9; /* Цвет фона */
     margin: 0;
@@ -164,3 +165,124 @@ p {
     max-width: 160px;/* Ограничим ширину кнопки "Edit" */
      height: 40px;
 }
+
+
+/* Убедимся, что все элементы в .top-menu выравниваются по вертикали */
+.top-menu {
+    display: flex;
+    align-items: center;  /* Вертикальное выравнивание */
+    justify-content: center; /* Центрирование содержимого */
+}
+
+.top-menu button, .top-menu a {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Центрируем иконки в кнопке/ссылке */
+    padding: 0; /* Убираем лишние отступы */
+}
+
+.top-menu i {
+    font-size: 26px; /* Размер иконки */
+}
+
+
+form button.top-menu {
+    margin: 0;
+    border: none;
+    background-color: #ff6f3c;  /* Оранжевый цвет */
+
+
+}
+
+/* Контейнер для формы логина */
+.login-container {
+    width: 100%;
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.login-title {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.login-form .form-group {
+    margin-bottom: 20px;
+}
+
+.login-form .form-group label {
+    font-size: 14px;
+    color: #555;
+}
+
+.login-form .form-group input {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.login-form .btn-primary {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    background-color: #ff6f3c; /* Цвет кнопки */
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.login-form .btn-primary:hover {
+    background-color: #e5602b;
+}
+
+.login-footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.login-footer a {
+    color: #ff6f3c;
+    text-decoration: none;
+}
+
+.login-footer a:hover {
+    text-decoration: underline;
+}
+
+.alert {
+    color: red;
+    margin-bottom: 20px;
+    font-size: 14px;
+    padding: 10px;
+    background-color: #f8d7da;
+    border-radius: 4px;
+}
+
+.btn-green {
+    background-color: #28a745; /* Зелёный цвет */
+    color: #fff; /* Белый текст */
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-green:hover {
+    background-color: #218838; /* Более тёмный при наведении */
+    color: #fff;
+}
+

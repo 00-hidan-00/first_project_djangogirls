@@ -21,11 +21,11 @@
         <form method="POST" action="{% url 'post_publish' pk=post.pk %}">
             {% csrf_token %}
             <!-- Кнопка "Publish" -->
-            <button type="submit" class="btn btn-warning mr-3">📢 Publish</button>
+            <button type="submit" class="btn btn-green mr-3">📢 Publish</button>
         </form>
         {% endif %}
         <!-- Кнопка "Edit" -->
-        <a href="/post/8/edit/" class="btn btn-secondary mr-3">✏️ Edit</a>
+        <a href="{% url 'post_edit' pk=post.pk %}" class="btn btn-secondary mr-3">✏️ Edit</a>
         <!-- Кнопка "Delete" -->
         <form method="POST" action="{% url 'post_remove' pk=post.pk %}">
             {% csrf_token %}
