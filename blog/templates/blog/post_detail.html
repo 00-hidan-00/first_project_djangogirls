@@ -1,0 +1,38 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<div class="card shadow-sm p-4 mb-5 bg-white rounded">
+    <!-- Дата публикации -->
+    {% if post.published_date %}
+    <div class="text-muted mb-4" style="font-size: 14px;">
+        <i class="far fa-calendar-alt"></i> {{ post.published_date }}
+    </div>
+    {% endif %}
+
+    <!-- Заголовок -->
+    <h2 class="mb-3" style="font-weight: bold;">{{ post.title }}</h2>
+
+    <!-- Текст поста -->
+    <p style="font-size: 16px; line-height: 1.6;">{{ post.text|linebreaksbr }}</p>
+
+    <!-- Кнопки управления -->
+    <div class="d-flex justify-content-end mt-4">
+        {% if not post.published_date %}
+        <form method="POST" action="{% url 'post_publish' pk=post.pk %}">
+            {% csrf_token %}
+            <!-- Кнопка "Publish" -->
+            <button type="submit" class="btn btn-warning mr-3">📢 Publish</button>
+        </form>
+        {% endif %}
+        <!-- Кнопка "Edit" -->
+        <a href="/post/8/edit/" class="btn btn-secondary mr-3">✏️ Edit</a>
+        <!-- Кнопка "Delete" -->
+        <form method="POST" action="{% url 'post_remove' pk=post.pk %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">✖️ Delete</button>
+        </form>
+
+
+    </div>
+</div>
+{% endblock %}
