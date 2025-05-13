@@ -15,6 +15,10 @@
             </div>
             <h4 class="card-title">{{ post.title }}</h4>
             <p class="card-text">{{ post.text|truncatechars:250 }}</p>
+            <a href="{% url 'post_detail' pk=post.pk %}" class="comment-mini">
+                <i class="fas fa-comment-dots"></i>
+                {{ post.approved_comments.count }} comment{{ post.approved_comments.count|pluralize }}
+            </a>
         </div>
     </div>
     {% endfor %}
