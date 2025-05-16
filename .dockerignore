@@ -1,0 +1,32 @@
+# Python bytecode
+*.pyc
+*~
+__pycache__/
+
+# Virtual environments
+myvenv/
+.venv/
+env/
+
+# Django migrations
+**/migrations/*
+!**/migrations/__init__.py
+
+# Static files
+static/
+staticfiles/
+
+# System/IDE files
+.DS_Store
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Docker configs
+docker-compose.override.yml
+postgres_data/
+
+# Secrets
+.env
