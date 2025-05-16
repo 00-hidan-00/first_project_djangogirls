@@ -1,9 +1,32 @@
+# Python bytecode files
 *.pyc
 *~
-__pycache__
-myvenv
-db.sqlite3
-/static
+__pycache__/
+
+# Virtual environments (common names)
+myvenv/
+.venv/
+env/
+
+# Django migrations, except __init__.py
+**/migrations/*
+!**/migrations/__init__.py
+
+# Static files (usually collected and served separately)
+static/
+staticfiles/
+
+# macOS system files
 .DS_Store
-*/migrations/*.py
-!*/migrations/__init__.py
+
+# Log files
+*.log
+
+# Docker related files and folders
+docker-compose.override.yml
+.env
+postgres_data/
+
+# IDE/editor folders
+.vscode/
+.idea/
