@@ -3,7 +3,8 @@ body {
     font-family: 'Roboto', sans-serif;
     /*font-family: 'Raleway', sans-serif;*/
     line-height: 1.6;
-    background-color: #f9f9f9; /* Цвет фона */
+    background-color: #f9f9f9;
+    /* Цвет фона */
     margin: 0;
     padding: 0;
 }
@@ -39,21 +40,20 @@ body {
 }
 
 /* Форма и кнопки */
-.post-form textarea, .post-form input {
+.post-form textarea,
+.post-form input {
     width: 100%;
 }
 
-.save, .btn-orange {
-    padding: 8px 16px; /* Уменьшаем паддинг для более компактных кнопок */
-    font-size: 14px; /* Уменьшаем размер шрифта */
+.save,
+.btn-orange {
+    padding: 8px 16px;
+    /* Уменьшаем паддинг для более компактных кнопок */
+    font-size: 14px;
+    /* Уменьшаем размер шрифта */
     border-radius: 4px;
     border: none;
     cursor: pointer;
-}
-
-.save {
-    /* Убираем float для выравнивания кнопки */
-    /* float: right; */
 }
 
 .btn-orange {
@@ -67,14 +67,16 @@ body {
 }
 
 /* Кнопки и меню */
-.top-menu, .top-menu i {
+.top-menu,
+.top-menu i {
     color: #fff;
     font-size: 26pt;
     margin-right: 20px;
     float: right;
 }
 
-.top-menu:hover, .top-menu:visited {
+.top-menu:hover,
+.top-menu:visited {
     color: inherit;
 }
 
@@ -127,7 +129,12 @@ body {
 }
 
 /* Применяем шрифт ко всем заголовкам */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-family: 'Roboto', sans-serif;
     font-weight: 700;
 }
@@ -141,55 +148,72 @@ p {
 /* Контейнер для кнопок */
 .d-flex {
     display: flex;
-    gap: 10px; /* Отступ между кнопками */
-    justify-content: flex-end; /* Правильное выравнивание кнопок */
+    gap: 10px;
+    /* Отступ между кнопками */
+    justify-content: flex-end;
+    /* Правильное выравнивание кнопок */
 }
 
 /* Устанавливаем одинаковую ширину для кнопок, но не слишком длинные */
 .btn {
-    width: auto; /* Убираем растяжение на всю ширину */
-    min-width: 120px; /* Минимальная ширина кнопки */
-    max-width: 200px; /* Максимальная ширина кнопки */
-    text-align: center; /* Текст по центру */
-    padding: 8px 16px; /* Паддинг для кнопок */
-    font-size: 14px; /* Размер шрифта уменьшен */
+    width: auto;
+    /* Убираем растяжение на всю ширину */
+    min-width: 120px;
+    /* Минимальная ширина кнопки */
+    max-width: 200px;
+    /* Максимальная ширина кнопки */
+    text-align: center;
+    /* Текст по центру */
+    padding: 8px 16px;
+    /* Паддинг для кнопок */
+    font-size: 14px;
+    /* Размер шрифта уменьшен */
 }
 
 /* Убираем фиксированную ширину кнопок для лучшего выравнивания */
-.btn-secondary, .btn-warning {
+.btn-secondary,
+.btn-warning {
     width: auto;
 }
 
 /* Если нужно ограничить размер кнопки "Edit" */
 .btn-secondary {
-    max-width: 160px;/* Ограничим ширину кнопки "Edit" */
-     height: 40px;
+    max-width: 160px;
+    /* Ограничим ширину кнопки "Edit" */
+    height: 40px;
 }
 
 
 /* Убедимся, что все элементы в .top-menu выравниваются по вертикали */
 .top-menu {
     display: flex;
-    align-items: center;  /* Вертикальное выравнивание */
-    justify-content: center; /* Центрирование содержимого */
+    align-items: center;
+    /* Вертикальное выравнивание */
+    justify-content: center;
+    /* Центрирование содержимого */
 }
 
-.top-menu button, .top-menu a {
+.top-menu button,
+.top-menu a {
     display: flex;
     align-items: center;
-    justify-content: center; /* Центрируем иконки в кнопке/ссылке */
-    padding: 0; /* Убираем лишние отступы */
+    justify-content: center;
+    /* Центрируем иконки в кнопке/ссылке */
+    padding: 0;
+    /* Убираем лишние отступы */
 }
 
 .top-menu i {
-    font-size: 26px; /* Размер иконки */
+    font-size: 26px;
+    /* Размер иконки */
 }
 
 
 form button.top-menu {
     margin: 0;
     border: none;
-    background-color: #ff6f3c;  /* Оранжевый цвет */
+    background-color: #ff6f3c;
+    /* Оранжевый цвет */
 
 
 }
@@ -234,7 +258,8 @@ form button.top-menu {
     width: 100%;
     padding: 12px;
     font-size: 16px;
-    background-color: #ff6f3c; /* Цвет кнопки */
+    background-color: #ff6f3c;
+    /* Цвет кнопки */
     color: #fff;
     border: none;
     border-radius: 4px;
@@ -271,8 +296,10 @@ form button.top-menu {
 }
 
 .btn-green {
-    background-color: #28a745; /* Зелёный цвет */
-    color: #fff; /* Белый текст */
+    background-color: #28a745;
+    /* Зелёный цвет */
+    color: #fff;
+    /* Белый текст */
     border: none;
     border-radius: 4px;
     padding: 8px 16px;
@@ -282,7 +309,8 @@ form button.top-menu {
 }
 
 .btn-green:hover {
-    background-color: #218838; /* Более тёмный при наведении */
+    background-color: #218838;
+    /* Более тёмный при наведении */
     color: #fff;
 }
 
