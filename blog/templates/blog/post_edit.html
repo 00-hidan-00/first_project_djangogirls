@@ -1,29 +1,27 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
-<div class="card shadow-sm p-4 mb-5 bg-white rounded">
-    <!-- Заголовок страницы -->
-    <h1 class="mb-4 text-center" style="font-weight: bold; color: #ff6f3c;">Create a New Post</h1>
+<div class="post-edit__page">
+    <div class="post-edit__body">
+        <h1 class="post-edit-body__title blog-list__title">Create a New Post</h1>
+        <form method="POST"
+            action="{% if post.pk %}{% url 'post_edit' pk=post.pk %}{% else %}{% url 'post_new' %}{% endif %}"
+            class="post-edit-body__form">
+            {% csrf_token %}
+            <div class="post-edit-body__django-form">
+                {{ form.as_p }}
+            </div>
+            <div class="post-edit-body_actions">
+                <button type="submit" name="publish" class="post-edit-body-actions__btn-publish button button--mini">
+                    Publish
+                </button>
+                <button type="submit" name="draft"
+                    class="post-edit-body-actions__btn-save-as-draft button button--white-border button--mini">
+                    Save as Draft
+                </button>
 
-    <!-- Форма создания поста -->
-    <form method="POST"
-        action="{% if post.pk %}{% url 'post_edit' pk=post.pk %}{% else %}{% url 'post_new' %}{% endif %}"
-        class="post-form">
-
-        {% csrf_token %}
-        <div class="mb-3">
-            {{ form.as_p }}
-        </div>
-
-        <!-- Кнопка сохранения -->
-        <div class="d-flex justify-content-end">
-            <button type="submit" name="publish" class="btn btn-success mr-2"
-                style="background-color: #28a745; border: none;">📢 Publish
-            </button>
-            <button type="submit" name="draft" class="btn btn-primary" style="background-color: #ff6f3c; border: none;">
-                📝 Save as Draft
-            </button>
-        </div>
-    </form>
+            </div>
+        </form>
+    </div>
 </div>
 {% endblock %}

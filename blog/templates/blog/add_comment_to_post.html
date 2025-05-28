@@ -1,21 +1,23 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
-<div class="card comment-form-card">
-    <h3>Add a Comment</h3>
-    <form method="POST" class="post-form">
-        {% csrf_token %}
-        <div class="form-group">
-            {{ form.author.label_tag }}
-            {{ form.author }}
-        </div>
-        <div class="form-group">
-            {{ form.text.label_tag }}
-            {{ form.text }}
-        </div>
-        <button type="submit" class="btn btn-green">
-            <i class="fas fa-comment-alt"></i> Submit
-        </button>
-    </form>
+<div class="add-comment__page">
+    <div class="add-comment__body">
+        <h1 class="add-comment__title blog-list__title">Add a Comment</h1>
+        <form method="POST" class="add-comment__form">
+            {% csrf_token %}
+            <div class="add-comment__django-form">
+                {{ form.author.label_tag }}
+                {{ form.author }}
+            </div>
+            <div class="add-comment__django-form">
+                {{ form.text.label_tag }}
+                {{ form.text }}
+            </div>
+            <div class="add-comment__actions">
+                <button type="submit" class="add-comment__btn-submit button button--mini">Submit</button>
+            </div>
+        </form>
+    </div>
 </div>
 {% endblock %}

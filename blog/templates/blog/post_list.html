@@ -1,26 +1,26 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
-<div class="post-list">
-    {% for post in posts %}
-    <div class="card mb-4 shadow-sm rounded">
-        <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-                <div class="text-muted">
-                    <i class="far fa-calendar-alt"></i> {{ post.published_date|date:"d M Y" }}
+<div class="blog-list__page">
+    <div class="blog-list__items">
+        <h2 class="blog-list__title">Posts:</h2>
+        {% for post in posts %}
+        <div class="blog-list__item blog-list__item--anim">
+            <h4 class="blog-list__item-title">
+                <a href="{% url 'post_detail' pk=post.pk %}" class="text-dark">{{ post.title }}</a>
+            </h4>
+            <p class="blog-list__item-text">{{ post.text|truncatechars:250 }}</p>
+            <div class="blog-list__item-footer">
+                <a href="{% url 'post_detail' pk=post.pk %}" class="blog-list__item-post-link">Read More</a>
+                <div class="blog-list__item-data-and-item-comment-link">
+                    <div class="blog-list__item-data"> {{ post.published_date|date:"d M Y" }} </div>
+                    <a href="{% url 'post_detail' pk=post.pk %}" class="blog-list__item-comment-link">
+                        {{ post.approved_comments.count }} comment{{ post.approved_comments.count|pluralize }}
+                    </a>
                 </div>
-                <a href="{% url 'post_detail' pk=post.pk %}" class="btn btn-sm btn-outline-primary">
-                    <i class="fas fa-arrow-right"></i> Read More
-                </a>
             </div>
-            <h4 class="card-title">{{ post.title }}</h4>
-            <p class="card-text">{{ post.text|truncatechars:250 }}</p>
-            <a href="{% url 'post_detail' pk=post.pk %}" class="comment-mini">
-                <i class="fas fa-comment-dots"></i>
-                {{ post.approved_comments.count }} comment{{ post.approved_comments.count|pluralize }}
-            </a>
         </div>
+        {% endfor %}
     </div>
-    {% endfor %}
 </div>
 {% endblock %}
