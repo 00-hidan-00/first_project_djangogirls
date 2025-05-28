@@ -28,7 +28,7 @@ body {
 }
 
 [class*="__page"] {
-    padding-block: 50px;
+    padding-block: 10px;
 
 }
 
@@ -111,7 +111,7 @@ body {
 
 .blog-list__title {
     padding-inline: 20px;
-    font-size: 60px;
+    font-size: 40px;
     font-weight: 800;
     line-height: 1.1;
     text-wrap: balance;
@@ -122,7 +122,7 @@ body {
     transition: all 0.1s;
     transform: scale(0);
 
-    padding: 34px;
+    padding: 25px;
     max-width: 100%;
 
     border-radius: 20px;
@@ -143,7 +143,7 @@ body {
     display: inline-block;
     position: relative;
     max-width: 1000px;
-    padding-block: 15px;
+    padding-block-end: 15px;
     font-size: 40px;
     font-weight: 800;
     line-height: 1.1;
@@ -160,9 +160,9 @@ body {
 
 .blog-list__item-text {
 
-    padding-block: 25px;
-    font-size: 25px;
-    line-height: 1.6;
+    padding-block-end: 15px;
+    font-size: 20px;
+    line-height: 1.2;
     max-width: 1000px;
     text-wrap: balance;
     word-break: break-word;
@@ -219,14 +219,12 @@ body {
 
 .post__page {
     display: grid;
-    gap: 50px;
+    gap: 20px;
 }
 
 .post__item {
-    padding: 34px;
+    padding: 25px;
     max-width: 100%;
-
-
     border-radius: 20px;
     background-color: #192131;
     box-shadow:
@@ -240,19 +238,20 @@ body {
 
 .post__title {
     max-width: 1000px;
-    padding-block: 15px;
+    padding-block-end: 15px;
     font-size: 40px;
     font-weight: 800;
     line-height: 1.1;
     text-wrap: balance;
     word-break: break-word;
     overflow-wrap: break-word;
+
 }
 
 .post__text {
-    padding-block: 25px;
-    font-size: 25px;
-    line-height: 1.6;
+    padding-block-end: 15px;
+    font-size: 20px;
+    line-height: 1.2;
     max-width: 1000px;
     text-wrap: balance;
     word-break: break-word;
@@ -273,9 +272,7 @@ body {
 
 /* --------------------- */
 
-.post-comments {
-    padding-block: 34px;
-}
+.post-comments {}
 
 .post-comments__body {}
 
@@ -283,7 +280,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-block-end: 30px;
+    padding-block-end: 15px;
     padding-inline: 15px;
 }
 
@@ -298,6 +295,7 @@ body {
 .post-comments__items {
     display: grid;
     gap: 32px;
+    justify-content: center;
 }
 
 .post-comments__title {
@@ -309,8 +307,8 @@ body {
 }
 
 .post-comments__item {
-    padding: 34px;
-    max-width: 100%;
+    padding: 25px;
+    min-inline-size: 1000px;
     border-radius: 20px;
     background-color: #192131;
     box-shadow:
@@ -375,14 +373,14 @@ body {
 
 .post-edit-body__title {
     padding-inline: 20px;
-    padding-block: 20px;
+    padding-block-end: 20px;
 }
 
 .blog-list__title {}
 
 
 .post-edit-body__form {
-    padding: 34px;
+    padding: 25px;
     max-width: 100%;
     border-radius: 20px;
     background-color: #192131;
@@ -392,16 +390,16 @@ body {
 }
 
 .post-edit-body__django-form p {
-    padding-block: 20px;
+    padding-block-end: 10px;
     display: flex;
     flex-direction: column;
 }
 
 .post-edit-body__django-form p label {
-    font-size: 30px;
+    font-size: 20px;
     font-weight: 400;
     line-height: 1.4;
-    padding: 15px;
+    padding: 10px;
 
 }
 
@@ -409,11 +407,10 @@ body {
     background-color: #363f4f;
     max-width: 100%;
     border-radius: 20px;
-    font-size: 25px;
+    font-size: 20px;
     color: #fff;
     font-weight: 500;
-    line-height: 1.4;
-    padding: 15px;
+    padding: 10px;
 }
 
 .post-edit-body__django-form p textarea {
@@ -422,17 +419,18 @@ body {
     border-radius: 20px;
     color: #fff;
     font-family: "Roboto", sans-serif;
-
-    font-size: 25px;
+    font-size: 18px;
     font-weight: 400;
-    line-height: 1.4;
+    line-height: 1.1;
     padding: 15px;
+    resize: none;
 
 }
 
 .post-edit-body__django-form p:nth-child(2) {}
 
 .post-edit-body_actions {
+    padding-block-start: 15px;
     display: flex;
     justify-content: flex-end;
     gap: 30px;
@@ -458,7 +456,7 @@ body {
 }
 
 .add-comment__form {
-    padding: 34px;
+    padding: 25px;
     max-width: 100%;
     border-radius: 20px;
     background-color: #192131;
@@ -469,16 +467,16 @@ body {
 
 
 .add-comment__django-form {
-    padding-block: 20px;
+    padding-block-end: 10px;
     display: flex;
     flex-direction: column;
 }
 
 .add-comment__django-form label {
-    font-size: 30px;
+    font-size: 20px;
     font-weight: 400;
     line-height: 1.4;
-    padding: 15px;
+    padding: 10px;
 
 }
 
@@ -486,11 +484,10 @@ body {
     background-color: #363f4f;
     max-width: 100%;
     border-radius: 20px;
-    font-size: 25px;
+    font-size: 20px;
     color: #fff;
     font-weight: 500;
-    line-height: 1.4;
-    padding: 15px;
+    padding: 10px;
 }
 
 .add-comment__django-form textarea {
@@ -499,10 +496,11 @@ body {
     border-radius: 20px;
     color: #fff;
     font-family: "Roboto", sans-serif;
-    font-size: 25px;
+    font-size: 18px;
     font-weight: 400;
-    line-height: 1.4;
+    line-height: 1.1;
     padding: 15px;
+    resize: none;
 }
 
 .add-comment__actions {
@@ -536,9 +534,8 @@ body {
 .login__error-text {}
 
 .login__form {
-
-    padding: 34px;
-    width: 70%;
+    padding: 25px;
+    width: 50%;
     border-radius: 20px;
     background-color: #192131;
     box-shadow:
@@ -546,30 +543,29 @@ body {
         0px 0px 15px 0px rgba(0, 0, 0, 0.07);
 }
 
-.login__django-form {}
+
 
 .login__django-form {
-    padding-block: 20px;
+    padding-block: 15px;
     display: flex;
     flex-direction: column;
 }
 
 .login__django-form label {
-    font-size: 30px;
+    font-size: 20px;
     font-weight: 400;
     line-height: 1.4;
-    padding: 15px;
+    padding: 10px;
 
 }
 
 .login__django-form input {
     background-color: #363f4f;
-
+    max-width: 100%;
     border-radius: 20px;
-    font-size: 25px;
+    font-size: 20px;
     color: #fff;
     font-weight: 500;
-    line-height: 1.4;
     padding: 15px;
 }
 
@@ -585,9 +581,6 @@ body {
     display: flex;
     justify-content: center;
 }
-
-
-
 
 
 /* ======================================================================================================================================================== */
