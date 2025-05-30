@@ -12,9 +12,6 @@ env/
 **/migrations/*
 !**/migrations/__init__.py
 
-# Static files (usually collected and served separately)
-static/
-staticfiles/
 
 # macOS system files
 .DS_Store
