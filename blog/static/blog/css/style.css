@@ -1,0 +1,591 @@
+@import url("reset.css");
+@import url("components.css");
+
+body {
+    font-family: "Roboto", sans-serif;
+    font-size: 18px;
+    background-color: #0f172a;
+    color: #fff;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    overflow: clip;
+}
+
+.wrapper>main {
+    flex-grow: 1;
+}
+
+/* Обмежуючий контейнер */
+[class*="__container"] {
+    max-inline-size: 1310px;
+    /* = 1280 + 15 + 15 */
+    margin-inline: auto;
+    padding-inline: 15px;
+}
+
+[class*="__page"] {
+    padding-block: 10px;
+
+}
+
+/* ======================================================================================================================================================== */
+
+.header {
+
+    padding-block: 24px;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+}
+
+.header__container {
+    max-inline-size: 1150px;
+}
+
+
+.header__body {
+    padding: 24px;
+    column-gap: 46px;
+    row-gap: 5px;
+    border-radius: 20px;
+    background-color: #192131;
+    box-shadow:
+        0px 25px 50px -12px rgba(0, 0, 0, 0.25),
+        0px 0px 15px 0px rgba(0, 0, 0, 0.07);
+
+    display: grid;
+    align-items: center;
+    grid-template-columns: auto 1fr auto;
+}
+
+.header__link-logo {
+    position: relative;
+    z-index: 3;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 110%;
+    transition: color 0.3s;
+}
+
+.header__link-logo:hover {
+    color: #aa51fe;
+}
+
+.menu__button {
+    /* min-width: auto; */
+}
+
+.menu__list {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    column-gap: 32px;
+    row-gap: 5px;
+}
+
+.menu__link {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: 0.5px;
+    transition: color 0.3s;
+}
+
+.menu__link:hover {
+    color: #aa51fe;
+}
+
+/* ======================================================================================================================================================== */
+
+
+
+.blog-list__items {
+    display: grid;
+    gap: 32px;
+}
+
+.blog-list__title {
+    padding-inline: 20px;
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 1.1;
+    text-wrap: balance;
+}
+
+.blog-list__item {
+    opacity: 0;
+    transition: all 0.1s;
+    transform: scale(0);
+
+    padding: 25px;
+    max-width: 100%;
+
+    border-radius: 20px;
+    background-color: #192131;
+    box-shadow:
+        0px 25px 50px -12px rgba(0, 0, 0, 0.25),
+        0px 0px 15px 0px rgba(0, 0, 0, 0.07);
+}
+
+.--animate.blog-list__item {
+    opacity: 1;
+    transition: all 0.5s;
+    transform: scale(1);
+    transition-delay: 0.2s;
+}
+
+.blog-list__item-title {
+    display: inline-block;
+    position: relative;
+    max-width: 1000px;
+    padding-block-end: 15px;
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 1.1;
+    text-wrap: balance;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    transition: color 0.3s;
+}
+
+.blog-list__item-title:hover {
+    color: #aa51fe;
+
+}
+
+.blog-list__item-text {
+
+    padding-block-end: 15px;
+    font-size: 20px;
+    line-height: 1.2;
+    max-width: 1000px;
+    text-wrap: balance;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+.blog-list__item-footer {
+    display: flex;
+    justify-content: space-between;
+    padding-block: 10px;
+}
+
+
+.blog-list__item-post-link {
+    color: #aa51fe;
+    transition: color 0.3s;
+}
+
+.blog-list__item-post-link:hover {
+    color: #fff;
+}
+
+
+.blog-list__item-data-and-item-comment-link {
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+.blog-list__item-data {
+    padding-inline: 10px;
+}
+
+.blog-list__item-post-link-and-item-data {
+    justify-content: space-between;
+    padding-block: 10px;
+
+}
+
+.blog-list__item-comment-link {
+    padding-inline: 10px;
+    color: #aa51fe;
+    transition: color 0.3s;
+}
+
+.blog-list__item-comment-link:hover {
+    color: #fff;
+}
+
+
+
+/* ======================================================================================================================================================== */
+
+
+.post__page {
+    display: grid;
+    gap: 20px;
+}
+
+.post__item {
+    padding: 25px;
+    max-width: 100%;
+    border-radius: 20px;
+    background-color: #192131;
+    box-shadow:
+        0px 25px 50px -12px rgba(0, 0, 0, 0.25),
+        0px 0px 15px 0px rgba(0, 0, 0, 0.07);
+}
+
+.post__body {}
+
+.post__data {}
+
+.post__title {
+    max-width: 1000px;
+    padding-block-end: 15px;
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 1.1;
+    text-wrap: balance;
+    word-break: break-word;
+    overflow-wrap: break-word;
+
+}
+
+.post__text {
+    padding-block-end: 15px;
+    font-size: 20px;
+    line-height: 1.2;
+    max-width: 1000px;
+    text-wrap: balance;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+.post__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 30px;
+}
+
+.post__publish-btn {}
+
+.post__edit-btn {}
+
+.post__delete-btn {}
+
+/* --------------------- */
+
+.post-comments {}
+
+.post-comments__body {}
+
+.post-comments__add-btn-and-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-block-end: 15px;
+    padding-inline: 15px;
+}
+
+.post-comments__add-btn {}
+
+.button {}
+
+.button--white-border {}
+
+.button--mini {}
+
+.post-comments__items {
+    display: grid;
+    gap: 32px;
+    justify-content: center;
+}
+
+.post-comments__title {
+    padding-block: 20px;
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 1.1;
+    text-wrap: balance;
+}
+
+.post-comments__item {
+    padding: 25px;
+    min-inline-size: 1000px;
+    border-radius: 20px;
+    background-color: #192131;
+    box-shadow:
+        0px 25px 50px -12px rgba(0, 0, 0, 0.25),
+        0px 0px 15px 0px rgba(0, 0, 0, 0.07);
+}
+
+.post-comments__author {
+    padding-block: 15px;
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1.1;
+    text-wrap: balance;
+}
+
+.post-comments__text {
+    padding-block: 15px;
+    font-size: 20px;
+    line-height: 1.6;
+    max-width: 1000px;
+    text-wrap: balance;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+.post-comments__date {
+    padding-block: 10px;
+    font-size: 16px;
+    line-height: 1.6;
+    max-width: 1000px;
+    text-wrap: balance;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+.post-comments__actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding-block: 15px;
+
+}
+
+.post-comments__delete-btn {}
+
+.post-comments__approve-btn {}
+
+.post-comments__not-comments {
+    padding-block: 10px;
+    padding-inline: 10px;
+    font-size: 26px;
+    line-height: 1.6;
+}
+
+/* ======================================================================================================================================================== */
+
+
+.post-edit__page {}
+
+.post-edit__body {}
+
+.post-edit-body__title {
+    padding-inline: 20px;
+    padding-block-end: 20px;
+}
+
+.blog-list__title {}
+
+
+.post-edit-body__form {
+    padding: 25px;
+    max-width: 100%;
+    border-radius: 20px;
+    background-color: #192131;
+    box-shadow:
+        0px 25px 50px -12px rgba(0, 0, 0, 0.25),
+        0px 0px 15px 0px rgba(0, 0, 0, 0.07);
+}
+
+.post-edit-body__django-form p {
+    padding-block-end: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.post-edit-body__django-form p label {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.4;
+    padding: 10px;
+
+}
+
+.post-edit-body__django-form p input {
+    background-color: #363f4f;
+    max-width: 100%;
+    border-radius: 20px;
+    font-size: 20px;
+    color: #fff;
+    font-weight: 500;
+    padding: 10px;
+}
+
+.post-edit-body__django-form p textarea {
+    background-color: #363f4f;
+    max-width: 100%;
+    border-radius: 20px;
+    color: #fff;
+    font-family: "Roboto", sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.1;
+    padding: 15px;
+    resize: none;
+
+}
+
+.post-edit-body__django-form p:nth-child(2) {}
+
+.post-edit-body_actions {
+    padding-block-start: 15px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 30px;
+}
+
+.post-edit-body-actions__btn-publish {}
+
+
+.post-edit-body-actions__btn-save-as-draft {}
+
+
+
+/* ======================================================================================================================================================== */
+
+
+.add-comment__page {}
+
+.add-comment__body {}
+
+.add-comment__title {
+    padding-inline: 20px;
+    padding-block: 20px;
+}
+
+.add-comment__form {
+    padding: 25px;
+    max-width: 100%;
+    border-radius: 20px;
+    background-color: #192131;
+    box-shadow:
+        0px 25px 50px -12px rgba(0, 0, 0, 0.25),
+        0px 0px 15px 0px rgba(0, 0, 0, 0.07);
+}
+
+
+.add-comment__django-form {
+    padding-block-end: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.add-comment__django-form label {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.4;
+    padding: 10px;
+
+}
+
+.add-comment__django-form input {
+    background-color: #363f4f;
+    max-width: 100%;
+    border-radius: 20px;
+    font-size: 20px;
+    color: #fff;
+    font-weight: 500;
+    padding: 10px;
+}
+
+.add-comment__django-form textarea {
+    background-color: #363f4f;
+    max-width: 100%;
+    border-radius: 20px;
+    color: #fff;
+    font-family: "Roboto", sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.1;
+    padding: 15px;
+    resize: none;
+}
+
+.add-comment__actions {
+    display: flex;
+    justify-content: flex-end;
+
+}
+
+.add-comment__btn-submit {}
+
+/* ======================================================================================================================================================== */
+
+
+
+.login__page {}
+
+.login__body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+
+}
+
+.login__title {
+    text-align: left;
+    padding-inline: 20px;
+    padding-block: 20px;
+}
+
+.login__error-text {}
+
+.login__form {
+    padding: 25px;
+    width: 50%;
+    border-radius: 20px;
+    background-color: #192131;
+    box-shadow:
+        0px 25px 50px -12px rgba(0, 0, 0, 0.25),
+        0px 0px 15px 0px rgba(0, 0, 0, 0.07);
+}
+
+
+
+.login__django-form {
+    padding-block: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.login__django-form label {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.4;
+    padding: 10px;
+
+}
+
+.login__django-form input {
+    background-color: #363f4f;
+    max-width: 100%;
+    border-radius: 20px;
+    font-size: 20px;
+    color: #fff;
+    font-weight: 500;
+    padding: 15px;
+}
+
+
+.login__django-form-username {}
+
+.login__django-form-pass {}
+
+.login__django-form-btn-login {}
+
+.login__django-form-actions {
+    padding-block: 15px;
+    display: flex;
+    justify-content: center;
+}
+
+
+/* ======================================================================================================================================================== */
+
+
+.footer {
+    padding-block: 50px;
+}
