@@ -1,0 +1,7 @@
+version: '3.9'
+
+
+services:
+  web:
+    ports:
+      - "48000:8000"
