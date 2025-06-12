@@ -29,3 +29,6 @@ postgres_data/
 # IDE/editor folders
 .vscode/
 .idea/
+
+# Exclude local Postgres database folder
+bd/
