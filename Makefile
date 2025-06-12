@@ -10,6 +10,10 @@ d-homework-i-run:
 d-run:
 	@COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up --build
 
+.PHONY: d-run-detached
+# Run in detached mode (background)
+d-run:
+	@COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up --build --detach
 
 .PHONY: d-run-i-extended
 # Shutdown previous, run in detached mode, follow logs
