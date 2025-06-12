@@ -1,5 +1,5 @@
-# Use the official lightweight Python 3.12 image
-FROM python:3.12-slim
+# Use the official Python 3.12 image
+FROM python:3.12
 
 # Install system dependencies required for PostgreSQL client and building Python packages
 RUN apt-get update && \
@@ -13,7 +13,7 @@ WORKDIR /app
 COPY requirements.txt .
 
 # Install Python dependencies listed in requirements.txt without cache
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir --requirement requirements.txt
 
 # Copy the entire project source code into the container
 COPY . .
