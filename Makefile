@@ -1,6 +1,6 @@
 .PHONY: d-dev-start
-# Make all actions needed for run homework from zero.
-d-homework-i-run:
+# Initialize configs and start the development environment from scratch.
+d-dev-start:
 	@make init-configs-i-dev && \
 	make d-run
 
@@ -8,18 +8,20 @@ d-homework-i-run:
 .PHONY: d-run
 # Just run
 d-run:
-	@COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up --build
+	@COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker compose up --build
+
 
 .PHONY: d-run-detached
 # Run in detached mode (background)
-d-run:
-	@COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up --build --detach
+d-run-detached:
+	@COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker compose up --build --detach
+
 
 .PHONY: d-run-i-extended
 # Shutdown previous, run in detached mode, follow logs
 d-run-i-extended:
-	@COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose down --timeout 0 && \
-	COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up --build --detach && \
+	@COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker compose down --timeout 0 && \
+	COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker compose up --build --detach && \
 	make d-logs-follow
 
 
@@ -56,13 +58,13 @@ migrations:
 .PHONY: d-migrate
 # Apply database migrations inside the Docker container
 d-migrate:
-	@docker compose exec web python manage.py migrate
+	@docker compose exec app python manage.py migrate
 
 
 .PHONY: d-migrations
 # Create new migration files inside the Docker container
 d-migrations:
-	@docker compose exec web python manage.py makemigrations
+	@docker compose exec app python manage.py makemigrations
 
 
 .PHONY: init-configs-i-dev
