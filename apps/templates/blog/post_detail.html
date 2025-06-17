@@ -1,8 +1,9 @@
-{% extends 'blog/base.html' %}
+{% extends 'blog/../base.html' %}
 
 {% block content %}
 <div class="post__page">
     <h2 class="blog-list__title">Post:</h2>
+    {% include '_helpers/_messages.html' %}
     <div class="post__item">
         <div class="post__body">
             <h2 class="post__title">{{ post.title }}</h2>

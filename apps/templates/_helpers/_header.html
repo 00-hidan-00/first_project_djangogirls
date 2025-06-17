@@ -1,0 +1,33 @@
+<header class="header">
+    <div class="header__container">
+        <div class="header__body">
+            <a href="/" class="header__link-logo">Django Blog</a>
+            <nav class="header__menu menu">
+                <ul class="menu__list">
+                    {% if user.is_authenticated %}
+                        <li class="menu__item">
+                            <a href="{% url 'post_new' %}" class="menu__button button button--mini">Post New</a>
+                        </li>
+                        <li class="menu__item">
+                            <a href="{% url 'post_draft_list' %}"
+                               class="menu__button button button--mini">Drafts</a>
+                        </li>
+                        <li class="menu__item">
+                            <form action="{% url 'logout' %}" method="post">
+                                {% csrf_token %}
+                                <button class="menu__button button button--white-border button--mini" type="submit"
+                                        title="Logout">
+                                    Logout
+                                </button>
+                            </form>
+                        </li>
+                    {% else %}
+                        <li class="menu__item">
+                            <a class="menu__button button button--mini" href="{% url 'login' %}">Login</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
