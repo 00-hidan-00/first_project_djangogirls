@@ -10,24 +10,24 @@
 </head>
 
 <body>
-    <div class="wrapper">
+<div class="wrapper">
     {% include '_helpers/_header.html' %}
 
-        <main class="page">
-            <section class="page">
-                <div class="page__container">
-                    {% block content %}
-                    {% endblock %}
-                </div>
-            </section>
-        </main>
-        <footer class="footer">
-            <div class="footer__container">
-                <div class="footer__body">
-                </div>
+    <main class="page">
+        <section class="page">
+            <div class="page__container">
+                {% block content %}
+                {% endblock %}
             </div>
-        </footer>
-    </div>
-    <script src="{% static 'blog/js/script.js' %}"></script>
+        </section>
+    </main>
+    <footer class="footer">
+        <div class="footer__container">
+            <div class="footer__body">
+            </div>
+        </div>
+    </footer>
+</div>
+<script src="{% static 'blog/js/script.js' %}"></script>
 </body>
 

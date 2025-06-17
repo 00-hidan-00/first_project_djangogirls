@@ -34,7 +34,8 @@
     background-color: transparent;
 }
 
-.button--transparent:hover {}
+.button--transparent:hover {
+}
 
 .button--white-border {
     background-color: transparent;

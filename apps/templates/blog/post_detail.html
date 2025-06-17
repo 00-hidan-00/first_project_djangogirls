@@ -1,69 +1,71 @@
 {% extends 'blog/../base.html' %}
 
 {% block content %}
-<div class="post__page">
-    <h2 class="blog-list__title">Post:</h2>
-    {% include '_helpers/_messages.html' %}
-    <div class="post__item">
-        <div class="post__body">
-            <h2 class="post__title">{{ post.title }}</h2>
-            <p class="post__text">{{ post.text|linebreaksbr }}</p>
-            {% if post.published_date %}
-            <div class="post__data">
-                {{ post.published_date }}
-            </div>
-            {% endif %}
-            <div class="post__actions">
-                {% if not post.published_date %}
-                <form method="POST" action="{% url 'post_publish' pk=post.pk %}">
-                    {% csrf_token %}
-                    <button type="submit" class="post__publish-btn button button--mini">Publish</button>
-                </form>
-                {% endif %}
-                <a href="{% url 'post_edit' pk=post.pk %}"
-                    class="post__edit-btn button button--white-border button--mini">Edit</a>
-                <form method="POST" action="{% url 'post_remove' pk=post.pk %}">
-                    {% csrf_token %}
-                    <button type="submit"
-                        class="post__delete-btn button button--white-border button--mini">Delete</button>
-                </form>
-            </div>
-        </div>
-    </div>
-    <div class="post-comments">
-        <div class="post-comments__body">
-            <div class="post-comments__add-btn-and-title">
-                <h2 class="post-comments__title">Comments:</h2>
-                <a href="{% url 'add_comment_to_post' pk=post.pk %}" class="post-comments__add-btn button button--mini">
-                    Add Comment
-                </a>
-            </div>
-            <div class="post-comments__items">
-                {% for comment in post.comments.all %}
-                {% if user.is_authenticated or comment.approved_comment %}
-                <div class="post-comments__item">
-                    <h3 class="post-comments__author">{{ comment.author }}</h3>
-                    <div class="post-comments__text">{{ comment.text|linebreaks }}</div>
-                    <p class="post-comments__date">{{ comment.created_date }}</p>
-                    {% if not comment.approved_comment %}
-                    <div class="post-comments__actions">
-                        <a href="{% url 'comment_approve' pk=comment.pk %}"
-                            class="post-comments__approve-btn button  button--mini">
-                            Approve
-                        </a>
-                        <a href="{% url 'comment_remove' pk=comment.pk %}"
-                            class="post-comments__delete-btn button button--white-border button--mini">
-                            Delete
-                        </a>
+    <div class="post__page">
+        <h2 class="blog-list__title">Post:</h2>
+        {% include '_helpers/_messages.html' %}
+        <div class="post__item">
+            <div class="post__body">
+                <h2 class="post__title">{{ post.title }}</h2>
+                <p class="post__text">{{ post.text|linebreaksbr }}</p>
+                {% if post.published_date %}
+                    <div class="post__data">
+                        {{ post.published_date }}
                     </div>
-                    {% endif %}
-                </div>
                 {% endif %}
-                {% empty %}
-                <p class="post-comments__not-comments">No comments here yet :(</p>
-                {% endfor %}
+                <div class="post__actions">
+                    {% if not post.published_date %}
+                        <form method="POST" action="{% url 'post_publish' pk=post.pk %}">
+                            {% csrf_token %}
+                            <button type="submit" class="post__publish-btn button button--mini">Publish</button>
+                        </form>
+                    {% endif %}
+                    <a href="{% url 'post_edit' pk=post.pk %}"
+                       class="post__edit-btn button button--white-border button--mini">Edit</a>
+                    <form method="POST" action="{% url 'post_remove' pk=post.pk %}">
+                        {% csrf_token %}
+                        <button type="submit"
+                                class="post__delete-btn button button--white-border button--mini">Delete
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="post-comments">
+            <div class="post-comments__body">
+                <div class="post-comments__add-btn-and-title">
+                    <h2 class="post-comments__title">Comments:</h2>
+                    <a href="{% url 'add_comment_to_post' pk=post.pk %}"
+                       class="post-comments__add-btn button button--mini">
+                        Add Comment
+                    </a>
+                </div>
+                <div class="post-comments__items">
+                    {% for comment in post.comments.all %}
+                        {% if user.is_authenticated or comment.approved_comment %}
+                            <div class="post-comments__item">
+                                <h3 class="post-comments__author">{{ comment.author }}</h3>
+                                <div class="post-comments__text">{{ comment.text|linebreaks }}</div>
+                                <p class="post-comments__date">{{ comment.created_date }}</p>
+                                {% if not comment.approved_comment %}
+                                    <div class="post-comments__actions">
+                                        <a href="{% url 'comment_approve' pk=comment.pk %}"
+                                           class="post-comments__approve-btn button  button--mini">
+                                            Approve
+                                        </a>
+                                        <a href="{% url 'comment_remove' pk=comment.pk %}"
+                                           class="post-comments__delete-btn button button--white-border button--mini">
+                                            Delete
+                                        </a>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    {% empty %}
+                        <p class="post-comments__not-comments">No comments here yet :(</p>
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>
-</div>
 {% endblock %}

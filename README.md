@@ -58,11 +58,9 @@ make d-stop
 
 Follow logs of running containers
 
-
 ```shell
 make d-logs-follow
 ```
-
 
 ### 🚮 Purge
 
@@ -91,7 +89,6 @@ make d-migrations
 ---
 
 ## 🧰 Django management commands
-
 
 ### 🛠️ Apply database migrations (local)
 

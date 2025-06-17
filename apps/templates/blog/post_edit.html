@@ -1,27 +1,28 @@
 {% extends 'blog/../base.html' %}
 
 {% block content %}
-<div class="post-edit__page">
-    <div class="post-edit__body">
-        <h1 class="post-edit-body__title blog-list__title">Create a New Post</h1>
-        <form method="POST"
-            action="{% if post.pk %}{% url 'post_edit' pk=post.pk %}{% else %}{% url 'post_new' %}{% endif %}"
-            class="post-edit-body__form">
-            {% csrf_token %}
-            <div class="post-edit-body__django-form">
-                {{ form.as_p }}
-            </div>
-            <div class="post-edit-body_actions">
-                <button type="submit" name="publish" class="post-edit-body-actions__btn-publish button button--mini">
-                    Publish
-                </button>
-                <button type="submit" name="draft"
-                    class="post-edit-body-actions__btn-save-as-draft button button--white-border button--mini">
-                    Save as Draft
-                </button>
+    <div class="post-edit__page">
+        <div class="post-edit__body">
+            <h1 class="post-edit-body__title blog-list__title">Create a New Post</h1>
+            <form method="POST"
+                  action="{% if post.pk %}{% url 'post_edit' pk=post.pk %}{% else %}{% url 'post_new' %}{% endif %}"
+                  class="post-edit-body__form">
+                {% csrf_token %}
+                <div class="post-edit-body__django-form">
+                    {{ form.as_p }}
+                </div>
+                <div class="post-edit-body_actions">
+                    <button type="submit" name="publish"
+                            class="post-edit-body-actions__btn-publish button button--mini">
+                        Publish
+                    </button>
+                    <button type="submit" name="draft"
+                            class="post-edit-body-actions__btn-save-as-draft button button--white-border button--mini">
+                        Save as Draft
+                    </button>
 
-            </div>
-        </form>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 {% endblock %}
