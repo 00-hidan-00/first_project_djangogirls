@@ -1,25 +1,45 @@
 # Use the official Python 3.12 image
 FROM python:3.12
 
-# Install system dependencies required for PostgreSQL client and building Python packages
-RUN apt-get update && \
-    apt-get install -y libpq-dev gcc && \
-    rm -rf /var/lib/apt/lists/*
+ENV PYTHONUNBUFFERED=1
 
-# Set the working directory inside the container
-WORKDIR /app
+ARG WORKDIR=/wd
+ARG USER=user
+ARG UID=1000
 
-# Copy only the requirements file to leverage Docker cache for dependencies
-COPY requirements.txt .
+WORKDIR ${WORKDIR}
 
-# Install Python dependencies listed in requirements.txt without cache
-RUN pip install --no-cache-dir --requirement requirements.txt
+# Add system user
+RUN useradd --system ${USER} --uid=${UID} && \
+    chown --recursive ${USER} ${WORKDIR}
 
-# Copy the entire project source code into the container
-COPY . .
+# Update and upgrade system packages
+RUN apt update && apt upgrade -y
 
-# Expose port 8000 to allow external access to the Django development server
+# Copy and install Python dependencies
+COPY requirements.txt requirements.txt
+
+RUN pip install --upgrade pip && \
+    pip install --requirement requirements.txt
+
+# Copy entrypoint and start scripts
+COPY --chmod=755 ./docker/app/entrypoint.sh /entrypoint.sh
+COPY --chmod=755 ./docker/app/start.sh /start.sh
+
+# Copy project files
+COPY ./Makefile Makefile
+COPY ./manage.py manage.py
+COPY core ./core/
+COPY ./apps ./apps/
+
+# Switch to unprivileged user
+USER ${USER}
+
+# Define default command
+ENTRYPOINT ["/entrypoint.sh"]
+
+# Define volume (optional)
+VOLUME ${WORKDIR}/db
+
+# Expose default Django port
 EXPOSE 8000
-
-# Run the Django development server, binding to all interfaces inside the container
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

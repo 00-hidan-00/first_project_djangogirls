@@ -1,4 +1,4 @@
 services:
-  web:
+  app:
     ports:
       - "48000:8000"
