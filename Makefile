@@ -2,8 +2,7 @@
 # Initialize configs and start the development environment from scratch.
 d-dev-start:
 	@make init-configs-i-dev && \
-	make d-run-i-extended && \
-	make init-dev-i-create-superuser
+	make d-run-i-extended
 
 
 .PHONY: d-run
@@ -75,5 +74,6 @@ init-configs-i-dev:
 
 
 .PHONY: init-dev-i-create-superuser
+# Create a superuser if it does not exist
 init-dev-i-create-superuser:
 	@docker compose exec app python manage.py shell -c "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.filter(username='admin').exists() or User.objects.create_superuser('admin', 'admin@gmail.com', 'admin')"
