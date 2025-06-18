@@ -29,7 +29,7 @@ COPY --chmod=755 ./docker/app/start.sh /start.sh
 # Copy project files
 COPY ./Makefile Makefile
 COPY ./manage.py manage.py
-COPY core ./core/
+COPY ./core ./core/
 COPY ./apps ./apps/
 
 # Switch to unprivileged user

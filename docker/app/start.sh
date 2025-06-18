@@ -1,7 +1,25 @@
 #!/usr/bin/env sh
 
+# Load variables from .env
+# shellcheck disable=SC2046
+export $(grep -v '^#' .env | xargs)
+
+echo "Waiting for PostgreSQL at $DATABASE_HOST:$DATABASE_PORT..."
+
+# Wait until the database becomes available
+until timeout 1 bash -c "</dev/tcp/$DATABASE_HOST/$DATABASE_PORT" 2>/dev/null; do
+  echo "Postgres is unavailable - sleeping"
+  sleep 1
+done
+
+echo "PostgreSQL is up - running migrations"
+
+# Apply migrations
 make migrate
 
+echo "Starting Django server"
+
+# Start the server
 python manage.py runserver 0.0.0.0:8000
 
 
