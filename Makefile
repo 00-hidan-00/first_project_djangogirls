@@ -2,19 +2,14 @@
 # Initialize configs and start the development environment from scratch.
 d-dev-start:
 	@make init-configs-i-dev && \
-	make d-run
+	make d-run-i-extended && \
+	make init-dev-i-create-superuser
 
 
 .PHONY: d-run
 # Just run
 d-run:
 	@COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker compose up --build
-
-
-.PHONY: d-run-detached
-# Run in detached mode (background)
-d-run-detached:
-	@COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker compose up --build --detach
 
 
 .PHONY: d-run-i-extended
@@ -25,22 +20,28 @@ d-run-i-extended:
 	make d-logs-follow
 
 
+.PHONY: d-run-detached
+# Run in detached mode (background)
+d-run-detached:
+	@COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker compose up --build --detach
+
+
 .PHONY: d-stop
 # Stop services
 d-stop:
 	@COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose down
 
 
-.PHONY: d-logs-follow
-# Follow logs
-d-logs-follow:
-	@docker-compose logs --follow
-
-
 .PHONY: d-purge
 # Purge all data related with services
 d-purge:
 	@COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose down --volumes --remove-orphans --rmi local --timeout 0
+
+
+.PHONY: d-logs-follow
+# Follow logs
+d-logs-follow:
+	@docker-compose logs --follow
 
 
 .PHONY: migrate
@@ -71,3 +72,8 @@ d-migrations:
 # Make some initialization steps. For example, copy configs.
 init-configs-i-dev:
 	@cp docker-compose.override.dev.yml docker-compose.override.yml
+
+
+.PHONY: init-dev-i-create-superuser
+init-dev-i-create-superuser:
+	@docker compose exec app python manage.py shell -c "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.filter(username='admin').exists() or User.objects.create_superuser('admin', 'admin@gmail.com', 'admin')"
