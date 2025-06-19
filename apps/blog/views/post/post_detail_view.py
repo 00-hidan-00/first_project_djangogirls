@@ -1,9 +1,12 @@
-from django.http import HttpRequest, HttpResponse
-from django.shortcuts import get_object_or_404, render
+from django.views.generic import DetailView
 
 from apps.blog.models import Post
 
 
-def post_detail(request: HttpRequest, pk: int) -> HttpResponse:
-    post = get_object_or_404(Post, pk=pk)
-    return render(request, 'blog/post_detail.html', {'post': post})
+class PostDetailView(DetailView):
+    """
+    Display detailed information about a single Post instance.
+    """
+    model = Post
+    template_name = 'blog/post_detail.html'
+    context_object_name = 'post'

@@ -1,18 +1,26 @@
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from django.http import HttpRequest, HttpResponse
-from django.shortcuts import get_object_or_404, redirect
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
+from django.views.generic.edit import DeleteView
 
 from apps.blog.models import Post
 
 
-@login_required
-def post_remove(request: HttpRequest, pk: int) -> HttpResponse:
-    post = get_object_or_404(Post, pk=pk)
-    if request.method == 'POST':
-        post.delete()
-        if post:
-            messages.warning(request, f"Post deleted: {post.title}")
-        else:
-            messages.info(request, "Nothing deleted")
-    return redirect('post_list')
+class PostRemoveView(LoginRequiredMixin, DeleteView):
+    """
+    View to delete a blog post and notify user upon success.
+    """
+    model = Post
+    template_name = 'blog/post_list.html'
+    context_object_name = 'post'
+    success_url = reverse_lazy('post_list')
+
+    def form_valid(self, form):
+        post = self.get_object()
+        post_title = post.title or "Untitled"
+        self._add_message(f'Post deleted: "{post_title}"')
+        return super().form_valid(form)
+
+    def _add_message(self, message: str) -> None:
+        """Add a success message to be displayed to the user."""
+        messages.success(self.request, message)

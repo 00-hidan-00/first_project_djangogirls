@@ -3,19 +3,19 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('', views.post_list, name='post_list'),
-    path('post/new/', views.post_new, name='post_new'),
-    path('drafts/', views.post_draft_list, name='post_draft_list'),
+    path('', views.PostListView.as_view(), name='post_list'),
+    path('post/new/', views.PostNewView.as_view(), name='post_new'),
+    path('drafts/', views.PostDraftListView.as_view(), name='post_draft_list'),
     path('post/<int:pk>/', include([
-        path('', views.post_detail, name='post_detail'),
-        path('edit/', views.post_edit, name='post_edit'),
-        path('publish/', views.post_publish, name='post_publish'),
-        path('remove/', views.post_remove, name='post_remove'),
-        path('comment/', views.add_comment_to_post, name='add_comment_to_post'),
+        path('', views.PostDetailView.as_view(), name='post_detail'),
+        path('edit/', views.PostEditView.as_view(), name='post_edit'),
+        path('publish/', views.PostPublishView.as_view(), name='post_publish'),
+        path('remove/', views.PostRemoveView.as_view(), name='post_remove'),
+        path('comment/', views.AddCommentToPostView.as_view(), name='add_comment_to_post'),
     ])),
-    path('comment/<int:pk>', include([
-        path('approve/', views.comment_approve, name='comment_approve'),
-        path('remove/', views.comment_remove, name='comment_remove'),
+    path('comment/<int:pk>/', include([
+        path('approve/', views.CommentApproveView.as_view(), name='comment_approve'),
+        path('remove/', views.CommentRemoveView.as_view(), name='comment_remove'),
 
     ])),
 
