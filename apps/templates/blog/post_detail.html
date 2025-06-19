@@ -13,22 +13,24 @@
                         {{ post.published_date }}
                     </div>
                 {% endif %}
-                <div class="post__actions">
-                    {% if not post.published_date %}
-                        <form method="POST" action="{% url 'post_publish' pk=post.pk %}">
+                {% if user.is_authenticated %}
+                    <div class="post__actions">
+                        {% if not post.published_date %}
+                            <form method="POST" action="{% url 'post_publish' pk=post.pk %}">
+                                {% csrf_token %}
+                                <button type="submit" class="post__publish-btn button button--mini">Publish</button>
+                            </form>
+                        {% endif %}
+                        <a href="{% url 'post_edit' pk=post.pk %}"
+                           class="post__edit-btn button button--white-border button--mini">Edit</a>
+                        <form method="POST" action="{% url 'post_remove' pk=post.pk %}">
                             {% csrf_token %}
-                            <button type="submit" class="post__publish-btn button button--mini">Publish</button>
+                            <button type="submit"
+                                    class="post__delete-btn button button--white-border button--mini">Delete
+                            </button>
                         </form>
-                    {% endif %}
-                    <a href="{% url 'post_edit' pk=post.pk %}"
-                       class="post__edit-btn button button--white-border button--mini">Edit</a>
-                    <form method="POST" action="{% url 'post_remove' pk=post.pk %}">
-                        {% csrf_token %}
-                        <button type="submit"
-                                class="post__delete-btn button button--white-border button--mini">Delete
-                        </button>
-                    </form>
-                </div>
+                    </div>
+                {% endif %}
             </div>
         </div>
         <div class="post-comments">
@@ -49,14 +51,20 @@
                                 <p class="post-comments__date">{{ comment.created_date }}</p>
                                 {% if not comment.approved_comment %}
                                     <div class="post-comments__actions">
-                                        <a href="{% url 'comment_approve' pk=comment.pk %}"
-                                           class="post-comments__approve-btn button  button--mini">
-                                            Approve
-                                        </a>
-                                        <a href="{% url 'comment_remove' pk=comment.pk %}"
-                                           class="post-comments__delete-btn button button--white-border button--mini">
-                                            Delete
-                                        </a>
+                                        <form action="{% url 'comment_approve' pk=comment.pk %}" method="post">
+                                            {% csrf_token %}
+                                            <button type="submit"
+                                                    class="post-comments__approve-btn button button--mini">
+                                                Approve
+                                            </button>
+                                        </form>
+                                        <form action="{% url 'comment_remove' pk=comment.pk %}" method="post">
+                                            {% csrf_token %}
+                                            <button type="submit"
+                                                    class="post-comments__delete-btn button button--white-border button--mini">
+                                                Delete
+                                            </button>
+                                        </form>
                                     </div>
                                 {% endif %}
                             </div>
