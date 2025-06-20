@@ -14,7 +14,6 @@ class CommentRemoveView(LoginRequiredMixin, DeleteView):
     Requires authenticated user.
     """
     model = Comment
-    template_name = 'blog/post_detail.html'  # Customize this template if needed
     context_object_name = 'comment'
 
     def get_queryset(self):

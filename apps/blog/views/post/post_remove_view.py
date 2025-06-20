@@ -11,7 +11,6 @@ class PostRemoveView(LoginRequiredMixin, DeleteView):
     View to delete a blog post and notify user upon success.
     """
     model = Post
-    template_name = 'blog/post_list.html'
     context_object_name = 'post'
     success_url = reverse_lazy('post_list')
 
