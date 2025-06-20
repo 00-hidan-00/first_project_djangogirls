@@ -51,14 +51,16 @@
                                 <p class="post-comments__date">{{ comment.created_date }}</p>
                                 {% if not comment.approved_comment %}
                                     <div class="post-comments__actions">
-                                        <form action="{% url 'comment_approve' pk=comment.pk %}" method="post">
+                                        <form action="{% url 'comment_approve' pk=comment.post.pk local_number=comment.local_number %}"
+                                              method="post">
                                             {% csrf_token %}
                                             <button type="submit"
                                                     class="post-comments__approve-btn button button--mini">
                                                 Approve
                                             </button>
                                         </form>
-                                        <form action="{% url 'comment_remove' pk=comment.pk %}" method="post">
+                                        <form action="{% url 'comment_remove' pk=comment.post.pk local_number=comment.local_number %}"
+                                              method="post">
                                             {% csrf_token %}
                                             <button type="submit"
                                                     class="post-comments__delete-btn button button--white-border button--mini">

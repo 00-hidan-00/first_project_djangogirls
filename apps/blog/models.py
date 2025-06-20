@@ -24,9 +24,19 @@ class Post(models.Model):
 class Comment(models.Model):
     post = models.ForeignKey('blog.Post', on_delete=models.CASCADE, related_name='comments')
     author = models.CharField(max_length=200)
+    local_number = models.PositiveIntegerField('Local Number', editable=False, null=True, blank=True)
     text = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
     approved_comment = models.BooleanField(default=False)
+
+    class Meta:
+        unique_together = ('post', 'local_number')
+
+    def save(self, *args, **kwargs):
+        if not self.pk:  # Только при создании
+            last = Comment.objects.filter(post=self.post).order_by('-local_number').first()
+            self.local_number = (last.local_number + 1) if last else 1
+        super().save(*args, **kwargs)
 
     def approve(self):
         self.approved_comment = True

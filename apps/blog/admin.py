@@ -15,3 +15,4 @@ class PostAdmin(admin.ModelAdmin):
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
     model = Comment
+    readonly_fields = ('local_number',)

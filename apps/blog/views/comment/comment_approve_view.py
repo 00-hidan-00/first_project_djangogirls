@@ -15,7 +15,7 @@ class CommentApproveView(View):
     Handles POST requests only.
     """
 
-    def post(self, request: HttpRequest, pk: int, *args, **kwargs) -> HttpResponse:
-        comment = get_object_or_404(Comment, pk=pk)
+    def post(self, request: HttpRequest, pk: int, local_number: int, *args, **kwargs) -> HttpResponse:
+        comment = get_object_or_404(Comment, post__pk=pk, local_number=local_number)
         comment.approve()
         return redirect('post_detail', pk=comment.post.pk)

@@ -12,11 +12,11 @@ urlpatterns = [
         path('publish/', views.PostPublishView.as_view(), name='post_publish'),
         path('remove/', views.PostRemoveView.as_view(), name='post_remove'),
         path('comment/', views.AddCommentToPostView.as_view(), name='add_comment_to_post'),
-    ])),
-    path('comment/<int:pk>/', include([
-        path('approve/', views.CommentApproveView.as_view(), name='comment_approve'),
-        path('remove/', views.CommentRemoveView.as_view(), name='comment_remove'),
 
-    ])),
+        path('comment/<int:local_number>/', include([
+            path('approve/', views.CommentApproveView.as_view(), name='comment_approve'),
+            path('remove/', views.CommentRemoveView.as_view(), name='comment_remove'),
 
+        ])),
+    ])),
 ]
