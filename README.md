@@ -1,17 +1,28 @@
-# Django application
+# Django Blog Project 📝
 
+### 🌟 Overview
+
+This is a learning project inspired by the [Django Girls tutorial](https://tutorial.djangogirls.org/en/).
+Initially designed as a beginner-friendly blog, the project has been **refactored and modernized** to follow best
+practices in Django development.
+
+- 🧱 Django Models with Admin Panel Integration
+- 🔀 Clean URL routing and modular views
+- ⚙️ Generic Class-Based Views (`ListView`, `DetailView`, etc.)
+- 🎨 Dynamic HTML templates with CSS styling
+- 📝 Form building and handling
+- 🧠 Django ORM with custom QuerySets and filtering
 ---
 
 ## 🏗️ Preparation
 
-Make some initialization steps. For example, copy configs.
+Make sure to copy configuration files before starting the environment:
 
 ```shell
 make init-configs-i-dev
 ```
 
-Initialize configs and start the development environment from scratch.
-
+Start the local development environment from scratch:
 ```shell
 make d-dev-start
 ```
@@ -20,67 +31,82 @@ make d-dev-start
 
 ## 🐳 Docker
 
-Use services in dockers.
+This project uses Docker and `Makefile` commands for streamlined development.
 
 ### ▶️ Run
 
-Just run
+Start all Docker services:
 
 ```shell
 make d-run
 ```
 
-### 🛫 Run detached (background)
+### 🛫 Run in Detached Mode
 
-Run services in detached mode (in the background)
+Start services in the background:
 
 ```shell
 make d-run-detached
 ```
 
-### ⏯️ Run extended
+### ⏯️ Extended Run
 
-Shutdown previous, run in detached mode, follow logs
+Shut down previous containers, run in detached mode, and follow logs:
 
 ```shell
 make d-run-i-extended
 ```
 
-### ⏹️Stop
+### ⏹️ Stop Services
 
-Stop services
+Gracefully stop running services:
 
 ```shell
 make d-stop
 ```
 
-### 📜 Follow logs
+### 📜 View Logs
 
-Follow logs of running containers
+Tail logs from running containers:
 
 ```shell
 make d-logs-follow
 ```
 
-### 🚮 Purge
+### 🚮 Purge Environment
 
-Purge all data related with services
+Remove all Docker volumes, containers, and networks:
 
 ```shell
 make d-purge
 ```
 
-### 🛠️ Apply database migrations (inside Docker container)
+### 👤 Create Superuser
 
-Apply migrations inside the running Docker container named app
+Automatically creates a superuser with default credentials if it doesn't already exist:
+
+```shell
+make init-dev-i-create-superuser
+```
+
+Default credentials:
+> Username: admin
+>
+>Email: admin@gmail.com
+>
+>Password: admin
+
+### 🛠️ Apply Migrations
+
+Apply all pending database migrations inside the container:
 
 ```shell
 make d-migrate
 ```
 
-### 🆕 Create new migration files (inside Docker container)
+### 🆕 Create Migration Files
 
-Generate migrations inside the running Docker container named app
+Generate migration files inside the container:
 
 ```shell
 make d-migrations
@@ -88,21 +114,24 @@ make d-migrations
 
 ---
 
-## 🧰 Django management commands
+## 🧰 Django Management (Local)
 
-### 🛠️ Apply database migrations (local)
+> Useful when working without Docker.
 
-Apply all pending migrations to the database
+### 🛠️ Apply Migrations Locally
 
 ```shell
 make migrate
 ```
 
-### 🆕 Create new migration files (local)
-
-Generate new migration files for changed models
+### 🆕 Create Migration Files Locally
 
 ```shell
 make migrations
 ```
 
+---
+
+## 📎 License
+
+This project is for educational purposes.
