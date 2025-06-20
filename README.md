@@ -92,7 +92,7 @@ make init-dev-i-create-superuser
 Default credentials:
 > Username: admin
 >
->Email: admin@gmail.com
+>Email: admin@example.com
 >
 >Password: admin
 

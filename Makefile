@@ -76,4 +76,4 @@ init-configs-i-dev:
 .PHONY: init-dev-i-create-superuser
 # Create a superuser if it does not exist
 init-dev-i-create-superuser:
-	@docker compose exec app python manage.py shell -c "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.filter(username='admin').exists() or User.objects.create_superuser('admin', 'admin@gmail.com', 'admin')"
+	@docker compose exec app python manage.py shell -c "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.filter(username='admin').exists() or User.objects.create_superuser('admin', 'admin@example.com', 'admin')"
