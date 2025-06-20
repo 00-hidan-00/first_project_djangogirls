@@ -33,9 +33,17 @@ class Comment(models.Model):
         unique_together = ('post', 'local_number')
 
     def save(self, *args, **kwargs):
-        if not self.pk:  # Только при создании
+        if not self.pk:
+            # New comment — assign local_number
             last = Comment.objects.filter(post=self.post).order_by('-local_number').first()
             self.local_number = (last.local_number + 1) if last else 1
+        else:
+            # Check if post has changed
+            old = Comment.objects.filter(pk=self.pk).first()
+            if old and old.post != self.post:
+                # Post changed — recalculate local_number
+                last = Comment.objects.filter(post=self.post).order_by('-local_number').first()
+                self.local_number = (last.local_number + 1) if last else 1
         super().save(*args, **kwargs)
 
     def approve(self):
