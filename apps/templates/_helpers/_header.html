@@ -1,15 +1,15 @@
 <header class="header">
     <div class="header__container">
         <div class="header__body">
-            <a href="/" class="header__link-logo">Django Blog</a>
+            <a href="{% url 'blog:post_list' %}" class="header__link-logo">Django Blog</a>
             <nav class="header__menu menu">
                 <ul class="menu__list">
                     {% if user.is_authenticated %}
                         <li class="menu__item">
-                            <a href="{% url 'post_new' %}" class="menu__button button button--mini">Post New</a>
+                            <a href="{% url 'blog:post_new' %}" class="menu__button button button--mini">Post New</a>
                         </li>
                         <li class="menu__item">
-                            <a href="{% url 'post_draft_list' %}"
+                            <a href="{% url 'blog:post_draft_list' %}"
                                class="menu__button button button--mini">Drafts</a>
                         </li>
                         <li class="menu__item">

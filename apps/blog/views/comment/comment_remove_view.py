@@ -33,7 +33,7 @@ class CommentRemoveView(LoginRequiredMixin, DeleteView):
 
     def get_success_url(self) -> str:
         """Redirect to the related post detail page after deletion."""
-        return reverse_lazy('post_detail', kwargs={'pk': self.object.post.pk})
+        return reverse_lazy('blog:post_detail', kwargs={'pk': self.object.post.pk})
 
     def form_valid(self, form) -> HttpResponse:
         """Delete comment, add message, then redirect."""

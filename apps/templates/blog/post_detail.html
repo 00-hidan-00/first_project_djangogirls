@@ -16,14 +16,14 @@
                 {% if user.is_authenticated %}
                     <div class="post__actions">
                         {% if not post.published_date %}
-                            <form method="POST" action="{% url 'post_publish' pk=post.pk %}">
+                            <form method="POST" action="{% url 'blog:post_publish' pk=post.pk %}">
                                 {% csrf_token %}
                                 <button type="submit" class="post__publish-btn button button--mini">Publish</button>
                             </form>
                         {% endif %}
-                        <a href="{% url 'post_edit' pk=post.pk %}"
+                        <a href="{% url 'blog:post_edit' pk=post.pk %}"
                            class="post__edit-btn button button--white-border button--mini">Edit</a>
-                        <form method="POST" action="{% url 'post_remove' pk=post.pk %}">
+                        <form method="POST" action="{% url 'blog:post_remove' pk=post.pk %}">
                             {% csrf_token %}
                             <button type="submit"
                                     class="post__delete-btn button button--white-border button--mini">Delete
@@ -37,7 +37,7 @@
             <div class="post-comments__body">
                 <div class="post-comments__add-btn-and-title">
                     <h2 class="post-comments__title">Comments:</h2>
-                    <a href="{% url 'add_comment_to_post' pk=post.pk %}"
+                    <a href="{% url 'blog:add_comment_to_post' pk=post.pk %}"
                        class="post-comments__add-btn button button--mini">
                         Add Comment
                     </a>
@@ -51,7 +51,7 @@
                                 <p class="post-comments__date">{{ comment.created_date }}</p>
                                 {% if not comment.approved_comment %}
                                     <div class="post-comments__actions">
-                                        <form action="{% url 'comment_approve' pk=comment.post.pk local_number=comment.local_number %}"
+                                        <form action="{% url 'blog:comment_approve' pk=comment.post.pk local_number=comment.local_number %}"
                                               method="post">
                                             {% csrf_token %}
                                             <button type="submit"
@@ -59,7 +59,7 @@
                                                 Approve
                                             </button>
                                         </form>
-                                        <form action="{% url 'comment_remove' pk=comment.post.pk local_number=comment.local_number %}"
+                                        <form action="{% url 'blog:comment_remove' pk=comment.post.pk local_number=comment.local_number %}"
                                               method="post">
                                             {% csrf_token %}
                                             <button type="submit"

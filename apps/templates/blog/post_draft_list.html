@@ -8,11 +8,11 @@
                 {% for post in posts %}
                     <div class="blog-list__item blog-list__item--anim">
                         <h4 class="blog-list__item-title">
-                            <a href="{% url 'post_detail' pk=post.pk %}" class="text-dark">{{ post.title }}</a>
+                            <a href="{% url 'blog:post_detail' pk=post.pk %}" class="text-dark">{{ post.title }}</a>
                         </h4>
                         <p class="blog-list__item-text">{{ post.text|truncatechars:250 }}</p>
                         <div class="blog-list__item-footer">
-                            <a href="{% url 'post_detail' pk=post.pk %}" class="blog-list__item-post-link">
+                            <a href="{% url 'blog:post_detail' pk=post.pk %}" class="blog-list__item-post-link">
                                 Read More
                             </a>
                             <div class="blog-list__item-data">{{ post.created_date|date:"d M Y" }}</div>

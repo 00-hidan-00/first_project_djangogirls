@@ -27,4 +27,4 @@ class AddCommentToPostView(LoginRequiredMixin, FormView):
         comment.post = self.blog_post
         comment.save()
         messages.info(self.request, f'Comment created: "{comment.text}"')
-        return redirect('post_detail', pk=self.blog_post.pk)
+        return redirect('blog:post_detail', pk=self.blog_post.pk)

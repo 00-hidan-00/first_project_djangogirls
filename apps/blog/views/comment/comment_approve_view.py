@@ -18,4 +18,4 @@ class CommentApproveView(View):
     def post(self, request: HttpRequest, pk: int, local_number: int, *args, **kwargs) -> HttpResponse:
         comment = get_object_or_404(Comment, post__pk=pk, local_number=local_number)
         comment.approve()
-        return redirect('post_detail', pk=comment.post.pk)
+        return redirect('blog:post_detail', pk=comment.post.pk)

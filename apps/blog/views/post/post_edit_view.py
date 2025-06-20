@@ -38,7 +38,7 @@ class PostEditView(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self) -> str:
         """Return URL to redirect after successful form submission."""
-        return reverse('post_detail', kwargs={'pk': self.object.pk})
+        return reverse('blog:post_detail', kwargs={'pk': self.object.pk})
 
     def _is_publish_action(self) -> bool:
         """Check if the form submission corresponds to a publish action."""

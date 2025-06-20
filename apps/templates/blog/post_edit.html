@@ -5,7 +5,8 @@
         <div class="post-edit__body">
             <h1 class="post-edit-body__title blog-list__title">Create a New Post</h1>
             <form method="POST"
-                  action="{% if post.pk %}{% url 'post_edit' pk=post.pk %}{% else %}{% url 'post_new' %}{% endif %}"
+                  action="
+                          {% if post.pk %}{% url 'blog:post_edit' pk=post.pk %}{% else %}{% url 'blog:post_new' %}{% endif %}"
                   class="post-edit-body__form">
                 {% csrf_token %}
                 <div class="post-edit-body__django-form">

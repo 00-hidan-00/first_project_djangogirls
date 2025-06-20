@@ -18,4 +18,4 @@ class PostPublishView(View):
         post = get_object_or_404(Post, pk=pk)
         post.publish()
         messages.info(request, f'Post published: "{post.title}"')
-        return redirect('post_detail', pk=pk)
+        return redirect('blog:post_detail', pk=pk)
