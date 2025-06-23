@@ -2,7 +2,7 @@
 Django>=4.2,<5
 
 # DB Postgres
-psycopg-binary==3.2.9
+psycopg[binary]==3.2.9
 
 # Get environment variables
 django-environ==0.12.0
