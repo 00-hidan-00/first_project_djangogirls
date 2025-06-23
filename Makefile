@@ -8,14 +8,18 @@ d-dev-start:
 .PHONY: d-run
 # Just run
 d-run:
-	@COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker compose up --build
+	@COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 \
+		COMPOSE_PROFILES=full_dev \
+		docker-compose up --build
 
 
 .PHONY: d-run-i-extended
 # Shutdown previous, run in detached mode, follow logs
 d-run-i-extended:
-	@COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker compose down --timeout 0 && \
-	COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker compose up --build --detach && \
+	@COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose down --timeout 0 && \
+	COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 \
+		COMPOSE_PROFILES=full_dev \
+		docker-compose up --build --detach && \
 	make d-logs-follow
 
 

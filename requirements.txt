@@ -1,7 +1,7 @@
 # Core
 Django>=4.2,<5
 
-# PostgreSQL driver for Python/Django — used to connect Django to a PostgreSQL database
+# DB Postgres
 psycopg2-binary==2.9.10
 
 # Get environment variables
