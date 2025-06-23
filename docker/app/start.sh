@@ -4,10 +4,10 @@
 # shellcheck disable=SC2046
 export $(grep -v '^#' .env | xargs)
 
-echo "Waiting for PostgreSQL at $DATABASE_HOST:$DATABASE_PORT..."
+echo "Waiting for PostgreSQL at $POSTGRES_HOST:$POSTGRES_PORT..."
 
 # Wait until the database becomes available
-until timeout 1 bash -c "</dev/tcp/$DATABASE_HOST/$DATABASE_PORT" 2>/dev/null; do
+until timeout 1 bash -c "</dev/tcp/$POSTGRES_HOST/$POSTGRES_PORT" 2>/dev/null; do
   echo "Postgres is unavailable - sleeping"
   sleep 1
 done

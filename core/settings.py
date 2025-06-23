@@ -23,7 +23,6 @@ APPS_DIR = BASE_DIR.joinpath('apps')
 env = environ.Env()
 env.read_env(BASE_DIR.joinpath('.env'))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
@@ -34,7 +33,7 @@ SECRET_KEY = env.str('DJANGO__SECRET_KEY', default='unsafe-dev-secret')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool('DJANGO__DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = env.list('DJANGO__ALLOWED_HOSTS', 'localhost 127.0.0.1').split()
+ALLOWED_HOSTS = env.list('DJANGO__ALLOWED_HOSTS', default=['localhost', '127.0.0.1'])
 
 # Application definition
 
@@ -83,14 +82,13 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': env.str('POSTGRES_DB'),
-        'USER': env.str('POSTGRES_USER'),
-        'PASSWORD': env.str('POSTGRES_PASSWORD'),
-        'HOST': env.str('DATABASE_HOST', 'db'),
-        'PORT': env.int('DATABASE_PORT', 5432),
-    }
+    'default': env.db_url_config(
+        env.str(
+            'DB_URL',
+            f'postgresql://{env("POSTGRES_USER")}:{env("POSTGRES_PASSWORD")}@'
+            f'{env("POSTGRES_HOST")}:{env("POSTGRES_PORT")}/{env("POSTGRES_DB")}',
+        )
+    ),
 }
 
 # Password validation
