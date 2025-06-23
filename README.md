@@ -12,6 +12,7 @@ practices in Django development.
 - 🎨 Dynamic HTML templates with CSS styling
 - 📝 Form building and handling
 - 🧠 Django ORM with custom QuerySets and filtering
+
 ---
 
 ## 🏗️ Preparation
@@ -23,6 +24,7 @@ make init-configs-i-dev
 ```
 
 Start the local development environment from scratch:
+
 ```shell
 make d-dev-start
 ```
@@ -39,14 +41,6 @@ Start all Docker services:
 
 ```shell
 make d-run
-```
-
-### 🛫 Run in Detached Mode
-
-Start services in the background:
-
-```shell
-make d-run-detached
 ```
 
 ### ⏯️ Extended Run
