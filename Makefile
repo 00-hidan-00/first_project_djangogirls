@@ -16,29 +16,31 @@ d-run:
 .PHONY: d-run-i-extended
 # Shutdown previous, run in detached mode, follow logs
 d-run-i-extended:
-	@COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose down --timeout 0 && \
+	@COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 COMPOSE_PROFILES=full_dev docker-compose down --timeout 0 && \
 	COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 \
 		COMPOSE_PROFILES=full_dev \
 		docker-compose up --build --detach && \
 	make d-logs-follow
 
 
-.PHONY: d-run-detached
-# Run in detached mode (background)
-d-run-detached:
-	@COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker compose up --build --detach
+.PHONY: d-run-i-local-dev
+# Just run services for local-dev
+d-run-i-local-dev:
+	@COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 \
+		COMPOSE_PROFILES=local_dev \
+		docker-compose up --build postgres
 
 
 .PHONY: d-stop
 # Stop services
 d-stop:
-	@COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose down
+	@COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 COMPOSE_PROFILES=full_dev docker-compose down
 
 
 .PHONY: d-purge
 # Purge all data related with services
 d-purge:
-	@COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose down --volumes --remove-orphans --rmi local --timeout 0
+	@COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 COMPOSE_PROFILES=full_dev docker-compose down --volumes --remove-orphans --rmi local --timeout 0
 
 
 .PHONY: d-logs-follow
@@ -75,9 +77,15 @@ d-migrations:
 # Make some initialization steps. For example, copy configs.
 init-configs-i-dev:
 	@cp docker-compose.override.dev.yml docker-compose.override.yml
+	@cp .env.example .env
 
 
 .PHONY: init-dev-i-create-superuser
 # Create a superuser if it does not exist
 init-dev-i-create-superuser:
 	@docker compose exec app python manage.py shell -c "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.filter(username='admin').exists() or User.objects.create_superuser('admin', 'admin@example.com', 'admin')"
+
+
+.PHONY: util-i-kill-by-port
+util-i-kill-by-port:
+	@sudo lsof -i:8000 -Fp | head -n 1 | sed 's/^p//' | xargs sudo kill
