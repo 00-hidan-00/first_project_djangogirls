@@ -1,16 +1,45 @@
 #!/usr/bin/env bash
 
-# shellcheck disable=SC2124
-cmd="$@"
-
 # [bash_init]-[BEGIN]
-# Exit whenever it encounters an error, also known as a non–zero exit code.
+# Exit immediately if a command exits with a non-zero status.
 set -o errexit
-# Return value of a pipeline is the value of the last (rightmost) command to exit with a non-zero status,
-#   or zero if all commands in the pipeline exit successfully.
+# The return value of a pipeline is the value of the last command to exit with a non-zero status.
 set -o pipefail
-# Treat unset variables and parameters other than the special parameters ‘@’ or ‘*’ as an error when performing parameter expansion.
+# Treat unset variables as an error and exit immediately.
 set -o nounset
 # [bash_init]-[END]
 
-exec $cmd
+# [wait_postgres]-[BEGIN]
+# Function to check PostgreSQL readiness using psycopg
+postgres_ready() {
+  python - <<END
+import sys
+import psycopg
+
+try:
+    conn = psycopg.connect(
+        dbname="${POSTGRES_DB}",
+        user="${POSTGRES_USER}",
+        password="${POSTGRES_PASSWORD}",
+        host="${POSTGRES_HOST}",
+        port="${POSTGRES_PORT}",
+    )
+    conn.close()
+except psycopg.OperationalError:
+    sys.exit(-1)
+sys.exit(0)
+END
+}
+
+echo "Waiting for PostgreSQL at $POSTGRES_HOST:$POSTGRES_PORT..."
+
+until postgres_ready; do
+  echo "PostgreSQL is unavailable - sleeping"
+  sleep 1
+done
+
+echo "PostgreSQL is up"
+# [wait_postgres]-[END]
+
+# Execute the command passed as arguments (usually CMD)
+exec "$@"
