@@ -48,7 +48,7 @@ init-dev-create-superuser:
 .PHONY: init-configs-local-dev
 init-configs-local-dev:
 	@cp docker-compose.override.dev.yml docker-compose.override.yml
-	@#cp .env.example .env
+	@cp .env.example .env
 
 # Kill process occupying port 8000 (if any)
 .PHONY: util-kill-port-8000
@@ -73,7 +73,7 @@ d-run-full-dev:
 d-run-extended-full-dev:
 	@$(COMPOSE_FULL) docker-compose down --timeout 0 && \
 	$(COMPOSE_FULL) docker-compose up --build --detach && \
-	make d-logs-follow
+	make d-logs-follow-full_de
 
 # Stop all services in full_dev profile
 .PHONY: d-stop-full-dev
@@ -86,8 +86,8 @@ d-purge-full-dev:
 	@$(COMPOSE_FULL) docker-compose down --volumes --remove-orphans --rmi local --timeout 0
 
 # Follow logs of docker-compose services
-.PHONY: d-logs-follow
-d-logs-follow:
+.PHONY: d-logs-follow-full_dev
+d-logs-follow-full_dev:
 	@COMPOSE_PROFILES=full_dev docker-compose logs --follow
 
 # Apply Django migrations inside the app container
