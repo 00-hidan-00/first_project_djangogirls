@@ -31,7 +31,7 @@ env.read_env(BASE_DIR.joinpath('.env'))
 SECRET_KEY = env.str('DJANGO__SECRET_KEY', default='unsafe-dev-secret')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool('DJANGO__DEBUG', 'False') == 'True'
+DEBUG = env.bool('DJANGO__DEBUG', default=False)
 
 ALLOWED_HOSTS = env.list('DJANGO__ALLOWED_HOSTS', default=['localhost', '127.0.0.1'])
 
