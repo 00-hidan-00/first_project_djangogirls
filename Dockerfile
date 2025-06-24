@@ -35,11 +35,13 @@ COPY ./apps ./apps/
 # Switch to unprivileged user
 USER ${USER}
 
-# Define default command
+# Set the container's entrypoint to prepare the environment
 ENTRYPOINT ["/entrypoint.sh"]
 
-# Define volume (optional)
-VOLUME ${WORKDIR}/db
+# Define the default command to start the application
+CMD ["/start.sh"]
+# Persist user-uploaded media files
+VOLUME ${WORKDIR}/media
 
 # Expose default Django port
 EXPOSE 8000
