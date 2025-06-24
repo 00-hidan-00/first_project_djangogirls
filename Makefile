@@ -73,7 +73,7 @@ d-run-full-dev:
 d-run-extended-full-dev:
 	@$(COMPOSE_FULL) docker-compose down --timeout 0 && \
 	$(COMPOSE_FULL) docker-compose up --build --detach && \
-	make d-logs-follow-full_de
+	make d-logs-follow-full_dev
 
 # Stop all services in full_dev profile
 .PHONY: d-stop-full-dev
