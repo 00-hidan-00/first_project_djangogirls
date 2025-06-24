@@ -15,117 +15,166 @@ practices in Django development.
 
 ---
 
-## 🏗️ Preparation
+## ⚡ Quick Start
 
-Make sure to copy configuration files before starting the environment:
-
-```shell
-make init-configs-i-dev
-```
-
-Start the local development environment from scratch:
+Start the full development environment (Docker-based):
 
 ```shell
-make d-dev-start
+make init-configs-local-dev
+make d-run-extended-full-dev
 ```
 
 ---
 
-## 🐳 Docker
+## 🖥️ Local Development (locally)
 
-This project uses Docker and `Makefile` commands for streamlined development.
+### ▶️ Run Django development server
 
-### ▶️ Run
-
-Start all Docker services:
+Runs the Django dev server using your local virtual environment.
 
 ```shell
-make d-run
+make runserver
 ```
 
-### ⏯️ Extended Run
+> Requires the PostgreSQL service to be running via:
+>```shell
+>make d-run-local-dev
+>```
 
-Shut down previous containers, run in detached mode, and follow logs:
+### 📦 Apply migrations
+
+Applies all pending database migrations outside Docker.
 
 ```shell
-make d-run-i-extended
+make migrate
 ```
 
-### ⏹️ Stop Services
+### 🧾 Create migrations
 
-Gracefully stop running services:
+Creates new Django migration files based on model changes (no Docker involved).
 
 ```shell
-make d-stop
+make migrations
 ```
 
-### 📜 View Logs
+### 👤 Create superuser
 
-Tail logs from running containers:
+Creates a Django superuser locally if it doesn't already exist.
 
 ```shell
-make d-logs-follow
+make init-dev-create-superuser
 ```
 
-### 🚮 Purge Environment
-
-Remove all Docker volumes, containers, and networks:
-
-```shell
-make d-purge
-```
-
-### 👤 Create Superuser
-
-Automatically creates a superuser with default credentials if it doesn't already exist:
-
-```shell
-make init-dev-i-create-superuser
-```
-
-Default credentials:
+Default Superuser Credentials:
 > Username: admin
 >
 >Email: admin@example.com
 >
 >Password: admin
 
-### 🛠️ Apply Migrations
+---
 
-Apply all pending database migrations inside the container:
+## 🐳 Full Development (with Docker)
+
+### ▶️ Start `local_dev` environment (PostgreSQL)
+
+Runs only the PostgreSQL container using the `local_dev` Docker profile.
+
+```shell
+make d-run-local-dev
+```
+
+### ⛔ Stop `local_dev` environment
+
+Stops all containers from the `local_dev` profile.
+
+```shell
+make d-stop-local-dev
+```
+
+### 🧼 Purge `local_dev` environment
+
+Removes local containers, volumes, and images used in `local_dev`.
+
+```shell
+make d-purge-local-dev
+```
+
+### ▶️ Start `full_dev` environment (Django, PostgreSQL)
+
+Builds and runs all services defined in the `full_dev` Docker profile.
+
+```shell
+make d-run-full-dev
+```
+
+### ⏯️ Extended `full_dev` start
+
+Stops previous containers, restarts everything in detached mode, and follows logs.
+
+```shell
+make d-run-extended-full-dev
+```
+
+### ⛔ Stop `full_dev` environment
+
+Stops all containers from the `full_dev` profile.
+
+```shell
+make d-stop-full-dev
+```
+
+### 🧼 Purge `full_dev` environment
+
+Removes containers, volumes, and images used in `full_dev`.
+
+```shell
+make d-purge-full-dev
+```
+
+### 📜 Follow Docker logs `full_dev`
+
+Tails logs from all containers running in `full_dev`.
+
+```shell
+make d-logs-follow-full_dev
+```
+
+### 📦 Apply migrations (inside container)
+
+Applies database migrations inside the `app` Docker container.
 
 ```shell
 make d-migrate
 ```
 
-### 🆕 Create Migration Files
+### 🧾 Create migrations (inside container)
 
-Generate migration files inside the container:
+Creates migration files inside the `app` container.
 
 ```shell
 make d-migrations
 ```
 
----
+### 👤 Create superuser (inside container)
 
-## 🧰 Django Management (Local)
-
-> Useful when working without Docker.
-
-### 🛠️ Apply Migrations Locally
+Creates a Django superuser inside the `app` container if one doesn't exist.
 
 ```shell
-make migrate
+make d-init-dev-create-superuser
 ```
 
-### 🆕 Create Migration Files Locally
-
-```shell
-make migrations
-```
+Default Superuser Credentials:
+> Username: admin
+>
+>Email: admin@example.com
+>
+>Password: admin
 
 ---
 
 ## 📎 License
 
 This project is for educational purposes.
+
+---
