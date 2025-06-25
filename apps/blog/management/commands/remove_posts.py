@@ -27,5 +27,5 @@ class Command(BaseCommand):
                 logger.warning("Aborted. No posts deleted.")
                 return
 
-        deleted_count, _ = Post.objects.a % ll().delete()
+        deleted_count, _ = Post.objects.all().delete()
         logger.info(f"Deleted {deleted_count} posts.")
