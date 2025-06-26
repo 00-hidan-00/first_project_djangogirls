@@ -116,6 +116,10 @@ LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Europe/Kyiv'
 
+DATE_INPUT_FORMATS = ["%d.%m.%Y", ]
+
+DATETIME_INPUT_FORMATS = ["%H:%M %Y.%m.%d"]
+
 USE_I18N = True
 
 USE_TZ = True
