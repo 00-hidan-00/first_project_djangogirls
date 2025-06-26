@@ -1,4 +1,4 @@
-{% extends 'blog/../base.html' %}
+{% extends 'base.html' %}
 
 {% block content %}
     <div class="post__page">
@@ -10,7 +10,7 @@
                 <p class="post__text">{{ post.text|linebreaksbr }}</p>
                 {% if post.published_date %}
                     <div class="post__data">
-                        {{ post.published_date }}
+                        {{ post.published_date | date:"H:i - d.m.Y" }}
                     </div>
                 {% endif %}
                 {% if user.is_authenticated %}
@@ -33,49 +33,8 @@
                 {% endif %}
             </div>
         </div>
-        <div class="post-comments">
-            <div class="post-comments__body">
-                <div class="post-comments__add-btn-and-title">
-                    <h2 class="post-comments__title">Comments:</h2>
-                    <a href="{% url 'blog:add_comment_to_post' pk=post.pk %}"
-                       class="post-comments__add-btn button button--mini">
-                        Add Comment
-                    </a>
-                </div>
-                <div class="post-comments__items">
-                    {% for comment in post.comments.all %}
-                        {% if user.is_authenticated or comment.approved_comment %}
-                            <div class="post-comments__item">
-                                <h3 class="post-comments__author">{{ comment.author }}</h3>
-                                <div class="post-comments__text">{{ comment.text|linebreaks }}</div>
-                                <p class="post-comments__date">{{ comment.created_date }}</p>
-                                {% if not comment.approved_comment %}
-                                    <div class="post-comments__actions">
-                                        <form action="{% url 'blog:comment_approve' pk=comment.post.pk local_number=comment.local_number %}"
-                                              method="post">
-                                            {% csrf_token %}
-                                            <button type="submit"
-                                                    class="post-comments__approve-btn button button--mini">
-                                                Approve
-                                            </button>
-                                        </form>
-                                        <form action="{% url 'blog:comment_remove' pk=comment.post.pk local_number=comment.local_number %}"
-                                              method="post">
-                                            {% csrf_token %}
-                                            <button type="submit"
-                                                    class="post-comments__delete-btn button button--white-border button--mini">
-                                                Delete
-                                            </button>
-                                        </form>
-                                    </div>
-                                {% endif %}
-                            </div>
-                        {% endif %}
-                    {% empty %}
-                        <p class="post-comments__not-comments">No comments here yet :(</p>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
     </div>
+    {% include 'blog/comments_list.html' %}
+
 {% endblock %}
+

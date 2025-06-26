@@ -1,4 +1,4 @@
-{% extends 'blog/../base.html' %}
+{% extends 'base.html' %}
 
 {% block content %}
     <div class="blog-list__page">
@@ -15,7 +15,7 @@
                         <a href="{% url 'blog:post_detail' pk=post.pk %}" class="blog-list__item-post-link">Read
                             More</a>
                         <div class="blog-list__item-data-and-item-comment-link">
-                            <div class="blog-list__item-data"> {{ post.published_date|date:"d M Y" }} </div>
+                            <div class="blog-list__item-data"> {{ post.published_date|date:"d.m Y" }} </div>
                             <a href="{% url 'blog:post_detail' pk=post.pk %}" class="blog-list__item-comment-link">
                                 {{ post.approved_comments.count }} comment{{ post.approved_comments.count|pluralize }}
                             </a>
