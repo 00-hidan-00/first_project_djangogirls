@@ -115,13 +115,25 @@ d-init-dev-create-superuser:
 # [management commands] targets
 # ----------------------------------------------------------------------------------------------------------------------
 
-AMOUNT ?= 10
+AMOUNT_POSTS ?= 10
+AMOUNT_COMMENTS ?= 5
+
+.PHONY: dev-generate-posts-comments
+dev-generate-posts-comments:
+	@python manage.py generate_posts_comments --amount_posts $(AMOUNT_POSTS) --amount_comments $(AMOUNT_COMMENTS)
 
 .PHONY: dev-generate-posts
 dev-generate-posts:
-	@python manage.py generate_posts --amount $(AMOUNT)
-
+	@python manage.py generate_posts --amount $(AMOUNT_POSTS)
 
 .PHONY: dev-delete-posts
 dev-delete-posts:
 	@python manage.py remove_posts --force
+
+.PHONY: dev-generate-comments
+dev-generate-comments:
+	@python manage.py generate_comments --amount $(AMOUNT_COMMENTS)
+
+.PHONY: dev-delete-comments
+dev-delete-comments:
+	@python manage.py remove_comments --force
