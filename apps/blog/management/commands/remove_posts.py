@@ -11,14 +11,14 @@ logger.setLevel(logging.INFO)
 class Command(BaseCommand):
     help = 'Delete all posts from the blog.'
 
-    def add_arguments(self, parser: CommandParser):
+    def add_arguments(self, parser: CommandParser) -> None:
         parser.add_argument(
             '--force',
             action='store_true',
             help='Delete without confirmation prompt.'
         )
 
-    def handle(self, *args, **options):
+    def handle(self, *args, **options) -> None:
         force = options['force']
 
         if not force:
