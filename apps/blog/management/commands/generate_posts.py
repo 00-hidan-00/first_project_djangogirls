@@ -3,7 +3,7 @@ import logging
 from django.core.management.base import BaseCommand, CommandParser
 
 from apps.blog.models import Post
-from apps.blog.services.content_generato import ContentGenerator
+from apps.blog.services import ContentGenerator
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)

@@ -3,8 +3,8 @@ import logging
 from django.core.management.base import BaseCommand, CommandParser
 from django.db import transaction
 
-from apps.blog.management.commands.generate_posts import ContentGenerator
 from apps.blog.models import Comment, Post
+from apps.blog.services import ContentGenerator
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
