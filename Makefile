@@ -42,7 +42,7 @@ migrations:
 # Create Django superuser locally if it doesn't exist
 .PHONY: init-dev-create-superuser
 init-dev-create-superuser:
-	@python manage.py shell -c "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.filter(username='admin').exists() or User.objects.create_superuser('admin', 'admin@example.com', 'admin')"
+	@python manage.py shell -c "import os; from django.contrib.auth import get_user_model; User = get_user_model(); username = os.environ.get('superuser_username', 'admin'); User.objects.filter(username=username).exists() or User.objects.create_superuser(username, 'admin@example.com', 'admin')"
 
 # Initialize configs for local development (copy overrides and env files)
 .PHONY: init-configs-local-dev
@@ -109,7 +109,31 @@ d-migrations:
 # Create Django superuser inside the app container if not exists
 .PHONY: d-init-dev-create-superuser
 d-init-dev-create-superuser:
-	@COMPOSE_PROFILES=full_dev docker compose exec app python manage.py shell -c "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.filter(username='admin').exists() or User.objects.create_superuser('admin', 'admin@example.com', 'admin')"
+	@COMPOSE_PROFILES=full_dev docker compose exec app python manage.py shell -c "import os; from django.contrib.auth import get_user_model; User = get_user_model(); username = os.environ.get('superuser_username', 'admin'); User.objects.filter(username=username).exists() or User.objects.create_superuser(username, 'admin@example.com', 'admin')"
 
-# команды для герерации конетента
-# ...
+# ----------------------------------------------------------------------------------------------------------------------
+# [management commands] targets
+# ----------------------------------------------------------------------------------------------------------------------
+
+AMOUNT_POSTS ?= 10
+AMOUNT_COMMENTS ?= 5
+
+.PHONY: dev-generate-posts-comments
+dev-generate-posts-comments:
+	@python manage.py generate_posts_comments --amount_posts $(AMOUNT_POSTS) --amount_comments $(AMOUNT_COMMENTS)
+
+.PHONY: dev-generate-posts
+dev-generate-posts:
+	@python manage.py generate_posts --amount $(AMOUNT_POSTS)
+
+.PHONY: dev-delete-posts
+dev-delete-posts:
+	@python manage.py remove_posts --force
+
+.PHONY: dev-generate-comments
+dev-generate-comments:
+	@python manage.py generate_comments --amount $(AMOUNT_COMMENTS)
+
+.PHONY: dev-delete-comments
+dev-delete-comments:
+	@python manage.py remove_comments --force

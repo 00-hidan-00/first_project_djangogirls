@@ -116,6 +116,10 @@ LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Europe/Kyiv'
 
+DATE_INPUT_FORMATS = ["%d.%m.%Y", ]
+
+DATETIME_INPUT_FORMATS = ["%H:%M %Y.%m.%d"]
+
 USE_I18N = True
 
 USE_TZ = True
@@ -136,3 +140,37 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # 🔐 Redirect after successful login
 LOGIN_REDIRECT_URL = '/'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose_custom': {
+            'format': "[%(asctime)s.%(msecs)03d] "
+                      "[PROCESS %(process)d %(processName)s] "
+                      "[THREAD %(thread)d %(threadName)s] "
+                      "%(name)s - %(levelname)s - %(message)s",
+            'datefmt': "%Y-%m-%d %H:%M:%S",
+        },
+    },
+    'handlers': {
+        'console_handler_custom': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose_custom',
+        },
+        'file_handler': {
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': str(BASE_DIR.joinpath('logs', 'blog.log')),
+            'maxBytes': 5 * 1024 * 1024,
+            'backupCount': 3,
+            'formatter': 'verbose_custom',
+            'encoding': 'utf-8',
+        },
+    },
+    'loggers': {
+        '': {
+            'level': 'INFO',
+            'handlers': ['console_handler_custom', 'file_handler'],
+        },
+    },
+}
