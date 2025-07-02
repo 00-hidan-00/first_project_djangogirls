@@ -1,0 +1,44 @@
+output-format: colorized  # more readable colored output in terminal
+max-line-length: 120
+
+uses:
+  - django
+  - security  # enable basic security checks (Bandit included)
+
+pylint:
+  run: true   # enable pylint, powerful and useful
+  ignore-patterns:
+    - migrations/*  # skip generated migrations
+  rcfile: .pylintrc  # if you have your own pylint config file
+
+mccabe:
+  run: true
+  max-complexity: 10  # maximum allowed function complexity
+
+pep8:
+  max-line-length: 120
+
+pycodestyle:
+  max-line-length: 120
+
+bandit:
+  run: true
+  severity-level: medium  # warn on medium and higher severity issues
+
+docstyle:
+  run: true
+  ignore-decorators:
+    - django.db.models.permalink
+  convention: numpy
+
+skip:
+  - tests/*  # optionally skip tests (but better to analyze them)
+
+paths:
+  - apps
+  - core
+  - manage.py
+
+# Additional prospector options can be added:
+#  verbose: true
+#  output-file: prospector-report.txt
