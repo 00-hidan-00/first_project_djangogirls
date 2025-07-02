@@ -9,3 +9,14 @@ django-environ==0.12.0
 
 # Faker - library for generating fake data (names, addresses, texts, etc.)
 faker==37.4.0
+
+# [code_style]-[BEGIN]
+# Pre-commit hook.
+pre-commit==4.2.0
+# Upgrade syntax.
+pyupgrade==3.20.0
+# Formatter. Apply codestyle.
+black==25.1.0
+# Static analysis
+prospector[with_everything]==1.17.2
+# [code_style]-[END]
