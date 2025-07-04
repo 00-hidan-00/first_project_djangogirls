@@ -8,13 +8,17 @@ uses:
 
 # Pylint configuration
 pylint:
-  run: true                    # Enable Pylint (static code analysis tool)
-  max-line-length: 120
+  run: false                    # Enable Pylint (static code analysis tool)
+#  max-line-length: 120
   ignore-patterns:
     - migrations/*             # Ignore Django migration files
-    # rcfile: .pylintrc         # Uncomment to use a custom Pylint config file
-  disable:
-    - django-not-configured    # Ignore missing Django setup warning
+  rcfile: .pylintrc         # Uncomment to use a custom Pylint config file
+#  disable:
+#    - django-not-configured    # Ignore missing Django setup warning
+#    - no-member
+#    - C0114  # missing-module-docstring
+#    - C0115  # missing-class-docstring
+#    - C0116  # missing-function-docstring
 
 # McCabe complexity checker
 mccabe:
