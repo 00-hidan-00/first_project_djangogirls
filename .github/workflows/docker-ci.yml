@@ -38,5 +38,5 @@ jobs:
 
       - name: ✅ Run Django checks and tests
         run: |
-          docker compose exec app python manage.py check
-          docker compose exec app python manage.py test
+          docker compose --profile full_dev exec app python manage.py check
+          docker compose --profile full_dev exec app python manage.py test
