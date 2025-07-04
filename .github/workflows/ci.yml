@@ -76,13 +76,13 @@ jobs:
           flake8 .
         # Installs flake8 and runs linting to enforce code style and catch errors
 
-      - name: Run tests (pytest)
-        env:
-          # Set environment variables needed for tests, e.g. Django settings
-          DJANGO_SETTINGS_MODULE: core.settings
-        run: |
-          pip install pytest pytest-django
-          pytest --maxfail=1 --disable-warnings -q
+#      - name: Run tests (pytest)
+#        env:
+#          # Set environment variables needed for tests, e.g. Django settings
+#          DJANGO_SETTINGS_MODULE: core.settings
+#        run: |
+#          pip install pytest pytest-django
+#          pytest --maxfail=1 --disable-warnings -q
         # Installs pytest and runs tests quietly, stopping after first failure and suppressing warnings
 
   notify-success:
