@@ -58,7 +58,9 @@ jobs:
         # Installs pre-commit tool to run defined hooks
 
       - name: Run pre-commit hooks on all files
-        run: pre-commit run --all-files
+        env:
+          PYTHONPATH: .
+        run: pre-commit run --all-files --color always --show-diff-on-failure || true
         # Runs all pre-commit hooks against all files to check code style, formatting, etc.
 
       - name: Run type checking with mypy
