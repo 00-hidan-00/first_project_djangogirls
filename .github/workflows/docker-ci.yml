@@ -36,12 +36,6 @@ jobs:
       - name: ⚙️ Build and run containers
         run: docker compose --profile full_dev up -d --build
 
-      - name: ⏳ Wait for Postgres
-        run: |
-          until docker compose exec postgres pg_isready -U $POSTGRES_USER; do
-            echo "Waiting for Postgres..."; sleep 2;
-          done
-
       - name: ✅ Run Django checks and tests
         run: |
           docker compose exec app python manage.py check
