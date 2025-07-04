@@ -31,15 +31,28 @@ sys.exit(0)
 END
 }
 
-echo "Waiting for PostgreSQL at $POSTGRES_HOST:$POSTGRES_PORT..."
+wait_for_postgres() {
+  local max_attempts=30
+  local attempt=1
 
-until postgres_ready; do
-  echo "PostgreSQL is unavailable - sleeping"
-  sleep 1
-done
+  echo "Waiting for PostgreSQL at $POSTGRES_HOST:$POSTGRES_PORT..."
 
-echo "PostgreSQL is up"
+  until postgres_ready; do
+    if [ "$attempt" -ge "$max_attempts" ]; then
+      echo "Error: PostgreSQL is still unavailable after $max_attempts attempts."
+      exit 1
+    fi
+
+    echo "PostgreSQL is unavailable - sleeping (attempt $attempt/$max_attempts)..."
+    attempt=$((attempt + 1))
+    sleep 1
+  done
+
+  echo "PostgreSQL is up!"
+}
 # [wait_postgres]-[END]
+
+wait_for_postgres
 
 # Execute the command passed as arguments (usually CMD)
 exec "$@"

@@ -8,7 +8,7 @@ from django.views import View
 from apps.blog.models import Post
 
 
-@method_decorator(login_required, name='dispatch')
+@method_decorator(login_required, name="dispatch")
 class PostPublishView(View):
     """
     View to publish a blog post and notify the user.
@@ -18,4 +18,4 @@ class PostPublishView(View):
         post = get_object_or_404(Post, pk=pk)
         post.publish()
         messages.info(request, f'Post published: "{post.title}"')
-        return redirect('blog:post_detail', pk=pk)
+        return redirect("blog:post_detail", pk=pk)

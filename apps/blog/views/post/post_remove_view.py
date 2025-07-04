@@ -10,9 +10,10 @@ class PostRemoveView(LoginRequiredMixin, DeleteView):
     """
     View to delete a blog post and notify user upon success.
     """
+
     model = Post
-    context_object_name = 'post'
-    success_url = reverse_lazy('blog:post_list')
+    context_object_name = "post"
+    success_url = reverse_lazy("blog:post_list")
 
     def form_valid(self, form):
         post = self.get_object()

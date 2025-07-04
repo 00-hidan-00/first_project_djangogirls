@@ -1,0 +1,16 @@
+[flake8]
+max-line-length = 120
+
+exclude =
+    venv,
+    .venv,
+    migrations,
+    media,
+    static,
+    logs,
+    __pycache__
+
+per-file-ignores =
+    apps/blog/views/__init__.py: F401
+    apps/blog/services/__init__.py: F401
+    core/settings.py: E231

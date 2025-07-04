@@ -1,10 +1,35 @@
-# Ignore all
+# Ignore everything by default
 **
 
-# Exclude
+# Allow necessary files and folders (exceptions to the ignore)
 !requirements.txt
 !manage.py
-!core
-!apps
-!docker/app
+!core/
+!apps/
+!docker/app/
 !Makefile
+
+# Allow all files inside these directories so Docker can see them
+!core/**
+!apps/**
+
+# Ignore config files and folders not needed inside the container
+.pre-commit-config.yaml
+.prospector.yaml
+.flake8
+.editorconfig
+.github/
+.git/
+.env
+.env.example
+.pytest_cache/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.swp
+*.tmp
+*.log
+.mypy_cache/
+.vscode/
+.idea/

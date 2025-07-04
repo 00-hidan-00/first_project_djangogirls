@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Post, Comment
+from .models import Comment, Post
 
 
 @admin.register(Post)
@@ -11,4 +11,4 @@ class PostAdmin(admin.ModelAdmin):
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
     model = Comment
-    readonly_fields = ('local_number',)
+    readonly_fields = ("local_number",)

@@ -9,9 +9,10 @@ class PostDraftListView(LoginRequiredMixin, ListView):
     View to display a list of draft posts (posts without a published date).
     Only authenticated users can access this view.
     """
+
     model = Post
-    template_name = 'blog/post_draft_list.html'
-    context_object_name = 'posts'
+    template_name = "blog/post_draft_list.html"
+    context_object_name = "posts"
 
     def get_queryset(self):
         """
@@ -19,4 +20,4 @@ class PostDraftListView(LoginRequiredMixin, ListView):
         ordered by creation date in ascending order.
         """
 
-        return self.model.objects.filter(published_date__isnull=True).order_by('created_date')
+        return self.model.objects.filter(published_date__isnull=True).order_by("created_date")

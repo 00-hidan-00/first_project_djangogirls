@@ -12,10 +12,10 @@ from apps.blog.models import Post
 class PostEditView(LoginRequiredMixin, UpdateView):
     model = Post
     form_class = PostForm
-    template_name = 'blog/post_edit.html'
-    context_object_name = 'post'
+    template_name = "blog/post_edit.html"
+    context_object_name = "post"
 
-    PUBLISH_ACTION_NAME = 'publish'
+    PUBLISH_ACTION_NAME = "publish"
 
     def form_valid(self, form: PostForm) -> HttpResponseRedirect:
         """
@@ -38,7 +38,7 @@ class PostEditView(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self) -> str:
         """Return URL to redirect after successful form submission."""
-        return reverse('blog:post_detail', kwargs={'pk': self.object.pk})
+        return reverse("blog:post_detail", kwargs={"pk": self.object.pk})
 
     def _is_publish_action(self) -> bool:
         """Check if the form submission corresponds to a publish action."""

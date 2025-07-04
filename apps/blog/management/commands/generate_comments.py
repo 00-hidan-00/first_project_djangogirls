@@ -10,20 +10,17 @@ logger.setLevel(logging.INFO)
 
 
 class Command(BaseCommand):
-    help = 'Generate dummy comments for posts.'
+    help = "Generate dummy comments for posts."
 
     def add_arguments(self, parser: CommandParser) -> None:
         parser.add_argument(
-            '--amount',
-            type=int,
-            default=5,
-            help='Number of comments to generate for each post (default: 5)'
+            "--amount", type=int, default=5, help="Number of comments to generate for each post (default: 5)"
         )
 
     def handle(self, *args, **options) -> None:
-        amount = options['amount']
+        amount = options["amount"]
         generator = ContentGenerator()
-        logger.info(f"Starting comment generation. Existing comments: {Comment.objects.count()}")
+        logger.info("Starting comment generation. Existing comments: %d", Comment.objects.count())
         try:
             comments = generator.generate_comments(amount)
             if not comments:
@@ -31,10 +28,11 @@ class Command(BaseCommand):
                 return
             Comment.objects.bulk_create(comments)
             logger.info(
-                f"Created {len(comments)} comments:\n" + "\n".join(
-                    f" • {comment.text[:40]}" for comment in comments[:5]
-                )
+                "Created %d comments: \n%s",
+                len(comments),
+                "\n".join(f" • {comment.text[:40]}" for comment in comments[:5]),
             )
-            logger.info(f"Total comments after generation: {Comment.objects.count()}")
+
+            logger.info("Total comments after generation: %d", Comment.objects.count())
         except ValueError as e:
-            logger.error(f"Generation failed: {e}")
+            logger.error("Generation failed: %s", e)

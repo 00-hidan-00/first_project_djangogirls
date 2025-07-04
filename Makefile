@@ -12,12 +12,10 @@ COMPOSE_FULL := COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 COMPOSE_PROFILES=fu
 d-run-local-dev:
 	@$(COMPOSE_LOCAL) docker-compose up --build postgres
 
-
 # Run Django development server locally with activated virtualenv
 .PHONY: runserver
 runserver:
 	@. .venv/bin/activate && python manage.py runserver
-
 
 # Stop all services in local_dev profile
 .PHONY: d-stop-local-dev
@@ -54,12 +52,6 @@ init-configs-local-dev:
 .PHONY: util-kill-port-8000
 util-kill-port-8000:
 	@pid=$$(sudo lsof -i:8000 -t); if [ -n "$$pid" ]; then sudo kill $$pid; fi
-
-.PHONY: init-dev
-init-dev:
-	@pip install --upgrade pip && \
-	pip install --requirement requirements.txt && \
-	pre-commit install
 
 # ----------------------------------------------------------------------------------------------------------------------
 # [full_dev] targets
@@ -110,6 +102,24 @@ d-migrations:
 .PHONY: d-init-dev-create-superuser
 d-init-dev-create-superuser:
 	@COMPOSE_PROFILES=full_dev docker compose exec app python manage.py shell -c "import os; from django.contrib.auth import get_user_model; User = get_user_model(); username = os.environ.get('superuser_username', 'admin'); User.objects.filter(username=username).exists() or User.objects.create_superuser(username, 'admin@example.com', 'admin')"
+
+# ----------------------------------------------------------------------------------------------------------------------
+# [pre commit commands] targets
+# ----------------------------------------------------------------------------------------------------------------------
+
+.PHONY: pre-commit-init
+pre-commit-init:
+	@pip install --upgrade pip && \
+	pip install --requirement requirements.txt && \
+	pre-commit install
+
+.PHONY: pre-commit-run-all
+pre-commit-run-all:
+	@pre-commit run --all-files
+
+.PHONY: pre-commit-clean
+pre-commit-clean:
+	@pre-commit clean
 
 # ----------------------------------------------------------------------------------------------------------------------
 # [management commands] targets
