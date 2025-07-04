@@ -8,7 +8,7 @@ uses:
 
 # Pylint configuration
 pylint:
-  run: false                    # Enable Pylint (static code analysis tool)
+  run: true                    # Enable Pylint (static code analysis tool)
 #  max-line-length: 120
   ignore-patterns:
     - migrations/*             # Ignore Django migration files
