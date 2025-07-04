@@ -1,9 +1,9 @@
 [MASTER]
-init-hook='import sys; sys.path.insert(0, ".")'
+init-hook='import sys; sys.path.insert(0, "."); import django; django.setup()'
+load-plugins=pylint_django
 
 [MESSAGES CONTROL]
 disable=
-    django-not-configured,
     no-member,
     C0114,
     C0115,
