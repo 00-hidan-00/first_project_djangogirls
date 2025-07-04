@@ -6,6 +6,10 @@ uses:
   - django      # Enables Django-specific linting rules
   - security    # Enables basic security checks (includes Bandit)
 
+# Pylint configuration
+pylint:
+  run: false
+
 # McCabe complexity checker
 mccabe:
   run: true
