@@ -10,7 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
-import os
 from pathlib import Path
 
 # noinspection PyPackageRequirements
@@ -18,73 +17,75 @@ import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-APPS_DIR = BASE_DIR.joinpath('apps')
+APPS_DIR = BASE_DIR.joinpath("apps")
 
 env = environ.Env()
-env.read_env(BASE_DIR.joinpath('.env'))
+env.read_env(BASE_DIR.joinpath(".env"))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-SECRET_KEY = env.str('DJANGO__SECRET_KEY', default='unsafe-dev-secret')
+SECRET_KEY = env.str("DJANGO__SECRET_KEY", default="unsafe-dev-secret")
+
+SESSION_COOKIE_SECURE = False
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SAMESITE = "Lax"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool('DJANGO__DEBUG', default=False)
+DEBUG = env.bool("DJANGO__DEBUG", default=False)
 
-ALLOWED_HOSTS = env.list('DJANGO__ALLOWED_HOSTS', default=['localhost', '127.0.0.1'])
+ALLOWED_HOSTS = env.list("DJANGO__ALLOWED_HOSTS", default=["localhost", "127.0.0.1"])
 
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'apps.blog',
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "apps.blog",
 ]
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = 'core.urls'
+ROOT_URLCONF = "core.urls"
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        "DIRS": [
-            APPS_DIR.joinpath('templates')
-        ],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [APPS_DIR.joinpath("templates")],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'core.wsgi.application'
+WSGI_APPLICATION = "core.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': env.db_url_config(
+    "default": env.db_url_config(
         env.str(
-            'DB_URL',
+            "DB_URL",
             f'postgresql://{env("POSTGRES_USER")}:{env("POSTGRES_PASSWORD")}@'
             f'{env("POSTGRES_HOST")}:{env("POSTGRES_PORT")}/{env("POSTGRES_DB")}',
         )
@@ -96,27 +97,29 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = 'Europe/Kyiv'
+TIME_ZONE = "Europe/Kyiv"
 
-DATE_INPUT_FORMATS = ["%d.%m.%Y", ]
+DATE_INPUT_FORMATS = [
+    "%d.%m.%Y",
+]
 
 DATETIME_INPUT_FORMATS = ["%H:%M %Y.%m.%d"]
 
@@ -128,49 +131,49 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 
-STATIC_URL = 'static/'
+STATIC_URL = "static/"
 STATICFILES_DIRS = [
-    APPS_DIR.joinpath('static'),
+    APPS_DIR.joinpath("static"),
 ]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # 🔐 Redirect after successful login
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = "/"
 
 LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'verbose_custom': {
-            'format': "[%(asctime)s.%(msecs)03d] "
-                      "[PROCESS %(process)d %(processName)s] "
-                      "[THREAD %(thread)d %(threadName)s] "
-                      "%(name)s - %(levelname)s - %(message)s",
-            'datefmt': "%Y-%m-%d %H:%M:%S",
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose_custom": {
+            "format": "[%(asctime)s.%(msecs)03d] "
+            "[PROCESS %(process)d %(processName)s] "
+            "[THREAD %(thread)d %(threadName)s] "
+            "%(name)s - %(levelname)s - %(message)s",
+            "datefmt": "%Y-%m-%d %H:%M:%S",
         },
     },
-    'handlers': {
-        'console_handler_custom': {
-            'class': 'logging.StreamHandler',
-            'formatter': 'verbose_custom',
+    "handlers": {
+        "console_handler_custom": {
+            "class": "logging.StreamHandler",
+            "formatter": "verbose_custom",
         },
-        'file_handler': {
-            'class': 'logging.handlers.RotatingFileHandler',
-            'filename': str(BASE_DIR.joinpath('logs', 'blog.log')),
-            'maxBytes': 5 * 1024 * 1024,
-            'backupCount': 3,
-            'formatter': 'verbose_custom',
-            'encoding': 'utf-8',
+        "file_handler": {
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": str(BASE_DIR.joinpath("logs", "blog.log")),
+            "maxBytes": 5 * 1024 * 1024,
+            "backupCount": 3,
+            "formatter": "verbose_custom",
+            "encoding": "utf-8",
         },
     },
-    'loggers': {
-        '': {
-            'level': 'INFO',
-            'handlers': ['console_handler_custom', 'file_handler'],
+    "loggers": {
+        "": {
+            "level": "INFO",
+            "handlers": ["console_handler_custom", "file_handler"],
         },
     },
 }
