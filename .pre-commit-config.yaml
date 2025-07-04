@@ -32,6 +32,8 @@ repos:
     rev: v1.17.2
     hooks:
       - id: prospector
+        env:
+          PYTHONPATH: "."
         additional_dependencies:
           - "prospector[with_bandit]"
           - django
