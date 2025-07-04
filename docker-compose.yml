@@ -1,5 +1,7 @@
 volumes:
   postgres_data:
+  media_data:
+  logs_data:
 
 services:
   app:
