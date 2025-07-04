@@ -9,23 +9,19 @@ logger.setLevel(logging.INFO)
 
 
 class Command(BaseCommand):
-    help = 'Delete all posts from the blog.'
+    help = "Delete all posts from the blog."
 
     def add_arguments(self, parser: CommandParser) -> None:
-        parser.add_argument(
-            '--force',
-            action='store_true',
-            help='Delete without confirmation prompt.'
-        )
+        parser.add_argument("--force", action="store_true", help="Delete without confirmation prompt.")
 
     def handle(self, *args, **options) -> None:
-        force = options['force']
+        force = options["force"]
 
         if not force:
             confirm = input("Are you sure you want to delete ALL posts? Type 'yes' to confirm: ")
-            if confirm.strip().lower() not in ('yes', 'y'):
+            if confirm.strip().lower() not in ("yes", "y"):
                 logger.warning("Aborted. No posts deleted.")
                 return
 
         deleted_count, _ = Post.objects.all().delete()
-        logger.info(f"Deleted {deleted_count} posts.")
+        logger.info("Deleted %d posts.", deleted_count)
