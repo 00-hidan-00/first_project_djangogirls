@@ -12,6 +12,7 @@ services:
       - postgres
     volumes:
       - './media/:/wd/media:rw'
+      - './logs/:/wd/logs:rw'
     user: '1000'
 
   postgres:
