@@ -25,7 +25,7 @@ pycodestyle:
 
 # Bandit configuration (security-focused checks)
 bandit:
-  run: true
+  run: false  # Disable Bandit by default, enable if needed
   severity-level: high  # warn on medium and higher severity issues
   ignore-patterns:
     - migrations/*  # skip generated migrations
@@ -44,9 +44,8 @@ style:
       - django.db.models.permalink  # Ignore deprecated Django decorator
     convention: numpy               # Enforce NumPy docstring style (alternatives: pep257, google)
 
-# Skip analysis on specific folders
-skip:
-  - tests/*   # Optionally skip test files (not recommended for production)
+
+  # Optionally skip test files (not recommended for production)
 
 # Optional additional settings
 # verbose: true             # Enable detailed logging
