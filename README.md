@@ -1,6 +1,6 @@
 # Django Blog Project 📝
 
-![CI Pipeline](https://github.com/00-hidan-00/first_project_djangogirls/actions/workflows/main-workflow.yml/badge.svg)
+![CI Pipeline](https://github.com/00-hidan-00/first_project_djangogirls/actions/workflows/ci.yml/badge.svg)
 
 
 ### 🌟 Overview
