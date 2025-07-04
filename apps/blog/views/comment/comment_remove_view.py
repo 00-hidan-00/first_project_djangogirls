@@ -14,12 +14,13 @@ class CommentRemoveView(LoginRequiredMixin, DeleteView):
     Displays a warning message after successful deletion.
     Requires authenticated user.
     """
+
     model = Comment
-    context_object_name = 'comment'
+    context_object_name = "comment"
 
     def get_queryset(self):
         """Optimize queryset by selecting related post."""
-        return super().get_queryset().select_related('post')
+        return super().get_queryset().select_related("post")
 
     def get_object(self, queryset=None):
         """
@@ -27,17 +28,17 @@ class CommentRemoveView(LoginRequiredMixin, DeleteView):
         Supports nested URL lookup and improves URL clarity.
         """
         queryset = queryset or self.get_queryset()
-        post_pk = self.kwargs.get('pk')
-        local_number = self.kwargs.get('local_number')
+        post_pk = self.kwargs.get("pk")
+        local_number = self.kwargs.get("local_number")
         return get_object_or_404(queryset, post__pk=post_pk, local_number=local_number)
 
     def get_success_url(self) -> str:
         """Redirect to the related post detail page after deletion."""
-        return reverse_lazy('blog:post_detail', kwargs={'pk': self.object.post.pk})
+        return reverse_lazy("blog:post_detail", kwargs={"pk": self.object.post.pk})
 
     def form_valid(self, form) -> HttpResponse:
         """Delete comment, add message, then redirect."""
-        comment_text = self.object.text or '[empty]'
+        comment_text = self.object.text or "[empty]"
         response = super().form_valid(form)
         messages.warning(self.request, f'Comment deleted: "{comment_text}"')
         return response

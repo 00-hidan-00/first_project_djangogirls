@@ -1,10 +1,10 @@
-from .comment.add_comment_to_post_view import AddCommentToPostView
-from .comment.comment_approve_view import CommentApproveView
-from .comment.comment_remove_view import CommentRemoveView
-from .post.post_detail_view import PostDetailView
-from .post.post_draft_list_view import PostDraftListView
-from .post.post_edit_view import PostEditView
-from .post.post_list_view import PostListView
-from .post.post_new_view import PostNewView
-from .post.post_publish_view import PostPublishView
-from .post.post_remove_view import PostRemoveView
+from .comment.add_comment_to_post_view import AddCommentToPostView  # noqa: F401
+from .comment.comment_approve_view import CommentApproveView  # noqa: F401
+from .comment.comment_remove_view import CommentRemoveView  # noqa: F401
+from .post.post_detail_view import PostDetailView  # noqa: F401
+from .post.post_draft_list_view import PostDraftListView  # noqa: F401
+from .post.post_edit_view import PostEditView  # noqa: F401
+from .post.post_list_view import PostListView  # noqa: F401
+from .post.post_new_view import PostNewView  # noqa: F401
+from .post.post_publish_view import PostPublishView  # noqa: F401
+from .post.post_remove_view import PostRemoveView  # noqa: F401
