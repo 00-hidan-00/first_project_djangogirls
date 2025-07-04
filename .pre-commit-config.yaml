@@ -1,36 +1,78 @@
 repos:
+  # pyupgrade automatically upgrades your Python syntax to the specified version (here Python 3.12+)
   - repo: https://github.com/asottile/pyupgrade
-    rev: v2.38.0
+    rev: v3.20.0
     hooks:
       - id: pyupgrade
         args: [ "--py312-plus" ]
 
+  # black is an uncompromising Python code formatter enforcing consistent style
   - repo: https://github.com/psf/black
     rev: 25.1.0
     hooks:
       - id: black
         language_version: python3.12
 
+  # isort sorts imports in your Python files, here configured to match black's style
   - repo: https://github.com/pycqa/isort
-    rev: 5.12.0
+    rev: 6.0.1
     hooks:
       - id: isort
         args: [ "--profile", "black" ]
 
+  # flake8 is a tool for linting Python code checking style and potential errors
   - repo: https://github.com/pycqa/flake8
-    rev: 6.0.0
+    rev: 7.3.0
     hooks:
       - id: flake8
 
-  - repo: https://github.com/PyCQA/prospector
-    rev: 1.7.7
+  # prospector is a meta-linter that runs multiple linters (pylint, bandit, mccabe, etc.)
+  # configured here with Django, Faker and django-environ dependencies for better analysis
+  - repo: https://github.com/prospector-dev/prospector
+    rev: v1.17.2
     hooks:
       - id: prospector
         additional_dependencies:
-          - ".[with_everything]"
+          - "prospector[with_bandit]"
+          - django
+          - faker
+          - django-environ
 
+  # mypy performs static type checking on Python code
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v1.3.0
     hooks:
       - id: mypy
         language_version: python3.12
+
+  # detect-secrets scans your code for secrets such as API keys or passwords to prevent leaks
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.5.0
+    hooks:
+      - id: detect-secrets
+#        args: ['--baseline', '.secrets.baseline']
+        # The baseline file stores already known "secrets" so that the tool does not flag them again.
+
+  # trufflehog is another tool to detect secrets in your codebase, searching for high entropy strings
+  - repo: https://github.com/trufflesecurity/trufflehog
+    rev: v3.89.2
+    hooks:
+      - id: trufflehog
+
+  # pre-commit-hooks is a collection of useful general hooks like checking merge conflicts
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-merge-conflict # Detect merge conflict markers in code
+      - id: check-added-large-files
+        args: [ "--maxkb=500" ] # Prevent committing files larger than 500KB
+
+# Example of a local hook (commented out) for running prospector from system environment:
+#  - repo: local
+#    hooks:
+#      - id: prospector
+#        name: prospector
+#        entry: prospector
+#        language: system
+#        types:
+#          - python
