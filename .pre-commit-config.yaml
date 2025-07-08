@@ -33,7 +33,7 @@ repos:
     hooks:
       - id: prospector
         additional_dependencies:
-          - "prospector[with_bandit]"
+          - "prospector"
           - django
           - faker
           - django-environ
