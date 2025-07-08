@@ -1,5 +1,7 @@
 volumes:
   postgres_data:
+  media_data:
+  logs_data:
 
 services:
   app:
@@ -11,7 +13,8 @@ services:
     depends_on:
       - postgres
     volumes:
-      - './media/:/wd/media:rw'
+      - media_data:/wd/media
+      - logs_data:/wd/logs
     user: '1000'
 
   postgres:

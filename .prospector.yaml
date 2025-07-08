@@ -1,0 +1,54 @@
+# Output format for Prospector reports. Options: text, json, html, pylint, json-with-messages
+output-format: pylint
+
+# Libraries or tools to include in the analysis
+uses:
+  - django      # Enables Django-specific linting rules
+  - security    # Enables basic security checks (includes Bandit)
+
+# Pylint configuration
+pylint:
+  run: false
+
+# McCabe complexity checker
+mccabe:
+  run: true
+  max-complexity: 10  # Maximum allowed cyclomatic complexity per function
+
+# PEP8 configuration (legacy, now part of pycodestyle)
+pep8:
+  max-line-length: 120
+
+# Pycodestyle configuration
+pycodestyle:
+  max-line-length: 120
+
+# Bandit configuration (security-focused checks)
+#bandit:
+#  run: true  # Disable Bandit by default, enable if needed
+#  severity-level: high  # warn on medium and higher severity issues
+#  ignore-patterns:
+#    - migrations/*  # skip generated migrations
+# Static analysis meta-linter including Bandit for security checks
+# prospector[with_bandit]==1.17.2
+
+# Style-related tools group
+style:
+  run: true
+  flake8:
+    run: true
+    max-line-length: 120
+  pycodestyle:
+    max-line-length: 120
+  docstyle:
+    run: true
+    ignore-decorators:
+      - django.db.models.permalink  # Ignore deprecated Django decorator
+    convention: numpy               # Enforce NumPy docstring style (alternatives: pep257, google)
+
+
+  # Optionally skip test files (not recommended for production)
+
+# Optional additional settings
+# verbose: true             # Enable detailed logging
+# output-file: prospector-report.txt  # Save output to a file

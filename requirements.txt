@@ -9,3 +9,20 @@ django-environ==0.12.0
 
 # Faker - library for generating fake data (names, addresses, texts, etc.)
 faker==37.4.0
+
+# [code_style]-[BEGIN]
+# Pre-commit framework to manage and run git hooks
+pre-commit==4.2.0
+# Upgrade Python syntax to newer versions automatically
+pyupgrade==3.20.0
+# Code formatter enforcing consistent style
+black==25.1.0
+# Static analysis meta-linter including Bandit for security checks
+prospector==1.17.2
+# Import sorting tool compatible with black style
+isort==6.0.1
+# Linter to enforce coding style and detect errors
+flake8==7.3.0
+# Static type checker for Python
+mypy==1.16.1
+# [code_style]-[END]

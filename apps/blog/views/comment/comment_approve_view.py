@@ -7,7 +7,7 @@ from django.views import View
 from apps.blog.models import Comment
 
 
-@method_decorator(login_required, name='dispatch')
+@method_decorator(login_required, name="dispatch")
 class CommentApproveView(View):
     """
     View to approve a comment by its primary key.
@@ -18,4 +18,4 @@ class CommentApproveView(View):
     def post(self, request: HttpRequest, pk: int, local_number: int, *args, **kwargs) -> HttpResponse:
         comment = get_object_or_404(Comment, post__pk=pk, local_number=local_number)
         comment.approve()
-        return redirect('blog:post_detail', pk=comment.post.pk)
+        return redirect("blog:post_detail", pk=comment.post.pk)

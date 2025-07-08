@@ -11,30 +11,22 @@ logger.setLevel(logging.INFO)
 
 
 class Command(BaseCommand):
-    help = 'Generate Post and Comment'
+    help = "Generate Post and Comment"
 
     def add_arguments(self, parser: CommandParser) -> None:
+        parser.add_argument("--amount_posts", type=int, default=10, help="Number of posts to generate (default: 10)")
         parser.add_argument(
-            '--amount_posts',
-            type=int,
-            default=10,
-            help='Number of posts to generate (default: 10)'
-        )
-        parser.add_argument(
-            '--amount_comments',
-            type=int,
-            default=5,
-            help='Number of comments to generate for each post (default: 5)'
+            "--amount_comments", type=int, default=5, help="Number of comments to generate for each post (default: 5)"
         )
 
     def handle(self, *args, **options) -> None:
-        amount_posts = options['amount_posts']
-        amount_comments = options['amount_comments']
+        amount_posts = options["amount_posts"]
+        amount_comments = options["amount_comments"]
         generator = ContentGenerator()
         logger.info(
-            f"Starting post and comment generation."
-            f"\nExisting Post: {Post.objects.count()}"
-            f"\nExisting Comment: {Comment.objects.count()}"
+            "Starting post and comment generation.\nExisting Post: %d\nExisting Comment: %d",
+            Post.objects.count(),
+            Comment.objects.count(),
         )
         try:
             with transaction.atomic():
@@ -43,14 +35,17 @@ class Command(BaseCommand):
                 generator.refresh_posts_cache()
                 comments = generator.generate_comments(amount_comments)
                 Comment.objects.bulk_create(comments)
-            logger.info(f"Created {len(posts)} posts:\n" + "\n".join(f" • {post.title}" for post in posts))
+            logger.info("Created %d posts: \n%s", len(posts), "\n".join(f" • {post.title}" for post in posts))
             logger.info(
-                f"Created {len(comments)} comments:\n" +
-                "\n".join(f" • {comment.text[:40]}" for comment in comments[:5]) +
-                ("\n • ..." if len(comments) > 5 else "")
+                "Created %d comments: \n%d%s",
+                len(comments),
+                "\n".join(f" • {comment.text[:40]}" for comment in comments[:5]),
+                "\n • ..." if len(comments) > 5 else "",
             )
             logger.info(
-                f"Total post after generation: {Post.objects.count()}. Total comment after generation: {Comment.objects.count()}"
+                "Total post after generation: %d. Total comment after generation: %d",
+                Post.objects.count(),
+                Comment.objects.count(),
             )
         except ValueError as e:
-            logger.error(f"Error: {e}")
+            logger.error("Error: %s", e)

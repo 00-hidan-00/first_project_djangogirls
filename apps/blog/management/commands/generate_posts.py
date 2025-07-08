@@ -10,24 +10,19 @@ logger.setLevel(logging.INFO)
 
 
 class Command(BaseCommand):
-    help = 'Generate dummy blog posts.'
+    help = "Generate dummy blog posts."
 
     def add_arguments(self, parser: CommandParser) -> None:
-        parser.add_argument(
-            '--amount',
-            type=int,
-            default=10,
-            help='Number of posts to generate (default: 10)'
-        )
+        parser.add_argument("--amount", type=int, default=10, help="Number of posts to generate (default: 10)")
 
     def handle(self, *args, **options) -> None:
-        amount = options['amount']
+        amount = options["amount"]
         generator = ContentGenerator()
-        logger.info(f"Starting post generation. Existing posts: {Post.objects.count()}")
+        logger.info("Starting post generation. Existing posts: %d", Post.objects.count())
         try:
             posts = generator.generate_posts(amount)
             Post.objects.bulk_create(posts)
-            logger.info(f"Created {len(posts)} posts:\n" + "\n".join(f" • {post.title}" for post in posts))
-            logger.info(f"Total posts after generation: {Post.objects.count()}")
+            logger.info("Created %d posts: \n%s", len(posts), "\n".join(f" • {post.title}" for post in posts))
+            logger.info("Total posts after generation: %d", Post.objects.count())
         except ValueError as e:
-            logger.error(f"Generation failed: {e}")
+            logger.error("Generation failed: %s", e)
