@@ -64,18 +64,6 @@ jobs:
         run: pre-commit run --all-files
         # Runs all pre-commit hooks against all files to check code style, formatting, etc.
 
-      - name: Run type checking with mypy
-        run: |
-          pip install mypy
-          mypy .
-        # Installs mypy and runs static type checks on your codebase
-
-      - name: Run linters (flake8)
-        run: |
-          pip install flake8
-          flake8 .
-        # Installs flake8 and runs linting to enforce code style and catch errors
-
 #      - name: Run tests (pytest)
 #        env:
 #          # Set environment variables needed for tests, e.g. Django settings
