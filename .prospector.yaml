@@ -31,6 +31,8 @@ bandit:
     - migrations/*  # skip generated migrations
 # Static analysis meta-linter including Bandit for security checks
 # prospector[with_bandit]==1.17.2
+# additional_dependencies:
+#  - "prospector[with_bandit]"
 
 # Style-related tools group
 style:
