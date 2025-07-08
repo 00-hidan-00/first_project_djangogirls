@@ -24,11 +24,13 @@ pycodestyle:
   max-line-length: 120
 
 # Bandit configuration (security-focused checks)
-bandit:
-  run: false  # Disable Bandit by default, enable if needed
-  severity-level: high  # warn on medium and higher severity issues
-  ignore-patterns:
-    - migrations/*  # skip generated migrations
+#bandit:
+#  run: true  # Disable Bandit by default, enable if needed
+#  severity-level: high  # warn on medium and higher severity issues
+#  ignore-patterns:
+#    - migrations/*  # skip generated migrations
+# Static analysis meta-linter including Bandit for security checks
+# prospector[with_bandit]==1.17.2
 
 # Style-related tools group
 style:

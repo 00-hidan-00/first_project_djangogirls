@@ -18,7 +18,7 @@ pyupgrade==3.20.0
 # Code formatter enforcing consistent style
 black==25.1.0
 # Static analysis meta-linter including Bandit for security checks
-prospector[with_bandit]==1.17.2
+prospector==1.17.2
 # Import sorting tool compatible with black style
 isort==6.0.1
 # Linter to enforce coding style and detect errors
