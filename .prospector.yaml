@@ -19,10 +19,6 @@ mccabe:
 pep8:
   max-line-length: 120
 
-# Pycodestyle configuration
-pycodestyle:
-  max-line-length: 120
-
 # Bandit configuration (security-focused checks)
 bandit:
   run: false  # Disable Bandit by default, enable if needed
@@ -37,11 +33,14 @@ bandit:
 # Style-related tools group
 style:
   run: true
+  # Python style and error linter
   flake8:
-    run: true
+    run: false
     max-line-length: 120
+  # Checks code against PEP8 style guide
   pycodestyle:
     max-line-length: 120
+  # Checks style and formatting of docstrings (code documentation)
   docstyle:
     run: true
     ignore-decorators:
