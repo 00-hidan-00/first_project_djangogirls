@@ -16,6 +16,9 @@ RUN useradd --system ${USER} --uid=${UID} && \
 # Update and upgrade system packages
 RUN apt update && apt upgrade -y
 
+# Create logs and media directories with correct permissions
+RUN mkdir -p /wd/logs /wd/media && chown -R ${USER}:${USER} /wd/logs /wd/media
+
 # Copy and install Python dependencies
 COPY requirements.txt requirements.txt
 
@@ -40,6 +43,7 @@ ENTRYPOINT ["/entrypoint.sh"]
 
 # Define the default command to start the application
 CMD ["/start.sh"]
+
 # Persist user-uploaded media files
 VOLUME ${WORKDIR}/media
 
