@@ -30,7 +30,7 @@ class Command(BaseCommand):
             logger.info(
                 "Created %d comments: \n%s",
                 len(comments),
-                "\n".join(f" • {comment.text[:40]}" for comment in comments[:5]),
+                "\n".join(f" • {comment.text.replace('\n', ' ')[:40]} ..." for comment in comments[:5]),
             )
 
             logger.info("Total comments after generation: %d", Comment.objects.count())

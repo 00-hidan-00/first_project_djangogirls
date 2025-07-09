@@ -37,9 +37,9 @@ class Command(BaseCommand):
                 Comment.objects.bulk_create(comments)
             logger.info("Created %d posts: \n%s", len(posts), "\n".join(f" • {post.title}" for post in posts))
             logger.info(
-                "Created %d comments: \n%d%s",
+                "Created %d comments: \n%s%s",
                 len(comments),
-                "\n".join(f" • {comment.text[:40]}" for comment in comments[:5]),
+                "\n".join(f" • {comment.text.replace('\n', ' ')[:40]} ..." for comment in comments[:5]),
                 "\n • ..." if len(comments) > 5 else "",
             )
             logger.info(
