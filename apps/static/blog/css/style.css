@@ -15,7 +15,7 @@ body {
     overflow: clip;
 }
 
-.wrapper > main {
+.wrapper>main {
     flex-grow: 1;
 }
 
@@ -54,7 +54,7 @@ body {
     border-radius: 20px;
     background-color: #192131;
     box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25),
-    0px 0px 15px 0px rgba(0, 0, 0, 0.07);
+        0px 0px 15px 0px rgba(0, 0, 0, 0.07);
 
     display: grid;
     align-items: center;
@@ -102,6 +102,12 @@ body {
 /* ======================================================================================================================================================== */
 
 
+.messages{
+    padding: 10px;
+    position: relative;
+    transition: color 0.3s;
+}
+
 .blog-list__items {
     display: grid;
     gap: 32px;
@@ -126,7 +132,7 @@ body {
     border-radius: 20px;
     background-color: #192131;
     box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25),
-    0px 0px 15px 0px rgba(0, 0, 0, 0.07);
+        0px 0px 15px 0px rgba(0, 0, 0, 0.07);
 }
 
 .--animate.blog-list__item {
@@ -156,7 +162,6 @@ body {
 }
 
 .blog-list__item-text {
-
     padding-block-end: 15px;
     font-size: 20px;
     line-height: 1.2;
@@ -164,6 +169,25 @@ body {
     text-wrap: balance;
     word-break: break-word;
     overflow-wrap: break-word;
+}
+
+.blog-list__item-author {
+    display: inline-block;
+    position: relative;
+    max-width: 1000px;
+    padding-block-end: 15px;
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 1.1;
+    text-wrap: balance;
+}
+
+.blog-list__item-author {
+    padding-block-end: 15px;
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 1.1;
+    text-wrap: balance;
 }
 
 .blog-list__item-footer {
@@ -224,14 +248,12 @@ body {
     border-radius: 20px;
     background-color: #192131;
     box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25),
-    0px 0px 15px 0px rgba(0, 0, 0, 0.07);
+        0px 0px 15px 0px rgba(0, 0, 0, 0.07);
 }
 
-.post__body {
-}
+.post__body {}
 
-.post__data {
-}
+.post__data {}
 
 .post__title {
     max-width: 1000px;
@@ -255,28 +277,31 @@ body {
     overflow-wrap: break-word;
 }
 
+.post__author {
+    padding-block-end: 15px;
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 1.1;
+    text-wrap: balance;
+}
+
 .post__actions {
     display: flex;
     justify-content: flex-end;
     gap: 30px;
 }
 
-.post__publish-btn {
-}
+.post__publish-btn {}
 
-.post__edit-btn {
-}
+.post__edit-btn {}
 
-.post__delete-btn {
-}
+.post__delete-btn {}
 
 /* --------------------- */
 
-.post-comments {
-}
+.post-comments {}
 
-.post-comments__body {
-}
+.post-comments__body {}
 
 .post-comments__add-btn-and-title {
     display: flex;
@@ -286,22 +311,23 @@ body {
     padding-inline: 15px;
 }
 
-.post-comments__add-btn {
-}
+.post-comments__add-btn {}
 
-.button {
-}
+.button {}
 
-.button--white-border {
-}
+.button--white-border {}
 
-.button--mini {
-}
+.button--mini {}
 
 .post-comments__items {
-    display: grid;
+   display: flex
+;
     gap: 32px;
     justify-content: center;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+
 }
 
 .post-comments__title {
@@ -314,11 +340,11 @@ body {
 
 .post-comments__item {
     padding: 25px;
-    min-inline-size: 1000px;
+    width: 90%;
     border-radius: 20px;
     background-color: #192131;
     box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25),
-    0px 0px 15px 0px rgba(0, 0, 0, 0.07);
+        0px 0px 15px 0px rgba(0, 0, 0, 0.07);
 }
 
 .post-comments__author {
@@ -358,11 +384,9 @@ body {
 
 }
 
-.post-comments__delete-btn {
-}
+.post-comments__delete-btn {}
 
-.post-comments__approve-btn {
-}
+.post-comments__approve-btn {}
 
 .post-comments__not-comments {
     padding-block: 10px;
@@ -374,19 +398,16 @@ body {
 /* ======================================================================================================================================================== */
 
 
-.post-edit__page {
-}
+.post-edit__page {}
 
-.post-edit__body {
-}
+.post-edit__body {}
 
 .post-edit-body__title {
     padding-inline: 20px;
     padding-block-end: 20px;
 }
 
-.blog-list__title {
-}
+.blog-list__title {}
 
 
 .post-edit-body__form {
@@ -395,7 +416,7 @@ body {
     border-radius: 20px;
     background-color: #192131;
     box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25),
-    0px 0px 15px 0px rgba(0, 0, 0, 0.07);
+        0px 0px 15px 0px rgba(0, 0, 0, 0.07);
 }
 
 .post-edit-body__django-form p {
@@ -436,8 +457,7 @@ body {
 
 }
 
-.post-edit-body__django-form p:nth-child(2) {
-}
+.post-edit-body__django-form p:nth-child(2) {}
 
 .post-edit-body_actions {
     padding-block-start: 15px;
@@ -446,22 +466,18 @@ body {
     gap: 30px;
 }
 
-.post-edit-body-actions__btn-publish {
-}
+.post-edit-body-actions__btn-publish {}
 
 
-.post-edit-body-actions__btn-save-as-draft {
-}
+.post-edit-body-actions__btn-save-as-draft {}
 
 
 /* ======================================================================================================================================================== */
 
 
-.add-comment__page {
-}
+.add-comment__page {}
 
-.add-comment__body {
-}
+.add-comment__body {}
 
 .add-comment__title {
     padding-inline: 20px;
@@ -474,7 +490,7 @@ body {
     border-radius: 20px;
     background-color: #192131;
     box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25),
-    0px 0px 15px 0px rgba(0, 0, 0, 0.07);
+        0px 0px 15px 0px rgba(0, 0, 0, 0.07);
 }
 
 
@@ -521,20 +537,26 @@ body {
 
 }
 
-.add-comment__btn-submit {
-}
+.add-comment__btn-submit {}
 
 /* ======================================================================================================================================================== */
 
 
 .login__page {
-}
-
-.login__body {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 30px;
+}
+
+.login__body {
+
+    padding: 25px;
+    width: 50%;
+    border-radius: 20px;
+    background-color: #192131;
+    box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25),
+        0px 0px 15px 0px rgba(0, 0, 0, 0.07);
 
 }
 
@@ -544,18 +566,9 @@ body {
     padding-block: 20px;
 }
 
-.login__error-text {
-}
+.login__error-text {}
 
-.login__form {
-    padding: 25px;
-    width: 50%;
-    border-radius: 20px;
-    background-color: #192131;
-    box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25),
-    0px 0px 15px 0px rgba(0, 0, 0, 0.07);
-}
-
+.login__form {}
 
 .login__django-form {
     padding-block: 15px;
@@ -582,24 +595,105 @@ body {
 }
 
 
-.login__django-form-username {
-}
+.login__django-form-username {}
 
-.login__django-form-pass {
-}
+.login__django-form-pass {}
 
-.login__django-form-btn-login {
-}
+.login__django-form-btn-login {}
 
 .login__django-form-actions {
+
     padding-block: 15px;
     display: flex;
     justify-content: center;
 }
 
+.login__forgot-password{
+    padding: 10px;
+    position: relative;
+    transition: color 0.3s;
+}
+
+.login__forgot-password:hover {
+    color: #aa51fe;
+}
+
+.login__error-text{
+    padding: 10px;
+    color: #ff0000;
+    font-size: 18px;
+    text-align: center;
+}
+
 
 /* ======================================================================================================================================================== */
 
+.signup__page {}
+
+.signup__body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.signup__title {
+    text-align: left;
+    padding-inline: 20px;
+    padding-block: 20px;
+}
+
+.signup__error-text {}
+
+.signup__form {
+    padding: 25px;
+    width: 50%;
+    border-radius: 20px;
+    background-color: #192131;
+    box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25),
+        0px 0px 15px 0px rgba(0, 0, 0, 0.07);
+}
+
+.signup__django-form {
+    padding-block: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.signup__django-form label {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.4;
+    padding: 10px;
+}
+
+.signup__django-form input {
+    background-color: #363f4f;
+    max-width: 100%;
+    border-radius: 20px;
+    font-size: 20px;
+    color: #fff;
+    font-weight: 500;
+    padding: 15px;
+}
+
+.signup__django-form-username {}
+
+.signup__django-form-password1 {}
+
+.signup__django-form-password2 {}
+
+.signup__django-form-actions {
+    padding-block: 15px;
+    display: flex;
+    justify-content: center;
+}
+
+.signup__django-form-btn {}
+
+.button {}
+
+/* ======================================================================================================================================================== */
 
 .footer {
     padding-block: 50px;
