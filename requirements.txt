@@ -8,7 +8,7 @@ psycopg[binary]==3.2.9
 django-environ==0.12.0
 
 # Faker - library for generating fake data (names, addresses, texts, etc.)
-faker==37.4.0
+faker==37.4.2
 
 # [code_style]-[BEGIN]
 # Pre-commit framework to manage and run git hooks
