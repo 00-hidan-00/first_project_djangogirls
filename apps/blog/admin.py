@@ -53,7 +53,7 @@ class CommentAdmin(admin.ModelAdmin):
     list_filter = ("approved_comment", "created_date", "post")
 
     # Fields to search by
-    search_fields = ("author", "text", "post__title")
+    search_fields = ("author__username", "text", "post__title")
 
     # Read-only fields
     readonly_fields = ("local_number", "created_date")
