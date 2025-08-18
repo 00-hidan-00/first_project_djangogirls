@@ -1,13 +1,20 @@
 {% extends 'base.html' %}
-
+{% block title %}{{ post.pk|yesno:"Edit Post,New Post" }} - Django Blog{% endblock %}
 {% block content %}
+
     <div class="post-edit__page">
         <div class="post-edit__body">
-            <h1 class="post-edit-body__title blog-list__title">Create a New Post</h1>
-            <form method="POST"
-                  action="
-                          {% if post.pk %}{% url 'blog:post_edit' pk=post.pk %}{% else %}{% url 'blog:post_new' %}{% endif %}"
-                  class="post-edit-body__form">
+            <h1 class="post-edit-body__title blog-list__title">
+                {{ post.pk|yesno:"Edit Post,New Post" }}
+            </h1>
+
+            {% if post.pk %}
+                {% url 'blog:post_edit' pk=post.pk as post_url %}
+            {% else %}
+                {% url 'blog:post_new' as post_url %}
+            {% endif %}
+
+            <form method="POST" action="{{ post_url }}" class="post-edit-body__form">
                 {% csrf_token %}
                 <div class="post-edit-body__django-form">
                     {{ form.as_p }}

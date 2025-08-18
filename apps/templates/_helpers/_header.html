@@ -13,7 +13,7 @@
                                class="menu__button button button--mini">Drafts</a>
                         </li>
                         <li class="menu__item">
-                            <form action="{% url 'logout' %}" method="post">
+                            <form action="{% url 'account:logout' %}" method="post">
                                 {% csrf_token %}
                                 <button class="menu__button button button--white-border button--mini" type="submit"
                                         title="Logout">
@@ -23,7 +23,10 @@
                         </li>
                     {% else %}
                         <li class="menu__item">
-                            <a class="menu__button button button--mini" href="{% url 'login' %}">Login</a>
+                            <a class="menu__button button button--white-border button--mini" href="{% url 'account:signup' %}">Sign Up</a>
+                        </li>
+                        <li class="menu__item">
+                            <a class="menu__button button button--mini" href="{% url 'account:login' %}">Login</a>
                         </li>
                     {% endif %}
                 </ul>

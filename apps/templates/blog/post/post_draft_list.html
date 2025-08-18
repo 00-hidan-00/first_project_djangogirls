@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% block title %}Draft Posts - Django Blog{% endblock %}
 
 {% block content %}
     <div class="blog-list__page">
@@ -11,11 +12,12 @@
                             <a href="{% url 'blog:post_detail' pk=post.pk %}" class="text-dark">{{ post.title }}</a>
                         </h4>
                         <p class="blog-list__item-text">{{ post.text|truncatechars:250 }}</p>
+                        <p class="blog-list__item-author">{{ post.author }}</p>
                         <div class="blog-list__item-footer">
                             <a href="{% url 'blog:post_detail' pk=post.pk %}" class="blog-list__item-post-link">
                                 Read More
                             </a>
-                            <div class="blog-list__item-data">{{ post.created_date|date:"d M Y" }}</div>
+                            <div class="blog-list__item-data">{{ post.created_date|date:"d.m.Y" }}</div>
                         </div>
                     </div>
                 {% empty %}
