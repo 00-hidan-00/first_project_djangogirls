@@ -1,52 +1,36 @@
-from django.contrib import messages
+import logging
+
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponseRedirect
-from django.urls import reverse
-from django.utils.timezone import now
 from django.views.generic import CreateView
 
 from apps.blog.forms import PostForm
+from apps.blog.mixins import PostBaseEditMixin
 from apps.blog.models import Post
 
+logger = logging.getLogger(__name__)
 
-class PostNewView(LoginRequiredMixin, CreateView):
+
+class PostNewView(LoginRequiredMixin, PostBaseEditMixin, CreateView):
+    """
+    View to create a new blog post.
+    Only authenticated users can access this page.
+    """
+
     model = Post
     form_class = PostForm
-    template_name = "blog/post_edit.html"
+    template_name = "blog/post/post_edit.html"
     context_object_name = "post"
 
-    PUBLISH_ACTION_NAME = "publish"
+    is_edit = False
 
-    def form_valid(self, form: PostForm) -> HttpResponseRedirect:
-        """
-        Handle valid form submission.
-        Save post with author and published_date (if publishing).
-        Add user message about the action.
-        """
-        post: Post = form.save(commit=False)
-        post.author = self.request.user
-
-        if self._is_publish_action():
-            post.published_date = now()
-            self._add_message(f'Post created: "{post.title}"', success=True)
+    def _get_success_message(self, blog_post: Post, is_publish: bool) -> str:
+        """Return success message for save."""
+        if is_publish:
+            message = f'🎉 Post published: "{blog_post.title}"'
+            logger.info(f'Post "{blog_post.title}" (ID {blog_post.pk}) published by user {blog_post.author.username}')
         else:
-            self._add_message(f'Post saved as draft: "{post.title}"', success=True)
-
-        post.save()
-        self.object = post
-        return super().form_valid(form)
-
-    def get_success_url(self) -> str:
-        """Return URL to redirect after successful form submission."""
-        return reverse("blog:post_detail", kwargs={"pk": self.object.pk})
-
-    def _is_publish_action(self) -> bool:
-        """Check if the form submission corresponds to a publish action."""
-        return self.PUBLISH_ACTION_NAME in self.request.POST
-
-    def _add_message(self, message: str, success: bool = False) -> None:
-        """Add a message to be displayed to the user."""
-        if success:
-            messages.success(self.request, message)
-        else:
-            messages.info(self.request, message)
+            message = f'💾 Post created and saved as draft: "{blog_post.title}"'
+            logger.info(
+                f'Post "{blog_post.title}" (ID {blog_post.pk}) saved as draft by user {blog_post.author.username}'
+            )
+        return message

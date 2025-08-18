@@ -1,21 +1,54 @@
+import logging
+from typing import Any
+
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db import DatabaseError
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.utils.decorators import method_decorator
 from django.views import View
+from django.views.decorators.http import require_POST
 
 from apps.blog.models import Post
 
+logger = logging.getLogger(__name__)
 
-@method_decorator(login_required, name="dispatch")
-class PostPublishView(View):
+
+@method_decorator(require_POST, name="dispatch")
+class PostPublishView(LoginRequiredMixin, View):
     """
-    View to publish a blog post and notify the user.
+    Publish a blog post.
+    Only the author or a superuser may do this.
     """
+
+    object: Post
+
+    def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        """Restrict access to author or superuser. Redirect if unauthorized."""
+        self.object: Post = get_object_or_404(Post, pk=kwargs.get("pk"))
+
+        if not self.object.is_visible_to(request.user):
+            messages.error(request, "❌ You are not allowed to publish this post.")
+            logger.warning(f"User {request.user.id} tried to publish post {self.object.pk} without permission.")
+            return redirect("blog:post_detail", pk=self.object.pk)
+
+        return super().dispatch(request, *args, **kwargs)
 
     def post(self, request: HttpRequest, pk: int) -> HttpResponse:
-        post = get_object_or_404(Post, pk=pk)
-        post.publish()
-        messages.info(request, f'Post published: "{post.title}"')
+        """Publish the post, log and notify, then redirect."""
+        try:
+            self.object.publish()
+        except DatabaseError as e:
+            messages.error(request, "❌ An error occurred while publishing the post. Please try again later.")
+            logger.exception(f"Error publishing post {self.object.pk}: {e}")
+            return redirect("blog:post_detail", pk=self.object.pk)
+        except Exception as e:
+            messages.error(request, "❌ An unexpected error occurred. Please try again later.")
+            logger.exception(f"Unexpected error while publishing post {self.object.pk}: {e}")
+            return redirect("blog:post_detail", pk=self.object.pk)
+
+        messages.success(request, f'🎉 Post published: "{self.object.title}"')
+        logger.info(f'Post "{self.object.title}" (ID {self.object.pk}) published by user {request.user.username}')
+
         return redirect("blog:post_detail", pk=pk)
