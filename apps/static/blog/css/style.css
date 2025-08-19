@@ -53,8 +53,8 @@ body {
     row-gap: 5px;
     border-radius: 20px;
     background-color: #192131;
-    box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25),
-    0px 0px 15px 0px rgba(0, 0, 0, 0.07);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25),
+    0 0 15px 0 rgba(0, 0, 0, 0.07);
 
     display: grid;
     align-items: center;
@@ -131,8 +131,8 @@ body {
 
     border-radius: 20px;
     background-color: #192131;
-    box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25),
-    0px 0px 15px 0px rgba(0, 0, 0, 0.07);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25),
+    0 0 15px 0 rgba(0, 0, 0, 0.07);
 }
 
 .--animate.blog-list__item {
@@ -276,8 +276,8 @@ body {
     max-width: 100%;
     border-radius: 20px;
     background-color: #192131;
-    box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25),
-    0px 0px 15px 0px rgba(0, 0, 0, 0.07);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25),
+    0 0 15px 0 rgba(0, 0, 0, 0.07);
 }
 
 .post__body {
@@ -382,8 +382,8 @@ body {
     width: 90%;
     border-radius: 20px;
     background-color: #192131;
-    box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25),
-    0px 0px 15px 0px rgba(0, 0, 0, 0.07);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25),
+    0 0 15px 0 rgba(0, 0, 0, 0.07);
 }
 
 .post-comments__author {
@@ -459,8 +459,8 @@ body {
     max-width: 100%;
     border-radius: 20px;
     background-color: #192131;
-    box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25),
-    0px 0px 15px 0px rgba(0, 0, 0, 0.07);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25),
+    0 0 15px 0 rgba(0, 0, 0, 0.07);
 }
 
 .post-edit-body__django-form p {
@@ -538,8 +538,8 @@ body {
     max-width: 100%;
     border-radius: 20px;
     background-color: #192131;
-    box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25),
-    0px 0px 15px 0px rgba(0, 0, 0, 0.07);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25),
+    0 0 15px 0 rgba(0, 0, 0, 0.07);
 }
 
 
@@ -605,8 +605,8 @@ body {
     width: 50%;
     border-radius: 20px;
     background-color: #192131;
-    box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25),
-    0px 0px 15px 0px rgba(0, 0, 0, 0.07);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25),
+    0 0 15px 0 rgba(0, 0, 0, 0.07);
 
 }
 
@@ -707,8 +707,8 @@ body {
     width: 50%;
     border-radius: 20px;
     background-color: #192131;
-    box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25),
-    0px 0px 15px 0px rgba(0, 0, 0, 0.07);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25),
+    0 0 15px 0 rgba(0, 0, 0, 0.07);
 }
 
 .signup__django-form {
