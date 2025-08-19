@@ -6,6 +6,9 @@ from apps.blog.models import Post
 def toggle_favorite(request, post_id):
     post = get_object_or_404(Post, id=post_id)
 
+    if not post.is_published:
+        return redirect(request.META.get("HTTP_REFERER", "/"))
+
     if request.user.is_authenticated:
         if request.user.has_favorited(post=post):
             request.user.unfavorite(post)

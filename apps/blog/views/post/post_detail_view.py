@@ -36,11 +36,14 @@ class PostDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context["visible_comments"] = self.object.visible_comments_for(self.request.user).order_by("created_date")
 
+        if self.object.is_published:
+            return context
+
         if self.request.user.is_authenticated:
             favorite_ids = set(self.request.user.favorites.values_list("id", flat=True))
         else:
             favorite_ids = set(self.request.session.get("post_favorites", []))
 
-        context["post"].is_favorited = self.object.id in favorite_ids
+        self.object.is_favorited = self.object.id in favorite_ids
 
         return context
