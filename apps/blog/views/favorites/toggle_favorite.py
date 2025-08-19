@@ -7,18 +7,17 @@ def toggle_favorite(request, post_id):
     post = get_object_or_404(Post, id=post_id)
 
     if request.user.is_authenticated:
-        # Работа с базой
-        if post in request.user.favorites.all():
-            request.user.favorites.remove(post)
+        if request.user.has_favorited(post=post):
+            request.user.unfavorite(post)
         else:
-            request.user.favorites.add(post)
+            request.user.favorite(post)
+
     else:
-        # Работа с сессией
-        favorites = request.session.get("", [])
+        favorites = request.session.get("post_favorites", [])
         if post_id in favorites:
             favorites.remove(post_id)
         else:
             favorites.append(post_id)
-        request.session["favorites"] = favorites
+        request.session["post_favorites"] = favorites
 
     return redirect(request.META.get("HTTP_REFERER", "/"))
