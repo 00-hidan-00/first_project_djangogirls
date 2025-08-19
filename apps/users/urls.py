@@ -6,8 +6,6 @@ from . import views
 app_name = "account"
 
 urlpatterns = [
-    path("favorites/", views.favorite_posts, name="favorite_posts"),
-    path("toggle-favorite/<int:post_id>/", views.toggle_favorite, name="toggle_favorite"),
     path("signup/", views.SignUpView.as_view(), name="signup"),
     path("login/", views.UserLoginView.as_view(), name="login"),
     path("logout/", auth_views.LogoutView.as_view(next_page="/"), name="logout"),
