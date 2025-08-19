@@ -102,7 +102,7 @@ body {
 /* ======================================================================================================================================================== */
 
 
-.messages{
+.messages {
     padding: 10px;
     position: relative;
     transition: color 0.3s;
@@ -142,6 +142,13 @@ body {
     transition-delay: 0.2s;
 }
 
+.blog-list__item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-block-end: 15px;
+}
+
 .blog-list__item-title {
     display: inline-block;
     position: relative;
@@ -160,6 +167,30 @@ body {
     color: #aa51fe;
 
 }
+
+.blog-list__item-favorite {}
+
+.favorite-toggle-form {}
+
+.favorite-toggle-btn {
+    font-size: 25px;
+    padding-inline: 5px;
+    padding-block: 5px;
+    line-height: 1.5;
+}
+
+.fa.fa-bookmark {
+    color: #fff;
+    font-weight: normal;
+}
+
+.fa.fa-bookmark.active {
+    font-weight: var(--fa-style, 900);
+
+}
+
+
+
 
 .blog-list__item-text {
     padding-block-end: 15px;
@@ -320,8 +351,7 @@ body {
 .button--mini {}
 
 .post-comments__items {
-   display: flex
-;
+    display: flex;
     gap: 32px;
     justify-content: center;
     flex-direction: column;
@@ -608,7 +638,7 @@ body {
     justify-content: center;
 }
 
-.login__forgot-password{
+.login__forgot-password {
     padding: 10px;
     position: relative;
     transition: color 0.3s;
@@ -618,7 +648,7 @@ body {
     color: #aa51fe;
 }
 
-.login__error-text{
+.login__error-text {
     padding: 10px;
     color: #ff0000;
     font-size: 18px;
