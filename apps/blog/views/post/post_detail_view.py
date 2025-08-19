@@ -35,4 +35,12 @@ class PostDetailView(DetailView):
         """Add visible comments to context based on user permissions."""
         context = super().get_context_data(**kwargs)
         context["visible_comments"] = self.object.visible_comments_for(self.request.user).order_by("created_date")
+
+        if self.request.user.is_authenticated:
+            favorite_ids = set(self.request.user.favorites.values_list("id", flat=True))
+        else:
+            favorite_ids = set(self.request.session.get("post_favorites", []))
+
+        context["post"].is_favorited = self.object.id in favorite_ids
+
         return context

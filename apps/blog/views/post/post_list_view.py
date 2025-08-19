@@ -17,4 +17,14 @@ class PostListView(ListView):
 
     def get_queryset(self) -> QuerySet[Post]:
         """Return published posts ordered by newest first."""
-        return self.model.objects.filter(published_date__lte=timezone.now()).order_by("-published_date")
+        queryset = self.model.objects.filter(published_date__lte=timezone.now()).order_by("-published_date")
+
+        if self.request.user.is_authenticated:
+            favorite_ids = set(self.request.user.favorites.values_list("id", flat=True))
+        else:
+            favorite_ids = set(self.request.session.get("post_favorites", []))
+
+        for post in queryset:
+            post.is_favorited = post.id in favorite_ids
+
+        return queryset

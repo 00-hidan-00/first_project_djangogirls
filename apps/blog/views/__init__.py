@@ -1,3 +1,6 @@
+from apps.blog.views.favorites.post_favorite_list import favorite_posts  # noqa: F401
+from apps.blog.views.favorites.toggle_favorite import toggle_favorite  # noqa: F401
+
 from .comment.add_comment_to_post_view import AddCommentToPostView  # noqa: F401
 from .comment.comment_approve_view import CommentApproveView  # noqa: F401
 from .comment.comment_remove_view import CommentRemoveView  # noqa: F401
