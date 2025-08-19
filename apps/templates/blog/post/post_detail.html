@@ -8,6 +8,7 @@
             <div class="post__body">
                 <h2 class="post__title">{{ post.title }}</h2>
 
+                {% if post.published_date %}
                 <div class="blog-list__item-header">
                     <h2 class="post__title">{{ post.title }}</h2>
 
@@ -21,6 +22,7 @@
                         </form>
                     </div>
                 </div>
+                {% endif %}
 
                 <p class="post__text">{{ post.text|linebreaksbr }}</p>
                 <p class="post__author">{{ post.author }}</p>
