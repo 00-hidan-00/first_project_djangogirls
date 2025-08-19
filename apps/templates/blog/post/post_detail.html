@@ -7,6 +7,21 @@
         <div class="post__item">
             <div class="post__body">
                 <h2 class="post__title">{{ post.title }}</h2>
+
+                <div class="blog-list__item-header">
+                    <h2 class="post__title">{{ post.title }}</h2>
+
+                    <div class="blog-list__item-favorite">
+                        <form action="{% url 'blog:toggle_favorite' post.pk %}" method="post"
+                              class="favorite-toggle-form">
+                            {% csrf_token %}
+                            <button type="submit" class="favorite-toggle-btn" title="Toggle favorite">
+                                <i class="fa fa-bookmark {% if post.is_favorited %}active{% endif %}"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
                 <p class="post__text">{{ post.text|linebreaksbr }}</p>
                 <p class="post__author">{{ post.author }}</p>
                 {% if post.published_date %}

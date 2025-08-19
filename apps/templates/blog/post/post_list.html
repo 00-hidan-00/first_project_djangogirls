@@ -7,15 +7,22 @@
             <h2 class="blog-list__title">Posts:</h2>
             {% for post in posts %}
                 <div class="blog-list__item blog-list__item--anim">
-                    <h4 class="blog-list__item-title">
-                        <a href="{% url 'blog:post_detail' pk=post.pk %}" class="text-dark">{{ post.title }}</a>
-                    </h4>
 
-                    <!-- ❤️ ИЗБРАННОЕ -->
-                    <a href="{% url 'account:toggle_favorite' post.pk %}" class="favorite-toggle-link"
-                       title="Toggle favorite">
-                        ❤️
-                    </a>
+                    <div class="blog-list__item-header">
+                        <h4 class="blog-list__item-title">
+                            <a href="{% url 'blog:post_detail' pk=post.pk %}" class="text-dark">{{ post.title }}</a>
+                        </h4>
+
+                        <div class="blog-list__item-favorite">
+                            <form action="{% url 'blog:toggle_favorite' post.pk %}" method="post"
+                                  class="favorite-toggle-form">
+                                {% csrf_token %}
+                                <button type="submit" class="favorite-toggle-btn" title="Toggle favorite">
+                                    <i class="fa fa-bookmark {% if post.is_favorited %}active{% endif %}"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
 
                     <p class="blog-list__item-text">{{ post.text|truncatechars:250 }}</p>
                     <p class="blog-list__item-author">{{ post.author }}</p>

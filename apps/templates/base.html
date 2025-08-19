@@ -7,7 +7,8 @@
     <title>{% block title %}Django Blog{% endblock %}</title>
 
     <link href="https://fonts.googleapis.com/css?family=Roboto:regular,500,700,800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'blog/css/style.css' %}?v=3.10">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'blog/css/style.css' %}?v=3.13">
 
     {% block head_extra %}{% endblock %}
 </head>
@@ -18,7 +19,7 @@
     <main class="page">
         <section class="page">
             <div class="page__container">
-            {% include '_helpers/_messages.html' %}
+                {% include '_helpers/_messages.html' %}
                 {% block content %}{% endblock %}
             </div>
         </section>
@@ -33,4 +34,5 @@
 <script src="{% static 'blog/js/script.js' %}"></script>
 {% block scripts %}{% endblock %}
 </body>
+
 </html>
