@@ -40,3 +40,15 @@ class User(AbstractUser):
     )
 
     REQUIRED_FIELDS = ["email"]
+
+    def favorite(self, post):
+        """Add article to Favorites"""
+        self.favorites.add(post)
+
+    def unfavorite(self, post):
+        """Remove article from Favorites"""
+        self.favorites.remove(post)
+
+    def has_favorited(self, post):
+        """Return True if article is in Favorites, False otherwise"""
+        return self.favorites.filter(pk=post.pk).exists()
