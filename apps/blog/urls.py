@@ -8,6 +8,8 @@ urlpatterns = [
     path("", views.PostListView.as_view(), name="post_list"),
     path("post/new/", views.PostNewView.as_view(), name="post_new"),
     path("drafts/", views.PostDraftListView.as_view(), name="post_draft_list"),
+    path("toggle-favorite/<int:post_id>/", views.toggle_favorite, name="toggle_favorite"),
+    path("favorites/", views.favorite_posts, name="favorite_posts"),
     path(
         "post/<int:pk>/",
         include(
