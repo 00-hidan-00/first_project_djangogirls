@@ -44,6 +44,7 @@ class UserAdmin(BaseUserAdmin):
                     "is_superuser",
                     "groups",
                     "user_permissions",
+                    "favorites",
                 )
             },
         ),
@@ -60,3 +61,4 @@ class UserAdmin(BaseUserAdmin):
             },
         ),
     )
+    filter_horizontal = ("favorites", "groups", "user_permissions")
