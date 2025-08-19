@@ -15,7 +15,7 @@ body {
     overflow: clip;
 }
 
-.wrapper>main {
+.wrapper > main {
     flex-grow: 1;
 }
 
@@ -54,7 +54,7 @@ body {
     border-radius: 20px;
     background-color: #192131;
     box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25),
-        0px 0px 15px 0px rgba(0, 0, 0, 0.07);
+    0px 0px 15px 0px rgba(0, 0, 0, 0.07);
 
     display: grid;
     align-items: center;
@@ -132,7 +132,7 @@ body {
     border-radius: 20px;
     background-color: #192131;
     box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25),
-        0px 0px 15px 0px rgba(0, 0, 0, 0.07);
+    0px 0px 15px 0px rgba(0, 0, 0, 0.07);
 }
 
 .--animate.blog-list__item {
@@ -168,9 +168,11 @@ body {
 
 }
 
-.blog-list__item-favorite {}
+.blog-list__item-favorite {
+}
 
-.favorite-toggle-form {}
+.favorite-toggle-form {
+}
 
 .favorite-toggle-btn {
     font-size: 25px;
@@ -185,12 +187,8 @@ body {
 }
 
 .fa.fa-bookmark.active {
-    font-weight: var(--fa-style, 900);
-
+    font-weight: 900;
 }
-
-
-
 
 .blog-list__item-text {
     padding-block-end: 15px;
@@ -279,12 +277,14 @@ body {
     border-radius: 20px;
     background-color: #192131;
     box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25),
-        0px 0px 15px 0px rgba(0, 0, 0, 0.07);
+    0px 0px 15px 0px rgba(0, 0, 0, 0.07);
 }
 
-.post__body {}
+.post__body {
+}
 
-.post__data {}
+.post__data {
+}
 
 .post__title {
     max-width: 1000px;
@@ -322,17 +322,22 @@ body {
     gap: 30px;
 }
 
-.post__publish-btn {}
+.post__publish-btn {
+}
 
-.post__edit-btn {}
+.post__edit-btn {
+}
 
-.post__delete-btn {}
+.post__delete-btn {
+}
 
 /* --------------------- */
 
-.post-comments {}
+.post-comments {
+}
 
-.post-comments__body {}
+.post-comments__body {
+}
 
 .post-comments__add-btn-and-title {
     display: flex;
@@ -342,13 +347,17 @@ body {
     padding-inline: 15px;
 }
 
-.post-comments__add-btn {}
+.post-comments__add-btn {
+}
 
-.button {}
+.button {
+}
 
-.button--white-border {}
+.button--white-border {
+}
 
-.button--mini {}
+.button--mini {
+}
 
 .post-comments__items {
     display: flex;
@@ -374,7 +383,7 @@ body {
     border-radius: 20px;
     background-color: #192131;
     box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25),
-        0px 0px 15px 0px rgba(0, 0, 0, 0.07);
+    0px 0px 15px 0px rgba(0, 0, 0, 0.07);
 }
 
 .post-comments__author {
@@ -414,9 +423,11 @@ body {
 
 }
 
-.post-comments__delete-btn {}
+.post-comments__delete-btn {
+}
 
-.post-comments__approve-btn {}
+.post-comments__approve-btn {
+}
 
 .post-comments__not-comments {
     padding-block: 10px;
@@ -428,16 +439,19 @@ body {
 /* ======================================================================================================================================================== */
 
 
-.post-edit__page {}
+.post-edit__page {
+}
 
-.post-edit__body {}
+.post-edit__body {
+}
 
 .post-edit-body__title {
     padding-inline: 20px;
     padding-block-end: 20px;
 }
 
-.blog-list__title {}
+.blog-list__title {
+}
 
 
 .post-edit-body__form {
@@ -446,7 +460,7 @@ body {
     border-radius: 20px;
     background-color: #192131;
     box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25),
-        0px 0px 15px 0px rgba(0, 0, 0, 0.07);
+    0px 0px 15px 0px rgba(0, 0, 0, 0.07);
 }
 
 .post-edit-body__django-form p {
@@ -487,7 +501,8 @@ body {
 
 }
 
-.post-edit-body__django-form p:nth-child(2) {}
+.post-edit-body__django-form p:nth-child(2) {
+}
 
 .post-edit-body_actions {
     padding-block-start: 15px;
@@ -496,18 +511,22 @@ body {
     gap: 30px;
 }
 
-.post-edit-body-actions__btn-publish {}
+.post-edit-body-actions__btn-publish {
+}
 
 
-.post-edit-body-actions__btn-save-as-draft {}
+.post-edit-body-actions__btn-save-as-draft {
+}
 
 
 /* ======================================================================================================================================================== */
 
 
-.add-comment__page {}
+.add-comment__page {
+}
 
-.add-comment__body {}
+.add-comment__body {
+}
 
 .add-comment__title {
     padding-inline: 20px;
@@ -520,7 +539,7 @@ body {
     border-radius: 20px;
     background-color: #192131;
     box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25),
-        0px 0px 15px 0px rgba(0, 0, 0, 0.07);
+    0px 0px 15px 0px rgba(0, 0, 0, 0.07);
 }
 
 
@@ -567,7 +586,8 @@ body {
 
 }
 
-.add-comment__btn-submit {}
+.add-comment__btn-submit {
+}
 
 /* ======================================================================================================================================================== */
 
@@ -586,7 +606,7 @@ body {
     border-radius: 20px;
     background-color: #192131;
     box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25),
-        0px 0px 15px 0px rgba(0, 0, 0, 0.07);
+    0px 0px 15px 0px rgba(0, 0, 0, 0.07);
 
 }
 
@@ -596,9 +616,11 @@ body {
     padding-block: 20px;
 }
 
-.login__error-text {}
+.login__error-text {
+}
 
-.login__form {}
+.login__form {
+}
 
 .login__django-form {
     padding-block: 15px;
@@ -625,11 +647,14 @@ body {
 }
 
 
-.login__django-form-username {}
+.login__django-form-username {
+}
 
-.login__django-form-pass {}
+.login__django-form-pass {
+}
 
-.login__django-form-btn-login {}
+.login__django-form-btn-login {
+}
 
 .login__django-form-actions {
 
@@ -658,7 +683,8 @@ body {
 
 /* ======================================================================================================================================================== */
 
-.signup__page {}
+.signup__page {
+}
 
 .signup__body {
     display: flex;
@@ -673,7 +699,8 @@ body {
     padding-block: 20px;
 }
 
-.signup__error-text {}
+.signup__error-text {
+}
 
 .signup__form {
     padding: 25px;
@@ -681,7 +708,7 @@ body {
     border-radius: 20px;
     background-color: #192131;
     box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25),
-        0px 0px 15px 0px rgba(0, 0, 0, 0.07);
+    0px 0px 15px 0px rgba(0, 0, 0, 0.07);
 }
 
 .signup__django-form {
@@ -707,11 +734,14 @@ body {
     padding: 15px;
 }
 
-.signup__django-form-username {}
+.signup__django-form-username {
+}
 
-.signup__django-form-password1 {}
+.signup__django-form-password1 {
+}
 
-.signup__django-form-password2 {}
+.signup__django-form-password2 {
+}
 
 .signup__django-form-actions {
     padding-block: 15px;
@@ -719,9 +749,11 @@ body {
     justify-content: center;
 }
 
-.signup__django-form-btn {}
+.signup__django-form-btn {
+}
 
-.button {}
+.button {
+}
 
 /* ======================================================================================================================================================== */
 
