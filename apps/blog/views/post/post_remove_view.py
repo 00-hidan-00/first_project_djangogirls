@@ -27,7 +27,12 @@ class PostRemoveView(LoginRequiredMixin, DeleteView):
 
     def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         """Restrict access to author or superuser. Redirect if unauthorized."""
-        self.object = self.get_object()
+        try:
+            self.object = self.get_object()
+        except Post.DoesNotExist:
+            messages.error(request, "❌ This post does not exist.")
+            logger.warning(f"User {request.user.username} tried to delete a non-existing post {kwargs.get('pk')}")
+            return redirect("blog:post_list")
 
         if not self._has_delete_permission(request.user):
             messages.error(request, "❌ You are not allowed to delete this post.")

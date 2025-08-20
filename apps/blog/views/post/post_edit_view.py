@@ -28,7 +28,12 @@ class PostEditView(LoginRequiredMixin, PostBaseEditMixin, UpdateView):
 
     def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         """Restrict access to author or superuser. Redirect if unauthorized."""
-        self.object = self.get_object()
+        try:
+            self.object = self.get_object()
+        except Post.DoesNotExist:
+            messages.error(request, "❌ This post does not exist.")
+            logger.error(f"User {request.user.username} tried to edit a non-existing post {kwargs.get('pk')}")
+            return redirect("blog:post_list")
         user = request.user
 
         if not self.object.is_visible_to(user):

@@ -36,19 +36,28 @@ class ToggleFavorite(View):
         """Toggle favorite status of the post."""
 
         if request.user.is_authenticated:
-            if request.user.has_favorited(post=self.object):
-                request.user.unfavorite(self.object)
-                logger.info(
-                    f"User {request.user.username} (ID {request.user.id}) removed post {self.post_pk} from favorites."
-                )
-            else:
-                request.user.favorite(self.object)
-                logger.info(
-                    f"User {request.user.username} (ID {request.user.id}) added post {self.post_pk} to favorites."
-                )
+            try:
+                if request.user.has_favorited(post=self.object):
+                    request.user.unfavorite(self.object)
+                    logger.info(
+                        f"User {request.user.username} (ID {request.user.id})"
+                        f" removed post {self.post_pk} from favorites."
+                    )
+                else:
+                    request.user.favorite(self.object)
+                    logger.info(
+                        f"User {request.user.username} (ID {request.user.id}) added post {self.post_pk} to favorites."
+                    )
+            except Exception as e:
+                logger.error(f"Failed to toggle favorite for user {request.user.id}: {e}")
+                messages.error(request, "⚠️ Something went wrong while updating favorites.")
 
         else:
-            favorites = [int(i) for i in request.session.get("post_favorites", [])]
+            try:
+                favorites = [int(i) for i in request.session.get("post_favorites", [])]
+            except ValueError:
+                logger.warning("Corrupted session data in post_favorites, resetting.")
+                favorites = []
             if self.post_pk in favorites:
                 favorites.remove(self.post_pk)
                 logger.info(f"Anonymous user removed post {self.post_pk} from session favorites.")
