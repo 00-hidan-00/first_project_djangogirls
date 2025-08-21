@@ -38,9 +38,6 @@ class AddCommentToPostView(LoginRequiredMixin, FormView):
 
         return super().dispatch(request, *args, **kwargs)
 
-    def get_success_url(self):
-        return reverse("blog:post_detail", kwargs={"pk": self.object.pk})
-
     def form_valid(self, form: CommentForm) -> HttpResponseRedirect:
         """Save the comment related to the blog post and redirect to post detail."""
         comment = form.save(commit=False)
@@ -55,10 +52,13 @@ class AddCommentToPostView(LoginRequiredMixin, FormView):
             return redirect("blog:post_detail", pk=self.object.pk)
 
         comment_text = comment.text[:20] + "…" if len(comment.text) > 20 else comment.text
-        messages.success(self.request, f'💬 Comment added: "{comment_text}"')
         logger.info(
             f"Comment added by user {self.request.user.username} (ID: {self.request.user.pk}) "
             f'to post "{self.object.title}" (ID: {self.object.pk}): "{comment_text}"'
         )
+        messages.success(self.request, f'💬 Comment added: "{comment_text}"')
 
         return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse("blog:post_detail", kwargs={"pk": self.object.pk})

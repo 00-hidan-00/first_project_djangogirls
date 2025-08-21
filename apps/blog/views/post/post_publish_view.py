@@ -27,12 +27,12 @@ class PostPublishView(LoginRequiredMixin, View):
 
     def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         """Restrict access to author or superuser. Redirect if unauthorized."""
-        self.object: Post = get_object_or_404(Post, pk=kwargs.get("pk"))
+        self.object = get_object_or_404(Post, pk=kwargs.get("pk"))
         self.post_pk = self.object.pk
         if not self.object.is_visible_to(request.user):
-            messages.error(request, "❌ You are not allowed to publish this post.")
             logger.warning(f"User {request.user.id} tried to publish post {self.post_pk} without permission.")
-            return redirect("blog:post_detail", pk=self.post_pk)
+            messages.error(request, "❌ You are not allowed to publish this post.")
+            return redirect("blog:post_list")
 
         return super().dispatch(request, *args, **kwargs)
 
@@ -42,15 +42,15 @@ class PostPublishView(LoginRequiredMixin, View):
         try:
             self.object.publish()
         except DatabaseError as e:
-            messages.error(request, "❌ An error occurred while publishing the post. Please try again later.")
             logger.exception(f"Error publishing post {self.post_pk}: {e}")
+            messages.error(request, "❌ An error occurred while publishing the post. Please try again later.")
             return redirect("blog:post_detail", pk=self.post_pk)
         except Exception as e:
-            messages.error(request, "❌ An unexpected error occurred. Please try again later.")
             logger.exception(f"Unexpected error while publishing post {self.post_pk}: {e}")
+            messages.error(request, "❌ An unexpected error occurred. Please try again later.")
             return redirect("blog:post_detail", pk=self.post_pk)
 
-        messages.success(request, f'🎉 Post published: "{self.object.title}"')
         logger.info(f'Post "{self.object.title}" (ID {self.post_pk}) published by user {request.user.username}')
+        messages.success(request, f'🎉 Post published: "{self.object.title}"')
 
         return redirect("blog:post_detail", pk=self.post_pk)

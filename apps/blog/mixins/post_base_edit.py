@@ -45,8 +45,8 @@ class PostBaseEditMixin:
             self._add_message(self._get_error_message(), level="error")
             return super().form_invalid(form)  # type: ignore[misc]
         except Exception as e:
-            self._add_message("❌ An unexpected error occurred while saving the post.", level="error")
             logger.exception(f"Unexpected error saving post {getattr(post_object, 'pk', 'unknown')}: {str(e)}")
+            self._add_message("❌ An unexpected error occurred while saving the post.", level="error")
             return super().form_invalid(form)  # type: ignore[misc]
 
         self.object = post_object

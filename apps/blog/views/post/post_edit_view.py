@@ -24,6 +24,7 @@ class PostEditView(LoginRequiredMixin, PostBaseEditMixin, UpdateView):
     form_class = PostForm
     template_name = "blog/post/post_edit.html"
     context_object_name = "post"
+
     is_edit = True
 
     def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
@@ -31,14 +32,15 @@ class PostEditView(LoginRequiredMixin, PostBaseEditMixin, UpdateView):
         try:
             self.object = self.get_object()
         except Post.DoesNotExist:
-            messages.error(request, "❌ This post does not exist.")
             logger.error(f"User {request.user.username} tried to edit a non-existing post {kwargs.get('pk')}")
+            messages.error(request, "❌ This post does not exist.")
             return redirect("blog:post_list")
+
         user = request.user
 
         if not self.object.is_visible_to(user):
-            messages.error(request, "❌ You are not allowed to edit this post.")
             logger.warning(f"User {user.username} tried to edit post {self.object.pk} without permission.")
+            messages.error(request, "❌ You are not allowed to edit this post.")
             return redirect("blog:post_detail", pk=self.object.pk)
 
         return super().dispatch(request, *args, **kwargs)
@@ -46,13 +48,13 @@ class PostEditView(LoginRequiredMixin, PostBaseEditMixin, UpdateView):
     def _get_success_message(self, post_object: Post, is_publish: bool) -> str:
         """Return success message for save."""
         if is_publish:
-            message = f'🎉 Post updated and published: "{post_object.title}"'
             logger.info(
                 f'Post "{post_object.title}" (ID {post_object.pk}) published by user {post_object.author.username}'
             )
+            message = f'🎉 Post updated and published: "{post_object.title}"'
         else:
-            message = f'💾 Post updated and saved as draft: "{post_object.title}"'
             logger.info(
                 f'Post "{post_object.title}" (ID {post_object.pk}) saved as draft by user {post_object.author.username}'
             )
+            message = f'💾 Post updated and saved as draft: "{post_object.title}"'
         return message

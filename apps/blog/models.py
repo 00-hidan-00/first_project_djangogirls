@@ -78,5 +78,8 @@ class Comment(models.Model):
         self.approved_comment = True
         self.save()
 
+    def can_be_modified_by(self, user) -> bool:
+        return self.author == user or user.is_superuser
+
     def __str__(self) -> str:
         return f"{self.author} (post_id={self.post_id}): {self.text[:50]}"

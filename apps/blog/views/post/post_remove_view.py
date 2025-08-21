@@ -30,8 +30,8 @@ class PostRemoveView(LoginRequiredMixin, DeleteView):
         try:
             self.object = self.get_object()
         except Post.DoesNotExist:
-            messages.error(request, "❌ This post does not exist.")
             logger.warning(f"User {request.user.username} tried to delete a non-existing post {kwargs.get('pk')}")
+            messages.error(request, "❌ This post does not exist.")
             return redirect("blog:post_list")
 
         if not self._has_delete_permission(request.user):
@@ -42,8 +42,8 @@ class PostRemoveView(LoginRequiredMixin, DeleteView):
 
     def form_valid(self, form: BaseForm) -> HttpResponse:
         post_title = self.object.title or "Untitled"
-        messages.success(self.request, f'🗑️ Post deleted: "{post_title}"')
         logger.info(f'Post "{post_title}" (ID {self.object.pk}) deleted by user {self.request.user.username}')
+        messages.success(self.request, f'🗑️ Post deleted: "{post_title}"')
         return super().form_valid(form)
 
     def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:

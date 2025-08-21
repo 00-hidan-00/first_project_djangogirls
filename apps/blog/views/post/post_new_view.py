@@ -26,11 +26,11 @@ class PostNewView(LoginRequiredMixin, PostBaseEditMixin, CreateView):
     def _get_success_message(self, blog_post: Post, is_publish: bool) -> str:
         """Return success message for save."""
         if is_publish:
-            message = f'🎉 Post published: "{blog_post.title}"'
             logger.info(f'Post "{blog_post.title}" (ID {blog_post.pk}) published by user {blog_post.author.username}')
+            message = f'🎉 Post published: "{blog_post.title}"'
         else:
-            message = f'💾 Post created and saved as draft: "{blog_post.title}"'
             logger.info(
                 f'Post "{blog_post.title}" (ID {blog_post.pk}) saved as draft by user {blog_post.author.username}'
             )
+            message = f'💾 Post created and saved as draft: "{blog_post.title}"'
         return message

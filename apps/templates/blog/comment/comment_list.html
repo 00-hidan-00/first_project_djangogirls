@@ -2,7 +2,7 @@
     <div class="post-comments__body">
         <div class="post-comments__add-btn-and-title">
             <h2 class="post-comments__title">Comments:</h2>
-            {% if user.is_authenticated %}
+            {% if user.is_authenticated and post.published_date %}
             <a href="{% url 'blog:add_comment_to_post' pk=post.pk %}"
                class="post-comments__add-btn button button--mini">
                 Add Comment

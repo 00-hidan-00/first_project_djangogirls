@@ -27,17 +27,12 @@ class PostDetailView(DetailView):
             messages.error(request, "❌ You do not have permission to view this draft post.")
             return redirect("blog:post_list")
 
-        context = self.get_context_data(object=self.object)
-
-        return self.render_to_response(context)
+        return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         """Add visible comments to context based on user permissions."""
         context = super().get_context_data(**kwargs)
         context["visible_comments"] = self.object.visible_comments_for(self.request.user).order_by("created_date")
-
-        if self.object.is_published:
-            return context
 
         if self.request.user.is_authenticated:
             favorite_ids = set(self.request.user.favorites.values_list("id", flat=True))
