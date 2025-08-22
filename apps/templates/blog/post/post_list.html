@@ -1,43 +1,7 @@
-{% extends 'base.html' %}
-{% block title %}Posts - Django Blog{% endblock %}
+{% extends '_helpers/_post_list_base.html' %}
 
 {% block content %}
-    <div class="blog-list__page">
-        <div class="blog-list__items">
-            <h2 class="blog-list__title">Posts:</h2>
-            {% for post in posts %}
-                <div class="blog-list__item blog-list__item--anim">
-
-                    <div class="blog-list__item-header">
-                        <h4 class="blog-list__item-title">
-                            <a href="{% url 'blog:post_detail' pk=post.pk %}" class="text-dark">{{ post.title }}</a>
-                        </h4>
-
-                        <div class="blog-list__item-favorite">
-                            <form action="{% url 'blog:toggle_favorite' post.pk %}" method="post"
-                                  class="favorite-toggle-form">
-                                {% csrf_token %}
-                                <button type="submit" class="favorite-toggle-btn" title="Toggle favorite">
-                                    <i class="fa fa-bookmark {% if post.is_favorited %}active{% endif %}"></i>
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-
-                    <p class="blog-list__item-text">{{ post.text|truncatechars:250 }}</p>
-                    <p class="blog-list__item-author">{{ post.author }}</p>
-                    <div class="blog-list__item-footer">
-                        <a href="{% url 'blog:post_detail' pk=post.pk %}" class="blog-list__item-post-link">Read
-                            More</a>
-                        <div class="blog-list__item-data-and-item-comment-link">
-                            <div class="blog-list__item-data"> {{ post.published_date|date:"d.m.Y" }} </div>
-                            <a href="{% url 'blog:post_detail' pk=post.pk %}" class="blog-list__item-comment-link">
-                                {{ post.approved_comments.count }} comment{{ post.approved_comments.count|pluralize }}
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    </div>
+    {% with page_heading="Posts:" show_favorite_button=True show_published_date=True %}
+        {{ block.super }}
+    {% endwith %}
 {% endblock %}

@@ -1,29 +1,7 @@
-{% extends 'base.html' %}
-{% block title %}Draft Posts - Django Blog{% endblock %}
+{% extends '_helpers/_post_list_base.html' %}
 
 {% block content %}
-    <div class="blog-list__page">
-        <div class="blog-list__body">
-            <div class="blog-list__items">
-                <h2 class="blog-list__title">Draft Posts:</h2>
-                {% for post in posts %}
-                    <div class="blog-list__item blog-list__item--anim">
-                        <h4 class="blog-list__item-title">
-                            <a href="{% url 'blog:post_detail' pk=post.pk %}" class="text-dark">{{ post.title }}</a>
-                        </h4>
-                        <p class="blog-list__item-text">{{ post.text|truncatechars:250 }}</p>
-                        <p class="blog-list__item-author">{{ post.author }}</p>
-                        <div class="blog-list__item-footer">
-                            <a href="{% url 'blog:post_detail' pk=post.pk %}" class="blog-list__item-post-link">
-                                Read More
-                            </a>
-                            <div class="blog-list__item-data">{{ post.created_date|date:"d.m.Y" }}</div>
-                        </div>
-                    </div>
-                {% empty %}
-                    <p>No posts yet.</p>
-                {% endfor %}
-            </div>
-        </div>
-    </div>
+    {% with page_heading="Draft Posts:" show_favorite_button=False show_published_date=False %}
+        {{ block.super }}
+    {% endwith %}
 {% endblock %}
