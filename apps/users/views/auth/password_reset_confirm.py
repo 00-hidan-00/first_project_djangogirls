@@ -38,23 +38,23 @@ class UserPasswordResetConfirmView(PasswordResetConfirmView):
         try:
             response = super().form_valid(form)
         except (CoreValidationError, FormsValidationError):
-            messages.error(self.request, "❌ There was an error validating your password. Please try again.")
             logger.error(f"Validation error when resetting password for user {user.username} (ID {user.id}) ")
+            messages.error(self.request, "❌ There was an error validating your password. Please try again.")
             return self.render_to_response(self.get_context_data(form=form))
         except Exception as e:
-            messages.error(self.request, "❌ Unexpected error occurred. Please try again later.")
             logger.exception(f"Unexpected error resetting password for user {user.username} (ID {user.id}): {e} ")
+            messages.error(self.request, "❌ Unexpected error occurred. Please try again later.")
             return self.render_to_response(self.get_context_data(form=form))
 
-        messages.success(self.request, "✅ Your password has been successfully changed.")
         logger.info(f"Password successfully changed for user: {user.username} (ID {user.id})")
+        messages.success(self.request, "✅ Your password has been successfully changed.")
 
         return response
 
     def form_invalid(self, form: SetPasswordForm) -> HttpResponse:
         """Handle an invalid password reset form: show error message and log the issue."""
         username = getattr(form.user, "username", "unknown")
-        messages.error(self.request, "⚠️ Please correct the errors below.")
         logger.warning(f"Password reset confirm form invalid for user '{username}'" f"Errors: {form.errors.as_json()}")
+        messages.error(self.request, "⚠️ Please correct the errors below.")
 
         return super().form_invalid(form)

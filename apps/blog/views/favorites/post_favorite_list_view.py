@@ -28,11 +28,12 @@ class PostFavoriteListView(ListView):
         """Return favorited posts queryset."""
         if self.request.user.is_authenticated:
             return Post.objects.filter(favorited_by=self.request.user).order_by("-published_date")
-        return Post.objects.filter(id__in=self.favorite_ids)
+        return Post.objects.filter(id__in=self.favorite_ids).order_by("-published_date")
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         """Add `is_favorited` flag to posts."""
         context = super().get_context_data(**kwargs)
+        context["page_title"] = "Draft Posts"
 
         for post in context["posts"]:
             post.is_favorited = True

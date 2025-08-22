@@ -1,3 +1,5 @@
+from typing import Any
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models.query import QuerySet
 from django.views.generic import ListView
@@ -24,3 +26,8 @@ class PostDraftListView(LoginRequiredMixin, ListView):
             queryset = queryset.filter(author=user)
 
         return queryset.order_by("-created_date")
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context["page_title"] = "Draft Posts"
+        return context

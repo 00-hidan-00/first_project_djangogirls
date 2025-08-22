@@ -16,12 +16,6 @@ class PostAdmin(admin.ModelAdmin):
     # Fields to search by
     search_fields = ("title", "text", "author__username")
 
-    # Automatically fill the 'author' field with the current user (optional)
-    # def save_model(self, request, obj, form, change):
-    #     if not obj.pk:
-    #         obj.author = request.user
-    #     super().save_model(request, obj, form, change)
-
     # Date hierarchy navigation in admin
     date_hierarchy = "created_date"
 

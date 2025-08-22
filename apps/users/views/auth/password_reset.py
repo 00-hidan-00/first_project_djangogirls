@@ -31,12 +31,12 @@ class UserPasswordResetView(PasswordResetView):
         try:
             response = super().form_valid(form)
         except (SMTPException, BadHeaderError, Exception) as e:
-            messages.error(self.request, "❌ Error sending password reset email. Please try again later.")
             logger.exception(f"❌ Failed to send password reset email to {email}: {e}")
+            messages.error(self.request, "❌ Error sending password reset email. Please try again later.")
             return self.render_to_response(self.get_context_data(form=form))
 
-        messages.success(self.request, "📧 Password reset link was sent to your email.")
         logger.info(f"Password reset requested for email: {email}")
+        messages.success(self.request, "📧 Password reset link was sent to your email.")
 
         return response
 

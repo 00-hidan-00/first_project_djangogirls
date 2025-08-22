@@ -1,3 +1,4 @@
+import logging
 from typing import Any
 
 from django.contrib.auth.signals import user_logged_in
@@ -6,6 +7,8 @@ from django.http import HttpRequest
 
 from apps.blog.models import Post
 from apps.users.models import User
+
+logger = logging.getLogger(__name__)
 
 
 @receiver(user_logged_in)
@@ -25,4 +28,4 @@ def merge_favorites_on_login(sender: Any, user: User, request: HttpRequest, **kw
         if not user.has_favorited(post):
             user.favorite(post)
 
-    print("SIGNAL TRIGGERED", favorite_ids)
+    logger.info(f"SIGNAL TRIGGERED: {favorite_ids}")

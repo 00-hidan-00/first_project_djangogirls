@@ -17,6 +17,9 @@ class Post(models.Model):
     created_date = models.DateTimeField(default=timezone.now)
     published_date = models.DateTimeField(blank=True, null=True)
 
+    def __str__(self) -> str:
+        return self.title
+
     def publish(self) -> None:
         """Set published_date to now and save the post."""
         self.published_date = timezone.now()
@@ -47,9 +50,6 @@ class Post(models.Model):
     def is_published(self) -> bool:
         return self.published_date is not None
 
-    def __str__(self) -> str:
-        return self.title
-
 
 class Comment(models.Model):
     post = models.ForeignKey("blog.Post", on_delete=models.CASCADE, related_name="comments")
@@ -62,10 +62,8 @@ class Comment(models.Model):
     class Meta:
         constraints = [models.UniqueConstraint(fields=["post", "local_number"], name="unique_comment_number_per_post")]
 
-    def _next_local_number(self) -> int:
-        """Get next sequential local_number for the post's comments."""
-        last = Comment.objects.filter(post=self.post).order_by("-local_number").first()
-        return (last.local_number + 1) if last else 1
+    def __str__(self) -> str:
+        return f"{self.author} (post_id={self.post_id}): {self.text[:50]}"
 
     def save(self, *args: Any, **kwargs: Any) -> None:
         """Assign or recalc local_number on save."""
@@ -81,5 +79,7 @@ class Comment(models.Model):
     def can_be_modified_by(self, user) -> bool:
         return self.author == user or user.is_superuser
 
-    def __str__(self) -> str:
-        return f"{self.author} (post_id={self.post_id}): {self.text[:50]}"
+    def _next_local_number(self) -> int:
+        """Get next sequential local_number for the post's comments."""
+        last = Comment.objects.filter(post=self.post).order_by("-local_number").first()
+        return (last.local_number + 1) if last else 1

@@ -34,8 +34,8 @@ class SignUpView(CreateView):
     def form_valid(self, form: CustomUserCreationForm) -> HttpResponse:
         """Register user, show message, and log the event."""
         user = form.save()
-        messages.success(self.request, "🎉 Account created successfully. Please log in.")
         logger.info(f"New user registered: {user.username} (ID {user.id})")
+        messages.success(self.request, "🎉 Account created successfully. Please log in.")
         return super().form_valid(form)
 
     def form_invalid(self, form: CustomUserCreationForm) -> HttpResponse:

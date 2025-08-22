@@ -28,6 +28,7 @@ class PostListView(ListView):
         """Add `is_favorited` flag to posts."""
         context = super().get_context_data(**kwargs)
         favorite_ids = set(get_favorite_ids(self.request))
+        context["page_title"] = "Posts"
 
         for post in context["posts"]:
             post.is_favorited = post.id in favorite_ids
