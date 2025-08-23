@@ -16,6 +16,8 @@ services:
       - media_data:/wd/media
       - logs_data:/wd/logs
     user: '1000'
+    profiles:
+      - full_dev
 
   postgres:
     image: postgres:17

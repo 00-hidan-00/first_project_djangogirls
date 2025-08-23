@@ -10,7 +10,7 @@ COMPOSE_FULL := COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 COMPOSE_PROFILES=fu
 # Run PostgreSQL service in local_dev profile (detached mode omitted for logs)
 .PHONY: d-run-local-dev
 d-run-local-dev:
-	@$(COMPOSE_LOCAL) docker-compose up --build postgres
+	@$(COMPOSE_LOCAL) docker-compose up --build
 
 # Run Django development server locally with activated virtualenv
 .PHONY: runserver
