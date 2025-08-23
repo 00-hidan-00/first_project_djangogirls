@@ -31,7 +31,7 @@ SECRET_KEY = env.str("DJANGO__SECRET_KEY", default="unsafe-dev-secret")
 
 SESSION_COOKIE_SECURE = False
 SESSION_COOKIE_HTTPONLY = True
-SESSION_COOKIE_SAMESITE = "Lax"
+SESSION_COOKIE_SAMESITE = "Strict"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DJANGO__DEBUG", default=False)
@@ -40,15 +40,23 @@ ALLOWED_HOSTS = env.list("DJANGO__ALLOWED_HOSTS", default=["localhost", "127.0.0
 
 # Application definition
 
-INSTALLED_APPS = [
+DJANGO_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "apps.blog",
 ]
+
+THIRD_PARTY_APPS: list[str] = []
+
+LOCAL_APPS = [
+    "apps.blog.apps.BlogConfig",
+    "apps.users.apps.UsersConfig",
+]
+
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -61,6 +69,10 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "core.urls"
+
+AUTH_USER_MODEL = "users.User"
+
+LOGIN_URL = "/account/login/"
 
 TEMPLATES = [
     {
@@ -84,9 +96,9 @@ WSGI_APPLICATION = "core.wsgi.application"
 
 POSTGRES_USER = env("POSTGRES_USER", default="django_user")
 POSTGRES_PASSWORD = env("POSTGRES_PASSWORD", default="testpassword")
-POSTGRES_HOST = env("POSTGRES_HOST", default="localhost")
+POSTGRES_HOST = env("POSTGRES_HOST", default="postgres")
 POSTGRES_PORT = env("POSTGRES_PORT", default="5432")
-POSTGRES_DB = env("POSTGRES_DB", default="django_db")
+POSTGRES_DB = env("POSTGRES_DB", default="blog_db")
 
 DATABASES = {
     "default": env.db_url_config(
@@ -101,18 +113,19 @@ DATABASES = {
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
-    },
+    # {
+    #     "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+    # },
+    # {
+    #     "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+    # },
+    # {
+    #     "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+    # },
+    # {
+    #     "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+    # },
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator", "OPTIONS": {"min_length": 4}}
 ]
 
 # Internationalization
@@ -132,11 +145,15 @@ USE_I18N = True
 
 USE_TZ = True
 
+USE_L10N = True
+
+# For development — emails will be printed to the console
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
 STATICFILES_DIRS = [
     APPS_DIR.joinpath("static"),
 ]

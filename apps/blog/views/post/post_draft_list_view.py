@@ -1,4 +1,7 @@
+from typing import Any
+
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models.query import QuerySet
 from django.views.generic import ListView
 
 from apps.blog.models import Post
@@ -6,18 +9,25 @@ from apps.blog.models import Post
 
 class PostDraftListView(LoginRequiredMixin, ListView):
     """
-    View to display a list of draft posts (posts without a published date).
-    Only authenticated users can access this view.
+    Display all draft posts for the current user.
+    Only the author or a superuser may access this page.
     """
 
     model = Post
-    template_name = "blog/post_draft_list.html"
+    template_name = "blog/post/post_draft_list.html"
     context_object_name = "posts"
 
-    def get_queryset(self):
-        """
-        Returns all posts that are not yet published (drafts),
-        ordered by creation date in ascending order.
-        """
+    def get_queryset(self) -> QuerySet[Post]:
+        """Return draft posts for the current user or all if superuser."""
+        user = self.request.user
+        queryset = Post.objects.filter(published_date__isnull=True)
 
-        return self.model.objects.filter(published_date__isnull=True).order_by("created_date")
+        if not user.is_superuser:
+            queryset = queryset.filter(author=user)
+
+        return queryset.order_by("-created_date")
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context["page_title"] = "Draft Posts"
+        return context

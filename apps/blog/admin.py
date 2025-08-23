@@ -7,8 +7,73 @@ from .models import Comment, Post
 class PostAdmin(admin.ModelAdmin):
     model = Post
 
+    # Fields to display in the list view
+    list_display = ("title", "author", "created_date", "published_date")
+
+    # Fields you can filter by in the sidebar
+    list_filter = ("created_date", "published_date", "author")
+
+    # Fields to search by
+    search_fields = ("title", "text", "author__username")
+
+    # Date hierarchy navigation in admin
+    date_hierarchy = "created_date"
+
+    # Order by default
+    ordering = ("-created_date",)
+
+    # Fields layout in the admin form
+    fieldsets = (
+        (None, {"fields": ("author", "title", "text")}),
+        ("Dates", {"fields": ("created_date", "published_date")}),
+    )
+
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
     model = Comment
-    readonly_fields = ("local_number",)
+
+    # Fields to display in the list view
+    list_display = (
+        "id",
+        "post",
+        "author",
+        "local_number",
+        "approved_comment",
+        "created_date",
+    )
+
+    # Fields you can filter by in the sidebar
+    list_filter = ("approved_comment", "created_date", "post")
+
+    # Fields to search by
+    search_fields = ("author__username", "text", "post__title")
+
+    # Read-only fields
+    readonly_fields = ("local_number", "created_date")
+
+    # Fields layout in the admin form
+    fieldsets = (
+        (
+            None,
+            {
+                "fields": (
+                    "post",
+                    "author",
+                    "text",
+                    "approved_comment",
+                    "local_number",
+                    "created_date",
+                )
+            },
+        ),
+    )
+
+    # Optional: Add approve action in list view (custom button)
+    actions = ["approve_comments"]
+
+    def approve_comments(self, request, queryset):
+        updated = queryset.update(approved_comment=True)
+        self.message_user(request, f"{updated} comments approved.")
+
+    approve_comments.short_description = "Approve selected comments"  # type: ignore[attr-defined]

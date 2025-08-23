@@ -1,0 +1,7 @@
+{% extends '_helpers/_post_list_base.html' %}
+
+{% block content %}
+    {% with page_heading="Posts:" show_favorite_button=True show_published_date=True %}
+        {{ block.super }}
+    {% endwith %}
+{% endblock %}

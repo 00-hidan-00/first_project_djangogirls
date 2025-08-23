@@ -1,6 +1,8 @@
 from .comment.add_comment_to_post_view import AddCommentToPostView  # noqa: F401
 from .comment.comment_approve_view import CommentApproveView  # noqa: F401
 from .comment.comment_remove_view import CommentRemoveView  # noqa: F401
+from .favorites.post_favorite_list_view import PostFavoriteListView  # noqa: F401
+from .favorites.toggle_favorite_view import ToggleFavorite  # noqa: F401
 from .post.post_detail_view import PostDetailView  # noqa: F401
 from .post.post_draft_list_view import PostDraftListView  # noqa: F401
 from .post.post_edit_view import PostEditView  # noqa: F401

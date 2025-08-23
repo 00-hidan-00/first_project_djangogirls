@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Sign Up - Django Blog{% endblock %}
+
+{% block content %}
+    <div class="signup__page">
+        <div class="signup__body">
+            <h2 class="signup__title blog-list__title">Create Your Account</h2>
+
+            {% if form.errors %}
+                <div class="signup__error-text">
+                    <p>There were errors in your submission. Please correct them below.</p>
+                </div>
+            {% endif %}
+
+            <form method="post" action="{% url 'account:signup' %}" class="signup__form">
+                {% csrf_token %}
+
+                <div class="signup__django-form signup__django-form-username">
+                    <label for="{{ form.username.id_for_label }}">
+                        {{ form.username.label }}
+                    </label>
+                    {{ form.username }}
+                </div>
+
+                <div class="signup__django-form signup__django-form-email">
+                    <label for="{{ form.email.id_for_label }}">
+                        {{ form.email.label }}
+                    </label>
+                    {{ form.email }}
+                </div>
+
+                <div class="signup__django-form signup__django-form-password1">
+                    <label for="{{ form.password1.id_for_label }}">
+                        {{ form.password1.label }}
+                    </label>
+                    {{ form.password1 }}
+                </div>
+
+                <div class="signup__django-form signup__django-form-password2">
+                    <label for="{{ form.password2.id_for_label }}">
+                        {{ form.password2.label }}
+                    </label>
+                    {{ form.password2 }}
+                </div>
+
+                <div class="signup__django-form-actions">
+                    <button type="submit" class="signup__django-form-btn button">Sign Up</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

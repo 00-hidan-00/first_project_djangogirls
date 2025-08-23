@@ -101,7 +101,7 @@ d-migrations:
 # Create Django superuser inside the app container if not exists
 .PHONY: d-init-dev-create-superuser
 d-init-dev-create-superuser:
-	@COMPOSE_PROFILES=full_dev docker compose exec app python manage.py shell -c "import os; from django.contrib.auth import get_user_model; User = get_user_model(); username = os.environ.get('superuser_username', 'admin'); User.objects.filter(username=username).exists() or User.objects.create_superuser(username, 'admin@example.com', 'admin')"
+	@COMPOSE_PROFILES=full_dev docker compose exec app python manage.py shell -c "from django.contrib.auth import get_user_model; User = get_user_model(); username = 'admin'; User.objects.filter(username=username).exists() or User.objects.create_superuser(username, 'admin@example.com', 'admin')"
 
 # ----------------------------------------------------------------------------------------------------------------------
 # [pre commit commands] targets

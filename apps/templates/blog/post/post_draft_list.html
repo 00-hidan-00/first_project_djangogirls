@@ -1,0 +1,7 @@
+{% extends '_helpers/_post_list_base.html' %}
+
+{% block content %}
+    {% with page_heading="Draft Posts:" show_favorite_button=False show_published_date=False %}
+        {{ block.super }}
+    {% endwith %}
+{% endblock %}

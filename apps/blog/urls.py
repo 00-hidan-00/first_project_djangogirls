@@ -8,6 +8,7 @@ urlpatterns = [
     path("", views.PostListView.as_view(), name="post_list"),
     path("post/new/", views.PostNewView.as_view(), name="post_new"),
     path("drafts/", views.PostDraftListView.as_view(), name="post_draft_list"),
+    path("favorites/", views.PostFavoriteListView.as_view(), name="favorite_posts"),
     path(
         "post/<int:pk>/",
         include(
@@ -16,6 +17,7 @@ urlpatterns = [
                 path("edit/", views.PostEditView.as_view(), name="post_edit"),
                 path("publish/", views.PostPublishView.as_view(), name="post_publish"),
                 path("remove/", views.PostRemoveView.as_view(), name="post_remove"),
+                path("toggle-favorite/", views.ToggleFavorite.as_view(), name="toggle_favorite"),
                 path("comment/", views.AddCommentToPostView.as_view(), name="add_comment_to_post"),
                 path(
                     "comment/<int:local_number>/",

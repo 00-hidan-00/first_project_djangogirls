@@ -4,20 +4,23 @@
 <head>
     {% load static %}
     <meta charset="UTF-8">
-    <title>Django Blog</title>
+    <title>{% block title %}Django Blog{% endblock %}</title>
+
     <link href="https://fonts.googleapis.com/css?family=Roboto:regular,500,700,800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'blog/css/style.css' %}?v=3.8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'blog/css/style.css' %}?v=3.14">
+
+    {% block head_extra %}{% endblock %}
 </head>
 
 <body>
 <div class="wrapper">
     {% include '_helpers/_header.html' %}
-
     <main class="page">
         <section class="page">
             <div class="page__container">
-                {% block content %}
-                {% endblock %}
+                {% include '_helpers/_messages.html' %}
+                {% block content %}{% endblock %}
             </div>
         </section>
     </main>
@@ -29,5 +32,7 @@
     </footer>
 </div>
 <script src="{% static 'blog/js/script.js' %}"></script>
+{% block scripts %}{% endblock %}
 </body>
 
+</html>

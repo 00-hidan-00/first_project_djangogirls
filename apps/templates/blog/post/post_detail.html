@@ -1,19 +1,37 @@
 {% extends 'base.html' %}
+{% block title %}Post - Django Blog{% endblock %}
 
 {% block content %}
     <div class="post__page">
         <h2 class="blog-list__title">Post:</h2>
-        {% include '_helpers/_messages.html' %}
         <div class="post__item">
             <div class="post__body">
                 <h2 class="post__title">{{ post.title }}</h2>
+
+                {% if post.published_date %}
+                <div class="blog-list__item-header">
+                    <h2 class="post__title">{{ post.title }}</h2>
+
+                    <div class="blog-list__item-favorite">
+                        <form action="{% url 'blog:toggle_favorite' post.pk %}" method="post"
+                              class="favorite-toggle-form">
+                            {% csrf_token %}
+                            <button type="submit" class="favorite-toggle-btn" title="Toggle favorite">
+                                <i class="fa fa-bookmark {% if post.is_favorited %}active{% endif %}"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                {% endif %}
+
                 <p class="post__text">{{ post.text|linebreaksbr }}</p>
+                <p class="post__author">{{ post.author }}</p>
                 {% if post.published_date %}
                     <div class="post__data">
                         {{ post.published_date | date:"H:i - d.m.Y" }}
                     </div>
                 {% endif %}
-                {% if user.is_authenticated %}
+                {% if user == post.author or user.is_superuser %}
                     <div class="post__actions">
                         {% if not post.published_date %}
                             <form method="POST" action="{% url 'blog:post_publish' pk=post.pk %}">
@@ -22,19 +40,21 @@
                             </form>
                         {% endif %}
                         <a href="{% url 'blog:post_edit' pk=post.pk %}"
-                           class="post__edit-btn button button--white-border button--mini">Edit</a>
+                           class="post__edit-btn button button--white-border button--mini">Edit
+                        </a>
                         <form method="POST" action="{% url 'blog:post_remove' pk=post.pk %}">
                             {% csrf_token %}
                             <button type="submit"
                                     class="post__delete-btn button button--white-border button--mini">Delete
                             </button>
                         </form>
+
                     </div>
                 {% endif %}
             </div>
         </div>
     </div>
-    {% include 'blog/comment_list.html' %}
+    {% include 'blog/comment/comment_list.html' %}
 
 {% endblock %}
 

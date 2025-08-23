@@ -1,52 +1,60 @@
+import logging
+from typing import Any
+
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponseRedirect
-from django.urls import reverse
-from django.utils.timezone import now
+from django.http import HttpRequest, HttpResponse
+from django.shortcuts import redirect
 from django.views.generic import UpdateView
 
 from apps.blog.forms import PostForm
+from apps.blog.mixins import PostBaseEditMixin
 from apps.blog.models import Post
 
+logger = logging.getLogger(__name__)
 
-class PostEditView(LoginRequiredMixin, UpdateView):
+
+class PostEditView(LoginRequiredMixin, PostBaseEditMixin, UpdateView):
+    """
+    Edit an existing blog post.
+    Only the author or a superuser may do this.
+    """
+
     model = Post
     form_class = PostForm
-    template_name = "blog/post_edit.html"
+    template_name = "blog/post/post_edit.html"
     context_object_name = "post"
 
-    PUBLISH_ACTION_NAME = "publish"
+    is_edit = True
 
-    def form_valid(self, form: PostForm) -> HttpResponseRedirect:
-        """
-        Handle valid form submission.
-        Save post with author and published_date (if publishing).
-        Add user message about the action.
-        """
-        post: Post = form.save(commit=False)
-        post.author = self.request.user
+    def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        """Restrict access to author or superuser. Redirect if unauthorized."""
+        try:
+            self.object = self.get_object()
+        except Post.DoesNotExist:
+            logger.error(f"User {request.user.username} tried to edit a non-existing post {kwargs.get('pk')}")
+            messages.error(request, "❌ This post does not exist.")
+            return redirect("blog:post_list")
 
-        if self._is_publish_action():
-            post.published_date = now()
-            self._add_message(f'Post published: "{post.title}"', success=True)
+        user = request.user
+
+        if not self.object.is_visible_to(user):
+            logger.warning(f"User {user.username} tried to edit post {self.object.pk} without permission.")
+            messages.error(request, "❌ You are not allowed to edit this post.")
+            return redirect("blog:post_detail", pk=self.object.pk)
+
+        return super().dispatch(request, *args, **kwargs)
+
+    def _get_success_message(self, post_object: Post, is_publish: bool) -> str:
+        """Return success message for save."""
+        if is_publish:
+            logger.info(
+                f'Post "{post_object.title}" (ID {post_object.pk}) published by user {post_object.author.username}'
+            )
+            message = f'🎉 Post updated and published: "{post_object.title}"'
         else:
-            self._add_message(f'Post saved as draft: "{post.title}"', success=True)
-
-        post.save()
-        self.object = post
-        return super().form_valid(form)
-
-    def get_success_url(self) -> str:
-        """Return URL to redirect after successful form submission."""
-        return reverse("blog:post_detail", kwargs={"pk": self.object.pk})
-
-    def _is_publish_action(self) -> bool:
-        """Check if the form submission corresponds to a publish action."""
-        return self.PUBLISH_ACTION_NAME in self.request.POST
-
-    def _add_message(self, message: str, success: bool = False) -> None:
-        """Add a message to be displayed to the user."""
-        if success:
-            messages.success(self.request, message)
-        else:
-            messages.info(self.request, message)
+            logger.info(
+                f'Post "{post_object.title}" (ID {post_object.pk}) saved as draft by user {post_object.author.username}'
+            )
+            message = f'💾 Post updated and saved as draft: "{post_object.title}"'
+        return message

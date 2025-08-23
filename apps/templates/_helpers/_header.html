@@ -12,8 +12,14 @@
                             <a href="{% url 'blog:post_draft_list' %}"
                                class="menu__button button button--mini">Drafts</a>
                         </li>
+                    {% endif %}
+                    <li class="menu__item">
+                        <a href="{% url 'blog:favorite_posts' %}"
+                           class="menu__button button button--mini">Favorites</a>
+                    </li>
+                    {% if user.is_authenticated %}
                         <li class="menu__item">
-                            <form action="{% url 'logout' %}" method="post">
+                            <form action="{% url 'account:logout' %}" method="post">
                                 {% csrf_token %}
                                 <button class="menu__button button button--white-border button--mini" type="submit"
                                         title="Logout">
@@ -23,7 +29,11 @@
                         </li>
                     {% else %}
                         <li class="menu__item">
-                            <a class="menu__button button button--mini" href="{% url 'login' %}">Login</a>
+                            <a class="menu__button button button--white-border button--mini"
+                               href="{% url 'account:signup' %}">Sign Up</a>
+                        </li>
+                        <li class="menu__item">
+                            <a class="menu__button button button--mini" href="{% url 'account:login' %}">Login</a>
                         </li>
                     {% endif %}
                 </ul>
