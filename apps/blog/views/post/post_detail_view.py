@@ -20,7 +20,7 @@ class PostDetailView(DetailView):
 
     def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         """Restrict access to drafts. Only author or superuser may view them."""
-        self.object = self.get_object()
+        self.object: Post = self.get_object()
         user = request.user
 
         if self.object.is_published is False and not self.object.is_visible_to(user):
